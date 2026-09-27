@@ -2,6 +2,8 @@
 
 A separate, standalone project from [arghya05/commercecore](https://github.com/arghya05/commercecore) — no shared runtime, no shared weights, no shared repository. The original CommerceCore release (`arghya2030/commercecore-qwen3-1.7b`) remains frozen and untouched; it is used only as an isolated external benchmark comparator, never as a training base or dependency.
 
+**Trained model:** [arghya2030/commercecore-expansion-match-v1](https://huggingface.co/arghya2030/commercecore-expansion-match-v1) — a separate Hugging Face repository, real trained weights, honest model card with the results below.
+
 **Status: in progress.** This README is updated as real results land — every number here is measured, not projected.
 
 ## What this is
