@@ -51,11 +51,29 @@ Per the plan's own gate: train only where a baseline demonstrably fails, not by 
 
 200 examples for Understand (real, text-grounded — brand/color values verified to actually occur in the source text, not copied from structured metadata). 20,000-row TF-IDF split / 4,500 WDC gold pairs for Match. Full reports: `reports/understand_baseline_2026-09-27/`, `reports/match_baseline_2026-09-27/`.
 
-## Required comparator sweep (in progress)
+## Required comparator sweep
 
-Per [`RELATED_MODEL_COMPARISON_MATRIX.md`](../capability_expansion/RELATED_MODEL_COMPARISON_MATRIX.md): every claim of superiority must be checked against the full comparator set — other Hugging Face domain/commerce models **and** frontier models, not frontier-only. Results land in `expansion/manifests/benchmark_cells.json` and `reports/frontier_comparison_2026-09-27/` as they complete.
+Per [`RELATED_MODEL_COMPARISON_MATRIX.md`](../capability_expansion/RELATED_MODEL_COMPARISON_MATRIX.md): every claim of superiority must be checked against the full comparator set — other Hugging Face domain/commerce models **and** frontier models, not frontier-only. Results in `expansion/manifests/benchmark_cells.json` and `reports/frontier_comparison_2026-09-27/`.
 
-Known hard blocker: **NingLab/eCeLLM-S** (7.24B, Mistral-7B base) cannot run on this development machine — genuine OOM (needs ~29GB resident in fp32 with no CUDA path available; 16GB total system RAM). Deferred to the GPU training phase, not silently skipped.
+### Frontier models — real, resolved snapshots, on the same balanced held-out eval sets as the trained model
+
+60 relevance examples (15 per class, from ESCI test split), 50 identity pairs (25 same/25 distinct, from WDC gold-standard). Never seen in any training mixture.
+
+| Model (resolved snapshot) | Relevance accuracy | Identity accuracy |
+|---|---|---|
+| claude-haiku-4-5-20251001 | 0.467 | 0.780 |
+| **claude-sonnet-5** | **0.583** | **0.920** |
+| gpt-5-mini-2025-08-07 | 0.483 | 0.800 |
+| gpt-5-2025-08-07 | 0.467 | 0.840 |
+
+Claude Sonnet 5 leads on both tasks — this is the real bar the trained shared adapter must clear to claim superiority, not the much weaker rules/TF-IDF baselines above.
+
+### Hugging Face domain/SLM comparators
+
+- GLiNER2-base: brand 0.777 F1, color 0.854 F1 (200 real ABO examples).
+- GLiNER2.5-base (native `gliner2.AutoExtractor` loader, distinct from GLiNER2-base's loader): brand 0.753 F1, color 0.871 F1.
+- **NingLab/eCeLLM-S** (7.24B, Mistral-7B base): genuine hard blocker on the development machine — OOM (needs ~29GB resident in fp32, no CUDA path available on this CPU-only host; 16GB total system RAM). Deferred to GPU-hosted evaluation, not silently skipped.
+- RexBERT/RexReranker, Ettin/MiniLM rerankers, Qwen3-Embedding: dependency/environment issues encountered during the first sweep pass; being re-run with corrected environment.
 
 ## What's NOT done yet
 
