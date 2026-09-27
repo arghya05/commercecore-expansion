@@ -60,10 +60,11 @@ def _load_model():
     from peft import PeftModel
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     base = AutoModelForCausalLM.from_pretrained(
-        "Qwen/Qwen3-1.7B", torch_dtype=torch.bfloat16
-    )
-    _model = PeftModel.from_pretrained(base, str(ADAPTER_PATH))
+        "Qwen/Qwen3-1.7B", torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
+    ).to(device)
+    _model = PeftModel.from_pretrained(base, str(ADAPTER_PATH)).to(device)
     _tokenizer = AutoTokenizer.from_pretrained(str(ADAPTER_PATH))
     return _model, _tokenizer
 
@@ -74,7 +75,7 @@ def _generate(prompt: str, max_new_tokens: int = 8) -> str:
     model, tokenizer = _load_model()
     if model is None:
         raise RuntimeError("adapter not available")
-    inputs = tokenizer(prompt, return_tensors="pt")
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     with torch.no_grad():
         out = model.generate(
             **inputs, max_new_tokens=max_new_tokens, do_sample=False,
