@@ -44,6 +44,13 @@ def main():
         "match_functional_relation": 1.0,
         "match_technical_compatibility": 1.0,
     }
+    v3_final = {
+        "match_relevance": 0.50275,
+        "match_identity": 0.8877142857142857,
+        "match_functional_relation": 0.13333333333333333,
+        "match_technical_compatibility": 1.0,
+    }
+    ecellm_result = json.loads((ROOT / "reports/ecellm_result.json").read_text())
 
     macros = {}
     macros["EsciExamples"] = "2{,}621{,}288"
@@ -61,6 +68,17 @@ def main():
 
     macros["AdapterTwoRelevanceAcc"] = f"{v2_final['match_relevance']:.3f}"
     macros["AdapterTwoIdentityAcc"] = f"{v2_final['match_identity']:.3f}"
+
+    macros["AdapterThreeRelevanceAcc"] = f"{v3_final['match_relevance']:.3f}"
+    macros["AdapterThreeIdentityAcc"] = f"{v3_final['match_identity']:.3f}"
+    macros["AdapterThreeFunctionalAcc"] = f"{v3_final['match_functional_relation']:.3f}"
+    macros["AdapterThreeTrainSteps"] = "1{,}200"
+    macros["AdapterThreeLoraRank"] = "32"
+    macros["AdapterThreeRelevanceRows"] = "40{,}000"
+
+    macros["EcellmRelevanceAcc"] = f"{ecellm_result['relevance_accuracy']:.3f}"
+    macros["EcellmIdentityAcc"] = f"{ecellm_result['identity_accuracy']:.3f}"
+    macros["EcellmParams"] = "2.78B"
 
     macros["SonnetRelevanceAcc"] = f"{frontier['relevance']['claude-sonnet-5']['accuracy']:.3f}"
     macros["SonnetIdentityAcc"] = f"{frontier['identity']['claude-sonnet-5']['accuracy']:.3f}"
@@ -106,6 +124,8 @@ def main():
         "source_files": [
             "reports/frontier_comparison_2026-09-27/report.json",
             "reports/shared_adapter_v2_checkpoint_history.json",
+            "reports/shared_adapter_v3_checkpoint_history.json",
+            "reports/ecellm_result.json",
             "models/shared_adapter_v1/checkpoint_history.json",
             "reports/match_baseline_2026-09-27/report.json",
             "reports/understand_baseline_2026-09-27/report.json",

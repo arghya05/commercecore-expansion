@@ -1,0 +1,194 @@
+[
+  {
+    "step": 100,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.28,
+      "match_identity": 0.84,
+      "match_functional_relation": 0.8666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 200,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.41,
+      "match_identity": 0.9,
+      "match_functional_relation": 0.7333333333333333,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 300,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.46,
+      "match_identity": 0.92,
+      "match_functional_relation": 1.0,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 400,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.52,
+      "match_identity": 0.48,
+      "match_functional_relation": 0.7333333333333333,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 500,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.54,
+      "match_identity": 0.86,
+      "match_functional_relation": 0.4,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 600,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.5,
+      "match_identity": 0.89,
+      "match_functional_relation": 0.06666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 700,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.49,
+      "match_identity": 0.85,
+      "match_functional_relation": 0.06666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 800,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.52,
+      "match_identity": 0.88,
+      "match_functional_relation": 0.06666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 900,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.51,
+      "match_identity": 0.86,
+      "match_functional_relation": 0.06666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 1000,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.52,
+      "match_identity": 0.85,
+      "match_functional_relation": 0.06666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 1100,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.52,
+      "match_identity": 0.87,
+      "match_functional_relation": 0.06666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 1200,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.52,
+      "match_identity": 0.86,
+      "match_functional_relation": 0.06666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {},
+    "beats_all_comparators": {
+      "match_relevance": true,
+      "match_identity": true,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  }
+]

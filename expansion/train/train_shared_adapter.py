@@ -182,7 +182,7 @@ def main(
     )
 
     lora_config = LoraConfig(
-        r=16, lora_alpha=32, lora_dropout=0.05, bias="none", task_type="CAUSAL_LM",
+        r=32, lora_alpha=64, lora_dropout=0.05, bias="none", task_type="CAUSAL_LM",
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
     )
     model = get_peft_model(model, lora_config)
@@ -290,7 +290,7 @@ def main(
         by_task.setdefault(r["task"], []).append(r)
     checkpoint_dev_sample = []
     for task, rows in by_task.items():
-        checkpoint_dev_sample.extend(rng.sample(rows, min(30, len(rows))))
+        checkpoint_dev_sample.extend(rng.sample(rows, min(100, len(rows))))
 
     callback = CheckpointComparatorCallback(
         tokenizer=tokenizer, dev_examples=checkpoint_dev_sample, output_dir=output_dir,
@@ -320,7 +320,7 @@ def main(
 
 if __name__ == "__main__":
     main(
-        mixture_paths=["training_mixture_final.jsonl"],
-        output_dir="models/shared_adapter_v2",
-        max_steps=800,
+        mixture_paths=["training_mixture_v3.jsonl"],
+        output_dir="models/shared_adapter_v3",
+        max_steps=1200,
     )

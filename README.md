@@ -68,28 +68,41 @@ Per [`RELATED_MODEL_COMPARISON_MATRIX.md`](../capability_expansion/RELATED_MODEL
 | gpt-5-mini-2025-08-07 | 0.483 | 0.800 |
 | gpt-5-2025-08-07 | 0.467 | 0.840 |
 
-Claude Sonnet 5 leads on both tasks — this is the real bar the trained shared adapter must clear to claim superiority, not the much weaker rules/TF-IDF baselines above.
+Claude Sonnet 5 leads on both tasks. The trained shared adapter (v1, see below) comes within 0.6 points of it on identity but falls 5.7 points short on relevance — a real, disclosed gap, not the much weaker rules/TF-IDF baselines above.
 
 ### Hugging Face domain/SLM comparators
 
 - GLiNER2-base: brand 0.777 F1, color 0.854 F1 (200 real ABO examples).
 - GLiNER2.5-base (native `gliner2.AutoExtractor` loader, distinct from GLiNER2-base's loader): brand 0.753 F1, color 0.871 F1.
-- **NingLab/eCeLLM-S** (7.24B, Mistral-7B base): genuine hard blocker on the development machine — OOM (needs ~29GB resident in fp32, no CUDA path available on this CPU-only host; 16GB total system RAM). Deferred to GPU-hosted evaluation, not silently skipped.
-- RexBERT/RexReranker, Ettin/MiniLM rerankers, Qwen3-Embedding: dependency/environment issues encountered during the first sweep pass; being re-run with corrected environment.
+- **NingLab/eCeLLM-S** (independently verified via `HfApi.model_info`: **2.78B parameters, Phi-2 base** — an earlier pass in this project incorrectly reported 7.24B/Mistral-7B without checking the Hub API directly; that was wrong). Evaluated on GPU once available. First attempt used a generic "answer with one word" prompt and scored 0.0/0.0 — inspecting raw output showed the model wasn't following the instruction at all. Corrected by inspecting the model's own training data (`NingLab/ECInstruct`) to find its real native prompt format (JSON-structured, matching its `Product_Matching` training task) and re-running fairly: **relevance 0.283, identity 0.620** — both real trained adapters in this project beat it on both tasks.
+- RexBERT/RexReranker, Ettin/MiniLM rerankers, Qwen3-Embedding: dependency/environment issues encountered during the first sweep pass; not yet re-run.
 
-## Trained shared adapter — real results, two attempts, honest verdict
+## Trained shared adapter — real results, three attempts, honest verdict
 
-QLoRA rank-16 adapter on independently-pinned `Qwen/Qwen3-1.7B` (never the Query-merged artifact), trained on RunPod (RTX 2000 Ada / RTX 3080 Ti), evaluated on the full 4,519-row held-out dev set (never seen in training).
+QLoRA adapter on independently-pinned `Qwen/Qwen3-1.7B` (never the Query-merged artifact), trained on RunPod (RTX 2000 Ada / RTX 3080 Ti / RTX 5090), evaluated on the full held-out dev set (never seen in training).
 
 | Attempt | Config | match_relevance | match_identity | match_functional_relation | match_technical_compatibility |
 |---|---|---|---|---|---|
-| **v1 (adopted)** | 400 steps, natural class distribution | **0.526** | **0.914** | 1.0 | 1.0 |
-| v2 (rejected) | 800 steps, class-balanced relevance oversampling | 0.491 | 0.914 | 1.0 | 1.0 |
-| Frontier bar (claude-sonnet-5) | — | 0.583 | 0.920 | not measured | not measured |
+| **v1 (adopted, best)** | rank-16, 400 steps, 8,000 relevance rows, natural class distribution | **0.526** | **0.914** | 1.0 | 1.0 |
+| v2 (rejected) | rank-16, 800 steps, 8,000 relevance rows, class-balanced oversampling | 0.491 | 0.914 | 1.0 | 1.0 |
+| v3 (rejected) | rank-32, 1,200 steps, 40,000 relevance rows (5x, natural distribution) | 0.503 | 0.888 | **0.133** | 1.0 |
 
-**v2 hypothesis and result:** v1's relevance shortfall was hypothesized to come from severe class imbalance (`complement` was only 4.8% of the 8,000 relevance training rows). v2 tested class-balanced oversampling plus double the training steps. Result: relevance got **worse** (0.491 vs 0.526), not better — the hypothesis did not hold up under test. v1 is retained as the better real candidate rather than continuing to retrain speculatively.
+**v2 hypothesis and result:** v1's relevance shortfall was hypothesized to come from severe class imbalance (`complement` was only 4.8% of the 8,000 relevance training rows). v2 tested class-balanced oversampling plus double the training steps. Result: relevance got **worse** (0.491), not better — rejected.
 
-**Honest verdict against the frontier bar:** v1 does not clear claude-sonnet-5 on `match_relevance` (short by 5.7 points) but is within noise on `match_identity` (0.914 vs 0.920, a 0.6-point gap). It beats all three other tested frontier models (claude-haiku-4-5, gpt-5-mini, gpt-5) on both tasks. This is genuine, disclosed partial progress — not a superiority claim.
+**v3 hypothesis and result:** tested whether scaling real relevance data 5x (to 40,000 rows, drawn from ESCI's full 419,653-row train pool) plus doubling LoRA rank (16→32) and tripling steps (400→1,200) would close the gap. Checkpoint tracking showed relevance climbing through step 400 (0.28→0.52) then plateauing at 0.50-0.54 for the remaining 800 steps — no further real gain, and the final full-dev score (0.503) is actually slightly *below* v1's. Worse: `match_functional_relation` collapsed from a perfect 1.0 at step 300 to 0.067 by step 600 and stayed pinned there through the end of training — real catastrophic forgetting, caused by the much larger relevance data share crowding out that subtask's tiny 50-row signal within the shared mixture. **Rejected**; v1 remains the best real candidate. A specific corrective idea for a future attempt: protect minority subtasks with a minimum row-count floor in the mixture regardless of how much a majority task's data grows, or train them as separate non-shared LoRA modules instead of one shared adapter.
+
+**Honest verdict against the full comparator set (frontier models + Hugging Face domain models), using v1:**
+
+| System | match_relevance | match_identity |
+|---|---|---|
+| **v1 (this project, adopted)** | 0.526 | 0.914 |
+| claude-sonnet-5 | **0.583** | **0.920** |
+| claude-haiku-4-5 | 0.467 | 0.780 |
+| gpt-5-mini | 0.483 | 0.800 |
+| gpt-5 | 0.467 | 0.840 |
+| NingLab/eCeLLM-S (2.78B, Phi-2 base) | 0.283 | 0.620 |
+
+v1 beats every tested comparator except claude-sonnet-5, and is within measurement noise of claude-sonnet-5 on identity (0.6-point gap). It falls short of claude-sonnet-5 specifically on relevance (5.7-point gap). This is genuine, disclosed partial progress, not a full superiority claim.
 
 Adapter artifacts: `models/shared_adapter_v1/` (checkpoints at steps 100/200/300/400, `checkpoint_history.json` for the full per-checkpoint trajectory against real frontier scores).
 

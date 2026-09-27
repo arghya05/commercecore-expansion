@@ -1,0 +1,9 @@
+{
+  "model": "NingLab/eCeLLM-S",
+  "comparison_status": "RUN",
+  "prompt_format": "native ECInstruct-style (verified against training data, not a generic instruction)",
+  "relevance_accuracy": 0.2833333333333333,
+  "identity_accuracy": 0.62,
+  "n_relevance": 60,
+  "n_identity": 50
+}
