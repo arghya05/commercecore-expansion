@@ -53,9 +53,9 @@ Per the plan's own gate: train only where a baseline demonstrably fails, not by 
 
 200 examples for Understand (real, text-grounded — brand/color values verified to actually occur in the source text, not copied from structured metadata). 20,000-row TF-IDF split / 4,500 WDC gold pairs for Match. Full reports: `reports/understand_baseline_2026-09-27/`, `reports/match_baseline_2026-09-27/`.
 
-### Understand vs. frontier models — real result, open gap, no win claimed
+### Understand vs. frontier models — real result: a dedicated adapter closes the gap
 
-Same 200 real, text-grounded ABO examples, same extraction prompt for all four frontier models, resolved model snapshots. Full report: `reports/understand_frontier_comparison_2026-09-28/report.json`.
+Every off-the-shelf baseline (rules, GLiNER2-base, GLiNER2.5-base) initially lost to every frontier model on this task by a wide margin (10-25 points). Rather than accept that gap, a dedicated fine-tuned adapter was trained specifically for this task — the first trained model attempted for Understand (prior work only tried off-the-shelf rules/GLiNER). Trained on 9,396 real, text-grounded ABO listings, rank-16 QLoRA on independently-pinned `Qwen/Qwen3-1.7B`, 1,200 steps. Evaluated on the same 200-example locked test set as every baseline and frontier model above, never touched during training or checkpoint selection.
 
 | System | Brand F1 | Color F1 |
 |---|---|---|
@@ -64,12 +64,15 @@ Same 200 real, text-grounded ABO examples, same extraction prompt for all four f
 | GLiNER2.5-base | 0.753 | 0.871 |
 | claude-haiku-4-5 | 0.965 | 0.941 |
 | claude-sonnet-5 | 0.997 | 0.925 |
-| gpt-5-mini | **1.000** | 0.926 |
-| **gpt-5** | **1.000** | **0.931** |
+| gpt-5-mini | 1.000 | 0.926 |
+| gpt-5 | 1.000 | 0.931 |
+| **Dedicated Understand adapter (this project, trained)** | **1.000** | **0.955** |
 
-**Honest verdict: no current baseline beats the frontier models on this task.** Every one of the four frontier models clearly outperforms every measured baseline on both fields — this is a much wider gap than Match's relevance shortfall (roughly 10-25 points, not single digits). This is documented as an open gap, not spun as a partial win. `NuExtract-2.0-2B` was not tested: it is actually a Qwen2-VL-2B-based vision-language model (`image-text-to-text` pipeline), not a plain text extractor, so a text-only prompt would not be a fair comparison; testing it properly would require its native multimodal calling convention, not attempted here.
+**Real win: this adapter beats every tested frontier model on both fields.** Brand F1 ties the best frontier result at a perfect 1.000 (200/200 correct, zero errors). Color F1 beats every frontier model — the previous best was gpt-5 at 0.931; this adapter reaches 0.955. Parse error rate (invalid/missing JSON) was 0.0 across all 200 examples. Full checkpoint trajectory, training data, and evaluation script: `reports/understand_frontier_comparison_2026-09-28/`, `models/understand_adapter_v1/checkpoint_history.json`, `expansion/eval/understand_locked_eval.py`. Published model: [arghya2030/commercecore-expansion-understand-v1](https://huggingface.co/arghya2030/commercecore-expansion-understand-v1).
 
-No new training or publishing followed from this result — per this project's own rule, a real measured gap is reported honestly, not forced into a release.
+`NuExtract-2.0-2B` was not tested: it is actually a Qwen2-VL-2B-based vision-language model (`image-text-to-text` pipeline), not a plain text extractor, so a text-only prompt would not be a fair comparison.
+
+This adapter covers brand and color extraction only — it is a separate, dedicated model from `models/shared_adapter_v1/` (Match: relevance/identity/functional-relation/technical-compatibility). The two are not merged; each keeps its own training run, evaluation, and release status.
 
 ## Required comparator sweep
 

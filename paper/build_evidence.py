@@ -51,6 +51,8 @@ def main():
         "match_technical_compatibility": 1.0,
     }
     ecellm_result = json.loads((ROOT / "reports/ecellm_result.json").read_text())
+    understand_frontier = json.loads((ROOT / "reports/understand_frontier_comparison_2026-09-28/report.json").read_text())
+    understand_locked = json.loads((ROOT / "reports/understand_locked_eval_result.json").read_text())
 
     macros = {}
     macros["EsciExamples"] = "2{,}621{,}288"
@@ -103,6 +105,25 @@ def main():
     macros["RelevanceTfidfMacroFOne"] = f"{match_baseline['relevance_esci_native']['macro_f1']:.3f}"
     macros["IdentityJaccardFOne"] = f"{match_baseline['identity_wdc_rules_jaccard']['f1']:.3f}"
 
+    macros["UnderstandAdapterBrandFOne"] = f"{understand_locked['brand']['f1']:.3f}"
+    macros["UnderstandAdapterColorFOne"] = f"{understand_locked['color']['f1']:.3f}"
+    macros["UnderstandTrainRows"] = "9{,}396"
+    macros["UnderstandTrainSteps"] = "1{,}200"
+
+    macros["UnderstandHaikuBrandFOne"] = f"{understand_frontier['results']['claude-haiku-4-5']['brand']['f1']:.3f}"
+    macros["UnderstandHaikuColorFOne"] = f"{understand_frontier['results']['claude-haiku-4-5']['color']['f1']:.3f}"
+    macros["UnderstandSonnetBrandFOne"] = f"{understand_frontier['results']['claude-sonnet-5']['brand']['f1']:.3f}"
+    macros["UnderstandSonnetColorFOne"] = f"{understand_frontier['results']['claude-sonnet-5']['color']['f1']:.3f}"
+    macros["UnderstandGptMiniBrandFOne"] = f"{understand_frontier['results']['gpt-5-mini']['brand']['f1']:.3f}"
+    macros["UnderstandGptMiniColorFOne"] = f"{understand_frontier['results']['gpt-5-mini']['color']['f1']:.3f}"
+    macros["UnderstandGptBrandFOne"] = f"{understand_frontier['results']['gpt-5']['brand']['f1']:.3f}"
+    macros["UnderstandGptColorFOne"] = f"{understand_frontier['results']['gpt-5']['color']['f1']:.3f}"
+
+    best_frontier_color = max(
+        understand_frontier['results'][m]['color']['f1'] for m in understand_frontier['results']
+    )
+    macros["UnderstandColorMarginVsBestFrontier"] = f"{(understand_locked['color']['f1'] - best_frontier_color) * 100:.1f}"
+
     macros["TrainSteps"] = "400"
     macros["AdapterTwoTrainSteps"] = "800"
     macros["LoraRank"] = "16"
@@ -129,6 +150,8 @@ def main():
             "models/shared_adapter_v1/checkpoint_history.json",
             "reports/match_baseline_2026-09-27/report.json",
             "reports/understand_baseline_2026-09-27/report.json",
+            "reports/understand_frontier_comparison_2026-09-28/report.json",
+            "reports/understand_locked_eval_result.json",
         ],
     }
     (OUT / "build_manifest.json").write_text(json.dumps(build_manifest, indent=2))

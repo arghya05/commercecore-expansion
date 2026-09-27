@@ -41,6 +41,19 @@
     "GlinerTwoFiveColorFOne": "0.871",
     "RelevanceTfidfMacroFOne": "0.365",
     "IdentityJaccardFOne": "0.126",
+    "UnderstandAdapterBrandFOne": "1.000",
+    "UnderstandAdapterColorFOne": "0.955",
+    "UnderstandTrainRows": "9{,}396",
+    "UnderstandTrainSteps": "1{,}200",
+    "UnderstandHaikuBrandFOne": "0.965",
+    "UnderstandHaikuColorFOne": "0.941",
+    "UnderstandSonnetBrandFOne": "0.997",
+    "UnderstandSonnetColorFOne": "0.925",
+    "UnderstandGptMiniBrandFOne": "1.000",
+    "UnderstandGptMiniColorFOne": "0.926",
+    "UnderstandGptBrandFOne": "1.000",
+    "UnderstandGptColorFOne": "0.931",
+    "UnderstandColorMarginVsBestFrontier": "1.4",
     "TrainSteps": "400",
     "AdapterTwoTrainSteps": "800",
     "LoraRank": "16",
@@ -57,6 +70,8 @@
     "reports/ecellm_result.json",
     "models/shared_adapter_v1/checkpoint_history.json",
     "reports/match_baseline_2026-09-27/report.json",
-    "reports/understand_baseline_2026-09-27/report.json"
+    "reports/understand_baseline_2026-09-27/report.json",
+    "reports/understand_frontier_comparison_2026-09-28/report.json",
+    "reports/understand_locked_eval_result.json"
   ]
 }

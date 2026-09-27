@@ -1,0 +1,50 @@
+[
+  {
+    "step": 150,
+    "match_understand_brand": 1.0,
+    "match_understand_color": 0.88,
+    "parse_rate": 1.0
+  },
+  {
+    "step": 300,
+    "match_understand_brand": 1.0,
+    "match_understand_color": 0.87,
+    "parse_rate": 1.0
+  },
+  {
+    "step": 450,
+    "match_understand_brand": 1.0,
+    "match_understand_color": 0.89,
+    "parse_rate": 1.0
+  },
+  {
+    "step": 600,
+    "match_understand_brand": 1.0,
+    "match_understand_color": 0.9,
+    "parse_rate": 1.0
+  },
+  {
+    "step": 750,
+    "match_understand_brand": 1.0,
+    "match_understand_color": 0.9,
+    "parse_rate": 1.0
+  },
+  {
+    "step": 900,
+    "match_understand_brand": 1.0,
+    "match_understand_color": 0.94,
+    "parse_rate": 1.0
+  },
+  {
+    "step": 1050,
+    "match_understand_brand": 1.0,
+    "match_understand_color": 0.93,
+    "parse_rate": 1.0
+  },
+  {
+    "step": 1200,
+    "match_understand_brand": 1.0,
+    "match_understand_color": 0.93,
+    "parse_rate": 1.0
+  }
+]

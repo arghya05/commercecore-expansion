@@ -21,6 +21,10 @@ ADAPTER_PATH = Path("models/shared_adapter_v1")
 _model = None
 _tokenizer = None
 
+UNDERSTAND_ADAPTER_PATH = Path("models/understand_adapter_v1")
+_understand_model = None
+_understand_tokenizer = None
+
 
 class MatchRelevanceRequest(BaseModel):
     tenant_id: str
@@ -50,6 +54,20 @@ class MatchIdentityResponse(BaseModel):
     latency_ms: float
 
 
+class CatalogNormalizeRequest(BaseModel):
+    tenant_id: str
+    text: str
+
+
+class CatalogNormalizeResponse(BaseModel):
+    request_id: str
+    model_revision: str
+    brand: str | None
+    color: str | None
+    status: Literal["ok", "invalid_input", "model_unavailable", "parse_error"]
+    latency_ms: float
+
+
 def _load_model():
     global _model, _tokenizer
     if _model is not None:
@@ -75,6 +93,41 @@ def _generate(prompt: str, max_new_tokens: int = 8) -> str:
     model, tokenizer = _load_model()
     if model is None:
         raise RuntimeError("adapter not available")
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    with torch.no_grad():
+        out = model.generate(
+            **inputs, max_new_tokens=max_new_tokens, do_sample=False,
+            pad_token_id=tokenizer.eos_token_id,
+        )
+    text = tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+    return text.strip()
+
+
+def _load_understand_model():
+    global _understand_model, _understand_tokenizer
+    if _understand_model is not None:
+        return _understand_model, _understand_tokenizer
+    if not UNDERSTAND_ADAPTER_PATH.exists():
+        return None, None
+    import torch
+    from peft import PeftModel
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    base = AutoModelForCausalLM.from_pretrained(
+        "Qwen/Qwen3-1.7B", torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
+    ).to(device)
+    _understand_model = PeftModel.from_pretrained(base, str(UNDERSTAND_ADAPTER_PATH)).to(device)
+    _understand_tokenizer = AutoTokenizer.from_pretrained(str(UNDERSTAND_ADAPTER_PATH))
+    return _understand_model, _understand_tokenizer
+
+
+def _generate_understand(prompt: str, max_new_tokens: int = 40) -> str:
+    import torch
+
+    model, tokenizer = _load_understand_model()
+    if model is None:
+        raise RuntimeError("understand adapter not available")
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     with torch.no_grad():
         out = model.generate(
@@ -137,6 +190,44 @@ def match_identity(req: MatchIdentityRequest):
     )
 
 
+@app.post("/v1/catalog/normalize", response_model=CatalogNormalizeResponse)
+def catalog_normalize(req: CatalogNormalizeRequest):
+    request_id = str(uuid.uuid4())
+    t0 = time.time()
+    if not req.text.strip():
+        raise HTTPException(status_code=400, detail="text is required")
+
+    prompt = (
+        'Extract the brand and color from this product listing. '
+        'Respond with only a JSON object like {"brand": "...", "color": "..."}.\n'
+        f"Listing: {req.text}\nAnswer:"
+    )
+    try:
+        raw = _generate_understand(prompt)
+    except RuntimeError:
+        return CatalogNormalizeResponse(
+            request_id=request_id, model_revision="unavailable", brand=None, color=None,
+            status="model_unavailable", latency_ms=(time.time() - t0) * 1000,
+        )
+
+    try:
+        obj = json.loads(raw)
+        return CatalogNormalizeResponse(
+            request_id=request_id, model_revision="understand_adapter_v1",
+            brand=obj.get("brand"), color=obj.get("color"),
+            status="ok", latency_ms=(time.time() - t0) * 1000,
+        )
+    except json.JSONDecodeError:
+        return CatalogNormalizeResponse(
+            request_id=request_id, model_revision="understand_adapter_v1", brand=None, color=None,
+            status="parse_error", latency_ms=(time.time() - t0) * 1000,
+        )
+
+
 @app.get("/health")
 def health():
-    return {"status": "ok", "adapter_available": ADAPTER_PATH.exists()}
+    return {
+        "status": "ok",
+        "match_adapter_available": ADAPTER_PATH.exists(),
+        "understand_adapter_available": UNDERSTAND_ADAPTER_PATH.exists(),
+    }
