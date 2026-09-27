@@ -1,0 +1,94 @@
+{
+  "resolved_snapshots": {
+    "claude-haiku-4-5": "claude-haiku-4-5-20251001",
+    "claude-sonnet-5": "claude-sonnet-5",
+    "gpt-5-mini": "gpt-5-mini",
+    "gpt-5": "gpt-5"
+  },
+  "results": {
+    "claude-haiku-4-5": {
+      "model_id": "claude-haiku-4-5-20251001",
+      "n": 200,
+      "brand": {
+        "precision": 0.965,
+        "recall": 0.965,
+        "f1": 0.965,
+        "tp": 193,
+        "fp": 7,
+        "fn": 7
+      },
+      "color": {
+        "precision": 0.9633507853403142,
+        "recall": 0.92,
+        "f1": 0.9411764705882353,
+        "tp": 184,
+        "fp": 7,
+        "fn": 16
+      },
+      "parse_error_rate": 0.0
+    },
+    "claude-sonnet-5": {
+      "model_id": "claude-sonnet-5",
+      "n": 200,
+      "brand": {
+        "precision": 1.0,
+        "recall": 0.995,
+        "f1": 0.9974937343358395,
+        "tp": 199,
+        "fp": 0,
+        "fn": 1
+      },
+      "color": {
+        "precision": 0.9523809523809523,
+        "recall": 0.9,
+        "f1": 0.9254498714652956,
+        "tp": 180,
+        "fp": 9,
+        "fn": 20
+      },
+      "parse_error_rate": 0.005
+    },
+    "gpt-5-mini": {
+      "model_id": "gpt-5-mini",
+      "n": 200,
+      "brand": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 200,
+        "fp": 0,
+        "fn": 0
+      },
+      "color": {
+        "precision": 0.9430051813471503,
+        "recall": 0.91,
+        "f1": 0.9262086513994912,
+        "tp": 182,
+        "fp": 11,
+        "fn": 18
+      },
+      "parse_error_rate": 0.0
+    },
+    "gpt-5": {
+      "model_id": "gpt-5",
+      "n": 200,
+      "brand": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 200,
+        "fp": 0,
+        "fn": 0
+      },
+      "color": {
+        "precision": 0.9481865284974094,
+        "recall": 0.915,
+        "f1": 0.9312977099236642,
+        "tp": 183,
+        "fp": 10,
+        "fn": 17
+      },
+      "parse_error_rate": 0.0
+    }
+  }
+}

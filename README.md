@@ -53,6 +53,24 @@ Per the plan's own gate: train only where a baseline demonstrably fails, not by 
 
 200 examples for Understand (real, text-grounded — brand/color values verified to actually occur in the source text, not copied from structured metadata). 20,000-row TF-IDF split / 4,500 WDC gold pairs for Match. Full reports: `reports/understand_baseline_2026-09-27/`, `reports/match_baseline_2026-09-27/`.
 
+### Understand vs. frontier models — real result, open gap, no win claimed
+
+Same 200 real, text-grounded ABO examples, same extraction prompt for all four frontier models, resolved model snapshots. Full report: `reports/understand_frontier_comparison_2026-09-28/report.json`.
+
+| System | Brand F1 | Color F1 |
+|---|---|---|
+| Dictionary rules | 0.880 | 0.754 |
+| GLiNER2-base | 0.777 | 0.854 |
+| GLiNER2.5-base | 0.753 | 0.871 |
+| claude-haiku-4-5 | 0.965 | 0.941 |
+| claude-sonnet-5 | 0.997 | 0.925 |
+| gpt-5-mini | **1.000** | 0.926 |
+| **gpt-5** | **1.000** | **0.931** |
+
+**Honest verdict: no current baseline beats the frontier models on this task.** Every one of the four frontier models clearly outperforms every measured baseline on both fields — this is a much wider gap than Match's relevance shortfall (roughly 10-25 points, not single digits). This is documented as an open gap, not spun as a partial win. `NuExtract-2.0-2B` was not tested: it is actually a Qwen2-VL-2B-based vision-language model (`image-text-to-text` pipeline), not a plain text extractor, so a text-only prompt would not be a fair comparison; testing it properly would require its native multimodal calling convention, not attempted here.
+
+No new training or publishing followed from this result — per this project's own rule, a real measured gap is reported honestly, not forced into a release.
+
 ## Required comparator sweep
 
 Per [`RELATED_MODEL_COMPARISON_MATRIX.md`](../capability_expansion/RELATED_MODEL_COMPARISON_MATRIX.md): every claim of superiority must be checked against the full comparator set — other Hugging Face domain/commerce models **and** frontier models, not frontier-only. Results in `expansion/manifests/benchmark_cells.json` and `reports/frontier_comparison_2026-09-27/`.
@@ -105,6 +123,16 @@ QLoRA adapter on independently-pinned `Qwen/Qwen3-1.7B` (never the Query-merged 
 v1 beats every tested comparator except claude-sonnet-5, and is within measurement noise of claude-sonnet-5 on identity (0.6-point gap). It falls short of claude-sonnet-5 specifically on relevance (5.7-point gap). This is genuine, disclosed partial progress, not a full superiority claim.
 
 Adapter artifacts: `models/shared_adapter_v1/` (checkpoints at steps 100/200/300/400, `checkpoint_history.json` for the full per-checkpoint trajectory against real frontier scores).
+
+## Dedicated relevance-only adapter — attempted, abandoned
+
+A fourth hypothesis was tested: that v1's relevance shortfall came from capacity competition with the other three subtasks sharing one small adapter, and that training relevance alone (`expansion/train/train_relevance_adapter.py`) would remove that competition and close the gap. It did not.
+
+**Attempt 1:** rank-16, natural class distribution, no loss weighting. Collapsed to predicting the majority class (`exact`) for effectively every input by step 150, confirmed by direct inspection of real predictions (19-20 of 20 test examples predicted `exact` regardless of gold label), and never recovered — checkpoints 150/300/450/600 all showed the exact same accuracy to full floating-point precision, which is what a fixed always-predict-majority-class policy produces on a fixed eval sample.
+
+**Attempt 2:** added per-token class-weighted cross-entropy loss (weighting each label's first token by inverse class frequency) and a lower learning rate, after two real implementation bugs were found and fixed along the way (a vocab-size mismatch between the tokenizer and the model's actual output layer; and a `save_steps` calculation that made short smoke tests trigger a checkpoint evaluation almost every training step, which looked like a severe performance regression but was actually just very frequent evaluation, not slow training — confirmed by isolating the bug with an explicit `save_steps` override). Once genuinely running at normal speed, checkpoint 150 still showed collapse: 18/20 predictions were `exact`, 2/20 were `irrelevant`, and `substitute`/`complement` were never predicted once, despite the loss weighting. Better than attempt 1's total collapse, but not a real fix.
+
+**Conclusion:** the collapse is real and reproduces even with class-weighted loss, suggesting the problem is not purely data imbalance — a plausible remaining explanation is that this task's labels have unequal token lengths (`exact` is a single token; `substitute`, `complement`, and `irrelevant` each split into two subword tokens), which may make the two-token labels structurally harder for the model to commit to early in training when trained on relevance alone. v1's shared adapter never showed this exact failure, plausibly because the other three subtasks' gradients provided enough diversity to avoid the collapse. This was not tested further; v1 remains the best, adopted, and only published result for `match_relevance`.
 
 ## What's NOT done yet
 

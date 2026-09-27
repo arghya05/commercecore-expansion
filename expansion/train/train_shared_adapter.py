@@ -135,22 +135,43 @@ class CheckpointComparatorCallback(TrainerCallback):
         if model is None:
             return
         dev_scores = score_dev_accuracy(model, self.tokenizer, self.dev_examples)
+        beats_all = {
+            task: all(
+                dev_scores.get(task, 0.0) > score
+                for score in self.comparator_scores.get(task, {}).values()
+            )
+            for task in dev_scores
+        }
+        margin_vs_best_comparator = {
+            task: dev_scores.get(task, 0.0) - max(self.comparator_scores.get(task, {}).values(), default=0.0)
+            for task in dev_scores
+        }
         entry = {
             "step": state.global_step,
             "dev_accuracy_by_task": dev_scores,
             "comparator_scores": self.comparator_scores,
-            "beats_all_comparators": {
-                task: all(
-                    dev_scores.get(task, 0.0) > score
-                    for score in self.comparator_scores.get(task, {}).values()
-                )
-                for task in dev_scores
-            },
+            "beats_all_comparators": beats_all,
+            "margin_vs_best_comparator": margin_vs_best_comparator,
         }
         self.history.append(entry)
+
+        # Explicit leader tracking: which checkpoint currently has the best
+        # margin against the toughest comparator, per task. This is not
+        # trivially the latest checkpoint -- a later checkpoint can regress.
+        leaders = {}
+        for task in dev_scores:
+            best_entry = max(self.history, key=lambda e: e["margin_vs_best_comparator"].get(task, float("-inf")))
+            leaders[task] = {
+                "leading_step": best_entry["step"],
+                "leading_margin": best_entry["margin_vs_best_comparator"].get(task),
+                "currently_beats_all": best_entry["beats_all_comparators"].get(task),
+            }
+        (self.output_dir / "current_leaders.json").write_text(json.dumps(leaders, indent=2))
+
         self.output_dir.mkdir(parents=True, exist_ok=True)
         (self.output_dir / "checkpoint_history.json").write_text(json.dumps(self.history, indent=2))
         print(f"[checkpoint step {state.global_step}] dev_accuracy_by_task={dev_scores}")
+        print(f"[checkpoint step {state.global_step}] leaders so far: {json.dumps(leaders)}")
 
 
 def build_dataset(rows: list[dict], tokenizer, max_length: int) -> Dataset:
