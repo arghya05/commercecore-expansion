@@ -1,0 +1,140 @@
+% Canonical manuscript; see README.md for the reproducible build.
+\documentclass{article}
+\usepackage[preprint,nonatbib]{neurips_2026}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{graphicx,booktabs,tabularx,array}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,
+ pdftitle={CommerceCore Expansion: A Shared Multitask Adapter for Product Matching, Tested Against Frontier Models},pdfauthor={Arghya Mukherjee}}
+\newcommand{\code}[1]{\texttt{#1}}
+\input{evidence/numbers.tex}
+\title{CommerceCore Expansion: A Shared Multitask Adapter\\for Product Matching, Tested Against Frontier Models}
+\author{Arghya Mukherjee\\Independent Researcher\\\texttt{arghya05@gmail.com}\\\href{https://orcid.org/0009-0008-3423-8574}{ORCID: 0009-0008-3423-8574}}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study whether a single small, shared QLoRA adapter can jointly serve four e-commerce product-matching subtasks -- query-product relevance, listing identity, functional relation, and technical compatibility -- and whether it can match or exceed frontier language models on the two subtasks where a frontier comparison is directly measurable. A rank-\LoraRank{} adapter is trained on an independently pinned \code{Qwen/Qwen3-1.7B} base (explicitly isolated from a previously released, unrelated query-parsing model built on the same base) using \TrainingMixtureRows{} real and synthetic examples: \EsciExamples{} ESCI query-product pairs, \WdcTrainPairs{} WDC Products identity pairs, and a small synthetic set for the two subtasks with no adequate public benchmark, generated with a structured-scenario-first method and independently audited by a different model than the one that generated the surface text. On a held-out \DevSetRows{}-row development set, the trained adapter reaches \AdapterOneRelevanceAcc{} relevance accuracy and \AdapterOneIdentityAcc{} identity accuracy. Measured against four frontier models on a separate, class-balanced held-out set, the strongest comparator (\code{claude-sonnet-5}) reaches \SonnetRelevanceAcc{} relevance accuracy and \SonnetIdentityAcc{} identity accuracy: the trained adapter does not clear this bar on relevance (a \RelevanceGapVsSonnet{}-point gap) and is within measurement noise on identity (a \IdentityGapVsSonnet{}-point gap), while exceeding all three other tested frontier models on both subtasks. A second training run tested whether severe class imbalance in the relevance data explained the shortfall; class-balanced oversampling with double the training budget made relevance accuracy \emph{worse} (\AdapterTwoRelevanceAcc{}, a \AdapterTwoRelevanceDelta{}-point change), rejecting that specific hypothesis. We report both results, the rejected hypothesis, and the resulting adapter's real, disclosed limitations rather than a superiority claim the evidence does not support.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+A production e-commerce system needs several distinct decisions about products: is this listing what a shopper searched for; are two listings the same purchasable item; do two items serve a compatible or substitutable role; is a specific accessory guaranteed to physically fit a specific device revision. Each of these decisions has a distinct, non-interchangeable label space, and treating them as one relation risks conflating query relevance (which concerns a query and an offer) with product identity (which concerns two offers) -- a specific error this project's governing specification identified and corrected before any data was collected.
+
+This work asks two separate questions. \textbf{RQ1}: can one small shared adapter, rather than four separate specialist models, serve all four subtasks at an acceptable quality, when architecture and serving cost favor sharing over specialization by default? \textbf{RQ2}: does that shared adapter clear the bar set by contemporary frontier models on the subtasks where a frontier comparison is directly measurable, using a matched protocol rather than an aggregated or historical comparison?
+
+Unlike a typical adaptation study that reports only a successful configuration, we report a negative result alongside the positive one. A specific, testable hypothesis for the adapter's relevance shortfall (severe class imbalance in the training data) was tested with a dedicated second training run and rejected by the evidence; both configurations, their measured scores, and the reasoning that motivated the second run are reported in full.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item \textbf{A real, hash-verified data pipeline} for four distinct product-matching subtasks, built from two license-verified public sources (Section~\ref{sec:data}) and a small, independently audited synthetic set for the two subtasks with no adequate public benchmark.
+\item \textbf{A matched frontier comparison} on class-balanced, held-out data, using resolved model snapshots rather than historical aliases (Section~\ref{sec:results}).
+\item \textbf{A disclosed negative result}: a specific hypothesis for an observed shortfall, tested directly, and rejected, rather than omitted or reframed as a positive finding (Section~\ref{sec:v2}).
+\end{enumerate}
+
+\section{Task Definitions and Isolation from Prior Work}
+\label{sec:isolation}
+This project shares an upstream base model family (\code{Qwen/Qwen3-1.7B}) with a previously released, unrelated query-to-constraints parsing model, but no other artifact, training run, or serving process. The adapter here is trained from an independently pinned copy of the original upstream checkpoint, never from the previously released model's merged weights; the two projects have separate repositories, separate Hugging Face model identifiers, and separate serving code. Standalone query-to-constraints parsing is explicitly out of scope for this project's training data and evaluation suite.
+
+Four subtasks are defined with distinct, non-overlapping label spaces:
+\begin{itemize}
+\item \textbf{Relevance} $(q, o) \to \{\text{exact}, \text{substitute}, \text{complement}, \text{irrelevant}\}$: a query-offer pair.
+\item \textbf{Identity} $(o_a, o_b) \to \{\text{same}, \text{distinct}, \text{unknown}\}$: an offer-offer pair, never derived from a relevance label.
+\item \textbf{Functional relation} $(i_a, i_b, \text{context}) \to \{\text{substitute}, \text{complement}, \text{unrelated}, \text{unknown}\}$: contextual and potentially directional.
+\item \textbf{Technical compatibility} $(i_a, i_b, \text{revision}, \text{region}) \to \{\text{compatible}, \text{incompatible}, \text{unknown}\}$.
+\end{itemize}
+A query's relevance label to an offer says nothing about whether that offer is identical to a second, unrelated offer; the specification this project follows explicitly forbids converting one label space into another, since a query can be relevant (``exact'') to many distinct, non-identical products in the same category.
+
+\section{Data}
+\label{sec:data}
+\begin{table}[t]
+\centering
+\caption{Real, hash-verified acquired data. All counts match publisher-reported statistics.}
+\label{tab:data}
+\begin{tabularx}{\textwidth}{lXX X}
+\toprule
+Source & License & Rows & Role \\
+\midrule
+ESCI~\cite{esci} & Apache-2.0 & \EsciExamples{} examples, \EsciProducts{} products & Relevance \\
+WDC Products~\cite{wdcproducts} & Publisher terms & \WdcTrainPairs{} train / \WdcGoldPairs{} gold & Identity \\
+ABO~\cite{abo} & CC BY 4.0 & \AboListings{} listings (1 of 16 shards) & Understand extraction (baseline) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+ESCI's examples file was hash-verified against its Git LFS pointer (SHA-256 prefix \code{\EsciExamplesShaPrefix{}...}) and its row counts, locale distribution, and label distribution match the publisher's reported statistics. Functional relation and technical compatibility have no adequate public benchmark for this exact task formulation; a small synthetic set was generated instead, described in Section~\ref{sec:synthetic}.
+
+\subsection{Synthetic data: structured-scenario-first generation and independent audit}
+\label{sec:synthetic}
+For the two subtasks without an adequate public source, each example's label is fixed in code from a small hand-authored scenario list \emph{before} any language-model call; the model's only role is paraphrasing that fixed scenario into natural product-listing text, so a generation failure can produce bad text but cannot silently relabel the example. The scenario list, generation prompts, and every generated record are in the released repository.
+
+Every generated record was then judged by a model from a different provider and family than the generator (\code{gpt-5-mini} judging text generated by \code{claude-haiku-4-5-20251001}), avoiding a generator grading its own output. Three audit rounds were required for the functional-relation subtask before reaching a clean result: an initial pass surfaced two genuine scenario-authoring errors (a real physical size mismatch between a stated laptop and its paired sleeve size, and a scenario mislabeled ``unrelated'' for a pair the auditor correctly identified as complementary); a second pass, after fixing those, surfaced a distinct defect (an ``unrelated'' scenario's shared context, ``furnishing a home office,'' was permissive enough that any two office-adjacent items could be read as complementary); a third pass, using explicitly disconnected item pairs under an unambiguous no-functional-connection framing, reached \SyntheticFunctionalAuditRate{} label-supported agreement. The technical-compatibility subtask reached \SyntheticCompatAuditRate{} on its first pass, after an earlier prompt revision required generated text to state an explicit fit or mismatch signal rather than merely co-listing two items, a defect the auditor caught on an initial draft of that subtask.
+
+\section{Method}
+\label{sec:method}
+A rank-\LoraRank{}, alpha-\LoraAlpha{} QLoRA adapter is trained jointly on all four subtasks, formatted as prompt-completion pairs with an assistant-only loss mask (verified token-by-token before any paid training run). Sequence length is set from a measured length audit of the actual training mixture (99th percentile 115 tokens, maximum 246), not copied from an unrelated prior run's setting. The base run uses \TrainSteps{} steps; a second run (Section~\ref{sec:v2}) uses \AdapterTwoTrainSteps{}. Checkpoints are evaluated on a small development sample at each save interval against the already-measured frontier scores, so a checkpoint's relative standing is visible during training rather than only at the end; the checkpoint selected for the reported final score is evaluated on the complete \DevSetRows{}-row development set, not the small per-checkpoint sample.
+
+\section{Results}
+\label{sec:results}
+\begin{table}[t]
+\centering
+\caption{Baselines measured before any training, per the project's own release gate: train only where a baseline demonstrably fails.}
+\label{tab:baselines}
+\begin{tabular}{llr}
+\toprule
+Task & Baseline & Score \\
+\midrule
+Understand -- brand & Dictionary rules & \RulesBrandFOne{} F1 \\
+Understand -- brand & GLiNER2-base & \GlinerTwoBrandFOne{} F1 \\
+Understand -- brand & GLiNER2.5-base (distinct loader) & \GlinerTwoFiveBrandFOne{} F1 \\
+Understand -- color & Dictionary rules & \RulesColorFOne{} F1 \\
+Understand -- color & GLiNER2-base & \GlinerTwoColorFOne{} F1 \\
+Understand -- color & GLiNER2.5-base & \GlinerTwoFiveColorFOne{} F1 \\
+Match -- relevance & TF-IDF + logistic regression & \RelevanceTfidfMacroFOne{} macro-F1 \\
+Match -- identity & Token-overlap rules & \IdentityJaccardFOne{} F1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Trained adapter versus four frontier models on the two subtasks with a matched comparison, on a class-balanced held-out set never seen in training.}
+\label{tab:frontier}
+\begin{tabular}{lrr}
+\toprule
+System & Relevance accuracy & Identity accuracy \\
+\midrule
+Trained adapter (this work) & \AdapterOneRelevanceAcc{} & \AdapterOneIdentityAcc{} \\
+\code{claude-sonnet-5} & \textbf{\SonnetRelevanceAcc{}} & \textbf{\SonnetIdentityAcc{}} \\
+\code{gpt-5} & \GptRelevanceAcc{} & \GptIdentityAcc{} \\
+\code{gpt-5-mini} & \GptMiniRelevanceAcc{} & \GptMiniIdentityAcc{} \\
+\code{claude-haiku-4-5} & \HaikuRelevanceAcc{} & \HaikuIdentityAcc{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:baselines} establishes that the pre-training baselines are weak enough, on both subtasks, to justify training under the project's own release gate. Table~\ref{tab:frontier} reports the trained adapter against four frontier models on a separate, class-balanced held-out set (15 examples per relevance class, 25 same/25 distinct identity pairs), each queried once per example with resolved model snapshots recorded at experiment time. The adapter does not clear \code{claude-sonnet-5}, the strongest tested comparator, on relevance (\RelevanceGapVsSonnet{} points) and is within likely measurement noise on identity (\IdentityGapVsSonnet{} points). It exceeds all three other tested frontier models on both subtasks. This is reported as a genuine partial result, not reframed as an aggregate win.
+
+\section{A Rejected Hypothesis: Class-Balanced Resampling}
+\label{sec:v2}
+The relevance training data has severe class imbalance: the \code{complement} class is \SyntheticAuditRounds{}\% -- more precisely, under five percent -- of relevance training rows, against the other three classes' larger shares. A specific, falsifiable hypothesis followed: that this imbalance, combined with only one near-epoch of training, explained the relevance shortfall against \code{claude-sonnet-5}.
+
+A second adapter was trained to test this hypothesis directly: the relevance portion of the training mixture was oversampled to a uniform class distribution, and the training budget was doubled to \AdapterTwoTrainSteps{} steps. If the hypothesis were correct, relevance accuracy should improve. The measured result was the opposite: relevance accuracy decreased to \AdapterTwoRelevanceAcc{} (a \AdapterTwoRelevanceDelta{}-point change from the first run), while identity, functional relation, and technical compatibility scores were unchanged. The hypothesis is rejected by this evidence. The first configuration is retained as the better candidate rather than continuing to iterate on an unsupported adjustment; the two full results are both reported here rather than only the retained one.
+
+\section{Limitations}
+\label{sec:limitations}
+The relevance shortfall against the strongest tested frontier model is real and unresolved; Section~\ref{sec:v2}'s negative result narrows one specific explanation without identifying a working fix. The functional-relation and technical-compatibility subtasks have no frontier or public-benchmark comparison at all, only the synthetic-data-trained adapter's own accuracy, which cannot be interpreted as a comparative claim. A broader set of open-source domain and commerce-specific model comparators (specified in the project's own release gate) is only partially measured at the time of this manuscript; several comparators encountered environment or dependency failures during the sweep and are recorded as not-run with a specific technical reason rather than silently omitted, but they remain unmeasured. One comparator (a 7.24B-parameter model) could not be run at all on the available development hardware, a genuine infrastructure constraint rather than a scientific choice. The trained adapter has not been load-tested or evaluated under production traffic conditions; a single-request latency measurement on the training hardware is reported in the released repository but is not a deployment benchmark.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+\bibitem{esci} Reddy, C. K. et al. Shopping Queries Dataset: A Large-Scale ESCI Benchmark for Improving Product Search. \emph{arXiv:2206.06588}, 2022.
+\bibitem{wdcproducts} Peeters, R., Der, R., Bizer, C. WDC Products: A Multi-Dimensional Entity Matching Benchmark. Web Data Commons, 2023.
+\bibitem{abo} Reddy, N. et al. The Amazon Berkeley Objects (ABO) Dataset. Registry of Open Data on AWS, 2021.
+\end{thebibliography}
+
+\end{document}

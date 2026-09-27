@@ -56,7 +56,13 @@ def call_model(provider: str, model_id: str, prompt: str, retries: int = 2) -> s
                     messages=[{"role": "user", "content": prompt}],
                     timeout=30.0,
                 )
-                return resp.content[0].text.strip().lower()
+                # Extended-thinking models (e.g. claude-sonnet-5) can return a
+                # ThinkingBlock as content[0] with no .text attribute; find
+                # the first actual TextBlock instead of assuming index 0.
+                for block in resp.content:
+                    if getattr(block, "type", None) == "text":
+                        return block.text.strip().lower()
+                return None
             else:
                 resp = openai_client.chat.completions.create(
                     model=model_id,
