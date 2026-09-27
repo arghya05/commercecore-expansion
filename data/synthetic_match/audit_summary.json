@@ -1,0 +1,60 @@
+{
+  "functional_n": 59,
+  "functional_supported": 49,
+  "functional_supported_rate": 0.8305084745762712,
+  "compat_n": 40,
+  "compat_supported": 40,
+  "compat_supported_rate": 1.0,
+  "unsupported_examples": [
+    {
+      "text": "Adjustable standing desk with motorized height control for ergonomic comfort throughout your workday.\nLED desk lamp with adjustable brightness and color temperature to reduce eye strain during extended work sessions.",
+      "label": "unrelated",
+      "reason": "The texts describe two distinct but compatible items for a home office (a standing desk and a desk lamp), indicating a complementary relationship rather than unrelated."
+    },
+    {
+      "text": "Laptop 15.6\" Intel Core i7 with 16GB RAM and 512GB SSD for work and gaming.\nLaptop Sleeve 13-inch Neoprene Protective Case with Carrying Handle for Travel.",
+      "label": "complement",
+      "reason": "The laptop described is 15.6\" while the sleeve is for 13-inch laptops, so they are not compatible complements for protecting that laptop while traveling."
+    },
+    {
+      "text": "Laptop 15.6\" ultra-thin aluminum case with integrated cooling system for extended work sessions.\n\nLaptop Sleeve 13-inch neoprene protective case with water-resistant exterior and soft fleece lining for travel.",
+      "label": "complement",
+      "reason": "The label is unsupported because the laptop described is 15.6\" while the sleeve is for a 13\" device, so they are incompatible and not complementary for protecting a 13\" laptop while traveling."
+    },
+    {
+      "text": "Standing desk with electric height adjustment for active workdays.\nLED desk lamp with adjustable brightness and USB charging port.",
+      "label": "unrelated",
+      "reason": "The items are complementary in a home office\u2014one provides a workspace (standing desk) and the other provides lighting (desk lamp), so labeling them as unrelated is incorrect."
+    },
+    {
+      "text": "Adjustable standing desk with spacious work surface for ergonomic home office setups.\nLED desk lamp with flexible positioning and dimming controls for focused task lighting.",
+      "label": "unrelated",
+      "reason": "The descriptions present a standing desk and a desk lamp as complementary items for the same home-office setup (ergonomic workspace + task lighting), so labeling them 'unrelated' is incorrect."
+    },
+    {
+      "text": "Adjustable standing desk with spacious work surface for active workdays.\nLED desk lamp with flexible arm and brightness control for focused task lighting.",
+      "label": "unrelated",
+      "reason": "A desk lamp complements a standing desk when furnishing a home office (provides task lighting for the desk), so labeling them as 'unrelated' is incorrect."
+    },
+    {
+      "text": "Adjustable standing desk with electric height control for ergonomic home office comfort.\nLED desk lamp with adjustable brightness and color temperature for focused task lighting.",
+      "label": "unrelated",
+      "reason": "The standing desk and desk lamp are complementary items for furnishing a home office (desk provides workspace; lamp provides task lighting), so 'unrelated' is incorrect."
+    },
+    {
+      "text": "Laptop 15.6\" with Intel Core i7 processor and 16GB RAM for work and entertainment on the go.\n\nLaptop Sleeve 13-inch neoprene protective case with soft lining and carrying handle for secure transport while traveling.",
+      "label": "complement",
+      "reason": "Not supported: the product texts describe a 15.6\" laptop but a 13\" sleeve (and the use context specifies protecting a 13\" laptop), so the sleeve would not fit the laptop and they are not complementary."
+    },
+    {
+      "text": "Adjustable standing desk with electric height control for ergonomic workspace comfort.\nLED desk lamp with flexible gooseneck and adjustable brightness for focused task lighting.",
+      "label": "unrelated",
+      "reason": "The descriptions present the standing desk and desk lamp as complementary home-office items (workspace + task lighting), so labeling them 'unrelated' is incorrect."
+    },
+    {
+      "text": "Adjustable standing desk with spacious work surface for ergonomic home office setup.\nLED desk lamp with flexible positioning and dimmer control for focused task lighting.",
+      "label": "unrelated",
+      "reason": "The text presents a standing desk and a desk lamp as items for the same home office setup, indicating they are complementary rather than unrelated."
+    }
+  ]
+}

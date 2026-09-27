@@ -1,0 +1,32 @@
+{
+  "hf06_rexbert_base_linear_probe": {
+    "comparison_status": "NOT_RUN",
+    "reason": "ImportError: cannot import name 'download_url' from 'transformers.utils' (/Users/arghyamukherjee/Downloads/training/commercecore_expansion/.venv/lib/python3.14/site-packages/transformers/utils/__init__.py)",
+    "wall_time_sec": 11.272617101669312
+  },
+  "hf07_rexreranker_0_6b": {
+    "comparison_status": "NOT_RUN",
+    "reason": "ModuleNotFoundError: No module named 'transformers.models.audioflamingo3'",
+    "wall_time_sec": 1.5798888206481934
+  },
+  "hf11_msmarco_minilm_l6_v2": {
+    "comparison_status": "NOT_RUN",
+    "reason": "ImportError: cannot import name '_torch_version' from 'transformers.utils.import_utils' (/Users/arghyamukherjee/Downloads/training/commercecore_expansion/.venv/lib/python3.14/site-packages/transformers/utils/import_utils.py)",
+    "wall_time_sec": 0.0820150375366211
+  },
+  "hf11_ettin_reranker_150m_v1": {
+    "comparison_status": "NOT_RUN",
+    "reason": "ImportError: cannot import name '_torch_version' from 'transformers.utils.import_utils' (/Users/arghyamukherjee/Downloads/training/commercecore_expansion/.venv/lib/python3.14/site-packages/transformers/utils/import_utils.py)",
+    "wall_time_sec": 0.001445770263671875
+  },
+  "hf10_qwen3_embedding_0_6b_proxy": {
+    "comparison_status": "NOT_RUN",
+    "reason": "ImportError: cannot import name '_torch_version' from 'transformers.utils.import_utils' (/Users/arghyamukherjee/Downloads/training/commercecore_expansion/.venv/lib/python3.14/site-packages/transformers/utils/import_utils.py)",
+    "wall_time_sec": 0.0012760162353515625
+  },
+  "hf10_multilingual_e5_small_proxy": {
+    "comparison_status": "NOT_RUN",
+    "reason": "ImportError: cannot import name '_torch_version' from 'transformers.utils.import_utils' (/Users/arghyamukherjee/Downloads/training/commercecore_expansion/.venv/lib/python3.14/site-packages/transformers/utils/import_utils.py)",
+    "wall_time_sec": 0.001100778579711914
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "functional": [
+    {
+      "record": {
+        "task": "match_functional_relation",
+        "scenario": {
+          "item_a": "bicycle",
+          "item_b": "car",
+          "use_context": "commuting to work",
+          "label": "substitute",
+          "directional": false
+        },
+        "generated_text": "High-performance mountain bike for daily commutes with lightweight aluminum frame and all-terrain tires.\nFuel-efficient sedan perfect for long-distance work commuting with advanced safety features and comfortable seating.",
+        "label": "substitute",
+        "label_origin": "structured_scenario_fixed_pre_generation"
+      },
+      "errors": [
+        "generated_text does not clearly reference either scenario item (naturalness/coverage gate)"
+      ]
+    }
+  ],
+  "compat": []
+}

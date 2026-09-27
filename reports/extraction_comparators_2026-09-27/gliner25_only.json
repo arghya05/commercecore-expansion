@@ -1,0 +1,24 @@
+{
+  "comparison_status": "RUN",
+  "loader": "gliner2.AutoExtractor.from_pretrained (native GLiNER2.5 loader, NOT the legacy GLiNER2.from_pretrained span loader used for gliner2-base-v1)",
+  "n_examples": 200,
+  "brand": {
+    "precision": 0.7668393782383419,
+    "recall": 0.74,
+    "f1": 0.7531806615776082,
+    "tp": 148,
+    "fp": 45,
+    "fn": 52,
+    "n": 200
+  },
+  "color": {
+    "precision": 0.9171270718232044,
+    "recall": 0.83,
+    "f1": 0.8713910761154855,
+    "tp": 166,
+    "fp": 15,
+    "fn": 34,
+    "n": 200
+  },
+  "wall_time_sec": 34.6846661567688
+}

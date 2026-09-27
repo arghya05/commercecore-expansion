@@ -1,0 +1,19 @@
+{
+  "total_rows": 18605,
+  "distribution": {
+    "match_relevance/train": 8000,
+    "match_relevance/dev": 1000,
+    "match_identity/train": 6000,
+    "match_identity/dev": 3500,
+    "match_functional_relation/dev": 15,
+    "match_functional_relation/train": 50,
+    "match_technical_compatibility/dev": 4,
+    "match_technical_compatibility/train": 36
+  },
+  "sources": [
+    "esci",
+    "wdc_products_80pair",
+    "synthetic_match_functional_compat"
+  ],
+  "output_path": "data/training_mixture_final.jsonl"
+}

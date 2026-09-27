@@ -1,0 +1,43 @@
+{
+  "relevance_esci_native": {
+    "n_train": 16000,
+    "n_dev": 4000,
+    "macro_f1": 0.36453261409578375,
+    "per_class": {
+      "complement": {
+        "precision": 0.18933333333333333,
+        "recall": 0.41040462427745666,
+        "f1-score": 0.2591240875912409,
+        "support": 173.0
+      },
+      "exact": {
+        "precision": 0.505,
+        "recall": 0.407492795389049,
+        "f1-score": 0.45103668261562996,
+        "support": 1735.0
+      },
+      "irrelevant": {
+        "precision": 0.30165745856353593,
+        "recall": 0.39622641509433965,
+        "f1-score": 0.342534504391468,
+        "support": 689.0
+      },
+      "substitute": {
+        "precision": 0.41818181818181815,
+        "recall": 0.39344262295081966,
+        "f1-score": 0.4054351817847962,
+        "support": 1403.0
+      }
+    },
+    "confusion_note": "See classification_report per_class precision/recall for confusion pattern."
+  },
+  "identity_wdc_rules_jaccard": {
+    "n": 4500,
+    "threshold": 0.5,
+    "precision": 0.2,
+    "recall": 0.092,
+    "f1": 0.12602739726027398,
+    "positive_rate_gold": 0.1111111111111111,
+    "hard_negative_rate": 0.6666666666666666
+  }
+}

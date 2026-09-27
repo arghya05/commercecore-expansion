@@ -1,0 +1,19 @@
+# Large model weights and datasets -- these live on Hugging Face, not GitHub.
+# See README.md for the HF repo link.
+models/
+data/esci/
+data/wdc/
+data/abo/*.json.gz
+data/abo/*.zip
+*.safetensors
+*.parquet
+*.bin
+**/checkpoints_*/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store

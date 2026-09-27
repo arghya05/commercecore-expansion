@@ -1,0 +1,147 @@
+[
+  {
+    "access_terms": null,
+    "acquisition_status": "ACQUIRED",
+    "annotation_license": "Apache-2.0",
+    "artifact_kind": "dataset",
+    "attribution_requirements": [],
+    "checked_date": "2026-09-27",
+    "code_license": "Apache-2.0",
+    "download_sha256": "4a735b693b4a424a6fc67f5be6e4c811495c488bbf66d02a602d308b2744263a,25124442d064d64b26f74082d6fa09438d679efc0c183cf28d19064a2b65a265",
+    "evidence_notes": [
+      "LICENSE file inspected: Apache License 2.0.",
+      "examples.parquet: 2,621,288 rows, 9 cols, locales us/jp/es, splits train/test \u2014 matches published stats.",
+      "products.parquet: 1,814,924 rows, 7 cols \u2014 matches published stats.",
+      "esci_label distribution E=1708158 S=574313 I=263165 C=75652 \u2014 real, not synthetic."
+    ],
+    "ingestion_gate": "PASS",
+    "intended_tasks": [
+      "match_relevance",
+      "retrieve_dev_queries",
+      "rank_dev_labels"
+    ],
+    "overlap_sources": [],
+    "primary_url": "https://github.com/amazon-science/esci-data",
+    "prohibited_task_mappings": [
+      "identity_same_variant_from_E_label"
+    ],
+    "revision": "7916cdf6ab75a462e77f20ab40428a10923998d5",
+    "source_content_terms": null,
+    "source_id": "esci",
+    "verification": "FILES_INSPECTED",
+    "weights_license": null
+  },
+  {
+    "access_terms": null,
+    "acquisition_status": "ACQUIRED",
+    "annotation_license": "WebDataCommons (publisher terms; redistribution for research use per publisher page)",
+    "artifact_kind": "dataset",
+    "attribution_requirements": [],
+    "checked_date": "2026-09-27",
+    "code_license": null,
+    "download_sha256": "b2044939cee5ea6f12148a2f3551508de3cb77660dfc91767c44daaf9d8a9c4a",
+    "evidence_notes": [
+      "gold-standard split: 4500 pairs; train_large: 19835 pairs; valid_large: 4500 pairs.",
+      "Fields confirmed: id_left/right, title, description, price, cluster_id_left/right, label, is_hard_negative.",
+      "label is a pairwise 0/1 match indicator; cluster_id supports blocking-recall and cluster-purity metrics per plan F02."
+    ],
+    "ingestion_gate": "PASS",
+    "intended_tasks": [
+      "match_identity"
+    ],
+    "overlap_sources": [],
+    "primary_url": "https://webdatacommons.org/largescaleproductcorpus/wdc-products/",
+    "prohibited_task_mappings": [],
+    "revision": null,
+    "source_content_terms": null,
+    "source_id": "wdc_products_80pair",
+    "verification": "FILES_INSPECTED",
+    "weights_license": null
+  },
+  {
+    "access_terms": null,
+    "acquisition_status": "PARTIAL \u2014 1 of 16 shards (listings_0.json.gz) downloaded",
+    "annotation_license": "CC BY 4.0",
+    "artifact_kind": "dataset",
+    "attribution_requirements": [
+      "Attribute to Amazon.com per ABO publisher terms"
+    ],
+    "checked_date": "2026-09-27",
+    "code_license": "CC BY 4.0",
+    "download_sha256": "c5e7723f4a4afa3da4f35c497ab30ac0f8ee5b3e473ec0ffa897511e127e9324",
+    "evidence_notes": [
+      "9,232 listings in shard 0; multilingual (language_tag-keyed fields); fields include brand/bullet_point/color/item_name/model_number/model_year/product_type/style.",
+      "Only 1/16 shards acquired so far \u2014 real learning-curve start per plan, not full-corpus claim."
+    ],
+    "ingestion_gate": "PASS",
+    "intended_tasks": [
+      "understand_normalize"
+    ],
+    "overlap_sources": [],
+    "primary_url": "https://registry.opendata.aws/amazon-berkeley-objects/",
+    "prohibited_task_mappings": [],
+    "revision": null,
+    "source_content_terms": null,
+    "source_id": "abo_shard0",
+    "verification": "FILES_INSPECTED",
+    "weights_license": null
+  },
+  {
+    "access_terms": "UNRESOLVED \u2014 no LICENSE file found in cloned repo root; do not treat as cleared for training pending explicit terms check",
+    "acquisition_status": "ACQUIRED (data files); LICENSE UNRESOLVED",
+    "annotation_license": null,
+    "artifact_kind": "dataset",
+    "attribution_requirements": [],
+    "checked_date": "2026-09-27",
+    "code_license": null,
+    "download_sha256": null,
+    "evidence_notes": [
+      "data/processed_datasets/wdc_normalized/{train,test,train_large}.jsonl \u2014 211/354/1066 rows.",
+      "Real target_scores structure with pid provenance spans confirmed on sample record.",
+      "Website download links (raw.githubusercontent.com/.../data/processed_datasets/wdc/...) were 404 \u2014 stale; cloned repo directly instead, actual path is data/processed_datasets/wdc_normalized/.",
+      "No LICENSE file at repo root \u2014 per plan F07/registry workflow step 1, this blocks promoting ingestion_gate to PASS until terms are confirmed with the publisher or paper."
+    ],
+    "ingestion_gate": "NOT_MEASURED",
+    "intended_tasks": [
+      "understand_normalize_dev_reference"
+    ],
+    "overlap_sources": [],
+    "primary_url": "https://github.com/wbsg-uni-mannheim/wdc-pave",
+    "prohibited_task_mappings": [],
+    "revision": null,
+    "source_content_terms": null,
+    "source_id": "pave_wdc_normalized",
+    "verification": "FILES_INSPECTED",
+    "weights_license": null
+  },
+  {
+    "access_terms": null,
+    "acquisition_status": "GENERATED",
+    "annotation_license": null,
+    "artifact_kind": "synthetic_dataset",
+    "attribution_requirements": [],
+    "checked_date": "2026-09-27",
+    "code_license": null,
+    "download_sha256": null,
+    "evidence_notes": [
+      "Structured-scenario-first method: label fixed in code before any LLM call (Claude Haiku paraphrase only).",
+      "Independent semantic audit by a DIFFERENT model (GPT-5-mini) than the generator (Claude Haiku), avoiding self-grading bias.",
+      "technical_compatibility: 40/40 (100%) label-supported, first pass, after fixing prompt to require explicit fit/mismatch language instead of co-listing items.",
+      "match_functional_relation: 3 audit rounds. Round 1: 49/59 (83%) \u2014 2 flawed scenario definitions found (laptop/sleeve size mismatch; desk-lamp mislabeled). Round 2: 61/65 (94%) after fixing those \u2014 new defect found: too-permissive unrelated-pair use_context (\"furnishing a home office\") let any two office items read as complementary. Round 3: 65/65 (100%) after using genuinely disconnected item pairs under an explicit no-functional-connection framing.",
+      "Final state: both synthetic subtasks at 100% independently-audited label support."
+    ],
+    "ingestion_gate": "PASS",
+    "intended_tasks": [
+      "match_functional_relation",
+      "match_technical_compatibility"
+    ],
+    "overlap_sources": [],
+    "primary_url": "generated in-project via expansion/data/generate_synthetic_match.py",
+    "prohibited_task_mappings": [],
+    "revision": null,
+    "source_content_terms": null,
+    "source_id": "synthetic_match_functional_compat",
+    "verification": "INDEPENDENTLY_AUDITED",
+    "weights_license": null
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "access_terms": null,
+    "acquisition_status": "PINNED",
+    "annotation_license": null,
+    "artifact_kind": "model_weights",
+    "attribution_requirements": [],
+    "checked_date": "2026-09-27",
+    "code_license": null,
+    "download_sha256": null,
+    "evidence_notes": [
+      "Independently pinned original upstream base, NOT the Query-merged artifact.",
+      "model_info() SHA confirmed via huggingface_hub API call, not copied from a card screenshot."
+    ],
+    "ingestion_gate": "PASS",
+    "intended_tasks": [
+      "shared_multitask_adapter_base"
+    ],
+    "overlap_sources": [],
+    "primary_url": "https://huggingface.co/Qwen/Qwen3-1.7B",
+    "prohibited_task_mappings": [
+      "must never be replaced by arghya2030/commercecore-qwen3-1.7b merged export"
+    ],
+    "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "source_content_terms": null,
+    "source_id": "qwen3_1.7b_base",
+    "verification": "FILES_INSPECTED",
+    "weights_license": "Apache-2.0"
+  }
+]

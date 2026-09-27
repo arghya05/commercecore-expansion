@@ -1,0 +1,146 @@
+[
+  {
+    "record": {
+      "task": "match_technical_compatibility",
+      "scenario": {
+        "item_a": "PS5 DualSense controller",
+        "item_b": "PlayStation 5",
+        "revision": "PS5 (2020 model)",
+        "region": "US",
+        "label": "compatible"
+      },
+      "generated_text": "**Q: Will this controller work with my PlayStation 5?**\n\nA: Yes, the PS5 DualSense controller is designed specifically for the PlayStation 5 (2020 model) and works seamlessly with your console. This controller is the official controller that comes with the PS5 and is engineered to take full advantage of all the console's features and haptic feedback technology.",
+      "label": "compatible",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "label=compatible but generated_text has no explicit fit signal"
+    ]
+  },
+  {
+    "record": {
+      "task": "match_technical_compatibility",
+      "scenario": {
+        "item_a": "Nikon F-mount lens",
+        "item_b": "Nikon Z-mount camera body",
+        "revision": "Z-mount system",
+        "region": "Global",
+        "label": "incompatible"
+      },
+      "generated_text": "**Customer Review:**\n\nI bought this F-mount lens thinking it would work with my new Z6II, but it physically won't mount to the camera body. The Z-mount has a completely different bayonet design, so you'll need either an FTZ adapter or purchase Z-mount lenses instead. Don't make my mistake\u2014check your camera's mount type before ordering!",
+      "label": "incompatible",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "label=incompatible but generated_text has no mismatch signal \u2014 co-listing two items is not evidence of incompatibility"
+    ]
+  },
+  {
+    "record": {
+      "task": "match_technical_compatibility",
+      "scenario": {
+        "item_a": "Nikon F-mount lens",
+        "item_b": "Nikon Z-mount camera body",
+        "revision": "Z-mount system",
+        "region": "Global",
+        "label": "incompatible"
+      },
+      "generated_text": "**Q: Will this F-mount lens work with my Nikon Z6?**\n\nA: No, this lens has an F-mount and will not physically attach to a Z-mount camera body. You would need either an F-mount camera like the D850, or purchase a Nikon Z-mount lens designed for your Z6. An adapter is not recommended for this lens model.",
+      "label": "incompatible",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "label=incompatible but generated_text has no mismatch signal \u2014 co-listing two items is not evidence of incompatibility"
+    ]
+  },
+  {
+    "record": {
+      "task": "match_technical_compatibility",
+      "scenario": {
+        "item_a": "Nikon F-mount lens",
+        "item_b": "Nikon Z-mount camera body",
+        "revision": "Z-mount system",
+        "region": "Global",
+        "label": "incompatible"
+      },
+      "generated_text": "**Customer Review \u2013 1 star**\n\n\"Bought this F-mount lens thinking it would work with my Z6 II, but it won't even attach to the camera body. The mount is completely different \u2013 Z-mount cameras need Z-mount lenses or an adapter. I had to return it and buy the correct Z-mount version instead.\"",
+      "label": "incompatible",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "label=incompatible but generated_text has no mismatch signal \u2014 co-listing two items is not evidence of incompatibility"
+    ]
+  },
+  {
+    "record": {
+      "task": "match_technical_compatibility",
+      "scenario": {
+        "item_a": "iPhone 14 case",
+        "item_b": "iPhone 15",
+        "revision": "iPhone 15 (2023)",
+        "region": "US",
+        "label": "incompatible"
+      },
+      "generated_text": "**Customer Review - 1 Star**\n\nOrdered this case thinking it would work with my new iPhone 15, but it's way too small. The camera cutouts don't line up at all, and the sides are too narrow for the wider frame. Don't buy this if you have the 2023 iPhone 15 \u2014 it's made for the iPhone 14 only.",
+      "label": "incompatible",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "label=incompatible but generated_text has no mismatch signal \u2014 co-listing two items is not evidence of incompatibility"
+    ]
+  },
+  {
+    "record": {
+      "task": "match_technical_compatibility",
+      "scenario": {
+        "item_a": "PS5 DualSense controller",
+        "item_b": "PlayStation 5",
+        "revision": "PS5 (2020 model)",
+        "region": "US",
+        "label": "compatible"
+      },
+      "generated_text": "**Q: Will this DualSense controller work with my PlayStation 5?**\n\nA: Yes! The PS5 DualSense controller is designed specifically for the PlayStation 5 (2020 model) and pairs seamlessly with your console. This is the official controller that comes with the PS5, so it's built to work perfectly with your system right out of the box.",
+      "label": "compatible",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "label=compatible but generated_text has no explicit fit signal"
+    ]
+  },
+  {
+    "record": {
+      "task": "match_technical_compatibility",
+      "scenario": {
+        "item_a": "EU plug adapter",
+        "item_b": "US 120V hairdryer",
+        "revision": "US region appliance",
+        "region": "EU",
+        "label": "incompatible"
+      },
+      "generated_text": "**Q: Will this EU adapter work with my US hairdryer?**\n\nA: No, this adapter will not work with US appliances. US hairdryers operate on 120V and use flat two-prong plugs, while this adapter is designed for EU 220V appliances with round prongs. You'll need a step-down voltage converter in addition to a plug adapter, or a hairdryer specifically manufactured for dual-voltage use.",
+      "label": "incompatible",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "label=incompatible but generated_text has no mismatch signal \u2014 co-listing two items is not evidence of incompatibility"
+    ]
+  },
+  {
+    "record": {
+      "task": "match_technical_compatibility",
+      "scenario": {
+        "item_a": "Nikon F-mount lens",
+        "item_b": "Nikon Z-mount camera body",
+        "revision": "Z-mount system",
+        "region": "Global",
+        "label": "incompatible"
+      },
+      "generated_text": "**Customer Review \u2013 \u2b50\u2b50 (1 star)**\n\n\"I ordered this F-mount lens thinking it would work with my new Z6II, but it won't even attach to the camera body. The Z-mount has a completely different bayonet, and there's no way to mount F-glass directly without an adapter. Frustrated and returning this.\"",
+      "label": "incompatible",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "label=incompatible but generated_text has no mismatch signal \u2014 co-listing two items is not evidence of incompatibility"
+    ]
+  }
+]
