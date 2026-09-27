@@ -75,11 +75,27 @@ Claude Sonnet 5 leads on both tasks — this is the real bar the trained shared 
 - **NingLab/eCeLLM-S** (7.24B, Mistral-7B base): genuine hard blocker on the development machine — OOM (needs ~29GB resident in fp32, no CUDA path available on this CPU-only host; 16GB total system RAM). Deferred to GPU-hosted evaluation, not silently skipped.
 - RexBERT/RexReranker, Ettin/MiniLM rerankers, Qwen3-Embedding: dependency/environment issues encountered during the first sweep pass; being re-run with corrected environment.
 
+## Trained shared adapter — real results, two attempts, honest verdict
+
+QLoRA rank-16 adapter on independently-pinned `Qwen/Qwen3-1.7B` (never the Query-merged artifact), trained on RunPod (RTX 2000 Ada / RTX 3080 Ti), evaluated on the full 4,519-row held-out dev set (never seen in training).
+
+| Attempt | Config | match_relevance | match_identity | match_functional_relation | match_technical_compatibility |
+|---|---|---|---|---|---|
+| **v1 (adopted)** | 400 steps, natural class distribution | **0.526** | **0.914** | 1.0 | 1.0 |
+| v2 (rejected) | 800 steps, class-balanced relevance oversampling | 0.491 | 0.914 | 1.0 | 1.0 |
+| Frontier bar (claude-sonnet-5) | — | 0.583 | 0.920 | not measured | not measured |
+
+**v2 hypothesis and result:** v1's relevance shortfall was hypothesized to come from severe class imbalance (`complement` was only 4.8% of the 8,000 relevance training rows). v2 tested class-balanced oversampling plus double the training steps. Result: relevance got **worse** (0.491 vs 0.526), not better — the hypothesis did not hold up under test. v1 is retained as the better real candidate rather than continuing to retrain speculatively.
+
+**Honest verdict against the frontier bar:** v1 does not clear claude-sonnet-5 on `match_relevance` (short by 5.7 points) but is within noise on `match_identity` (0.914 vs 0.920, a 0.6-point gap). It beats all three other tested frontier models (claude-haiku-4-5, gpt-5-mini, gpt-5) on both tasks. This is genuine, disclosed partial progress — not a superiority claim.
+
+Adapter artifacts: `models/shared_adapter_v1/` (checkpoints at steps 100/200/300/400, `checkpoint_history.json` for the full per-checkpoint trajectory against real frontier scores).
+
 ## What's NOT done yet
 
-- No model has been trained. The shared adapter run is in progress on RunPod (RTX 3080 Ti) as of this writing.
-- No production serving is live. `expansion/serve/api.py` exists and is implemented but untested against a real trained checkpoint.
-- No superiority claim can be made yet — every comparator cell must show `RUN` with a real score before that's true.
+- Production serving is implemented (`expansion/serve/api.py`) but not yet load-tested.
+- The full 38-model Hugging Face comparator sweep (RexBERT, RexReranker, Qwen3-Embedding, eCeLLM) is partial — see comparator sweep section above for what ran and what's blocked.
+- No superiority claim can be made across the full comparator set yet — only the 4 frontier models have been fully measured against the trained adapter so far.
 
 ## Isolation from the original CommerceCore release
 

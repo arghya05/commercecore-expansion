@@ -193,6 +193,33 @@ def main(
     dev_rows = [r for r in all_rows if r["split"] == "dev"]
     print(f"train rows: {len(train_rows)}, dev rows: {len(dev_rows)}")
 
+    # match_relevance has severe class imbalance (complement ~4.8% of rows).
+    # Oversample minority classes within that task only, so the shared
+    # objective doesn't starve them relative to match_identity's simpler
+    # binary-ish distribution. Other tasks are left at their natural rate.
+    import collections
+    import random
+    rng = random.Random(7)
+    relevance_rows = [r for r in train_rows if r["task"] == "match_relevance"]
+    other_rows = [r for r in train_rows if r["task"] != "match_relevance"]
+    by_target = collections.defaultdict(list)
+    for r in relevance_rows:
+        by_target[r["target"]].append(r)
+    max_count = max(len(v) for v in by_target.values())
+    balanced_relevance = []
+    for target, rows in by_target.items():
+        reps = max_count // len(rows)
+        remainder = max_count - reps * len(rows)
+        balanced_relevance.extend(rows * reps)
+        balanced_relevance.extend(rng.sample(rows, remainder))
+    rng.shuffle(balanced_relevance)
+    train_rows = other_rows + balanced_relevance
+    rng.shuffle(train_rows)
+    print(
+        f"class-balanced relevance rows: {len(balanced_relevance)} "
+        f"(was {len(relevance_rows)}); new total train rows: {len(train_rows)}"
+    )
+
     train_ds = build_dataset(train_rows, tokenizer, max_length)
 
     args = TrainingArguments(
@@ -222,13 +249,51 @@ def main(
             attn[i, :n] = torch.tensor(x["attention_mask"])
         return {"input_ids": input_ids, "labels": labels, "attention_mask": attn}
 
-    comparator_scores = {}
-    comparator_report_path = Path("reports/comparator_baselines_2026-09-27/report.json")
-    if comparator_report_path.exists():
-        comparator_scores = json.loads(comparator_report_path.read_text())
+    def _only_real_scores(raw: dict) -> dict:
+        """Filters out NOT_RUN/error cells -- only cells with an actual
+        numeric comparison_status=='RUN' score count as a comparator to beat.
+        A dict of all-NOT_RUN cells must not silently make beats_all_comparators
+        trivially True."""
+        out = {}
+        for name, cell in raw.items():
+            if isinstance(cell, dict) and cell.get("comparison_status") == "RUN" and "score" in cell:
+                out[name] = cell["score"]
+        return out
+
+    comparator_scores: dict[str, dict[str, float]] = {}
+    hf_comparator_path = Path("reports/comparator_baselines_2026-09-27/report.json")
+    if hf_comparator_path.exists():
+        raw = json.loads(hf_comparator_path.read_text())
+        real = _only_real_scores(raw)
+        if real:
+            comparator_scores.setdefault("match_relevance", {}).update(real)
+
+    frontier_path = Path("reports/frontier_comparison_2026-09-27/report.json")
+    if frontier_path.exists():
+        frontier = json.loads(frontier_path.read_text())
+        for model_key, res in frontier.get("relevance", {}).items():
+            comparator_scores.setdefault("match_relevance", {})[f"frontier_{model_key}"] = res["accuracy"]
+        for model_key, res in frontier.get("identity", {}).items():
+            comparator_scores.setdefault("match_identity", {})[f"frontier_{model_key}"] = res["accuracy"]
+
+    print("Loaded real comparator scores to beat:", json.dumps(comparator_scores, indent=2))
+
+    # Full dev set (4,519 rows) is too slow for per-checkpoint greedy-generation
+    # scoring (one example at a time, no batching) -- would add 15-30+ min per
+    # checkpoint. Sample a small, stratified-by-task subset for fast checkpoint
+    # tracking; the FULL dev set is still scored once at the end on the
+    # selected checkpoint for the real reported number.
+    import random
+    rng = random.Random(42)
+    by_task: dict[str, list[dict]] = {}
+    for r in dev_rows:
+        by_task.setdefault(r["task"], []).append(r)
+    checkpoint_dev_sample = []
+    for task, rows in by_task.items():
+        checkpoint_dev_sample.extend(rng.sample(rows, min(30, len(rows))))
 
     callback = CheckpointComparatorCallback(
-        tokenizer=tokenizer, dev_examples=dev_rows, output_dir=output_dir,
+        tokenizer=tokenizer, dev_examples=checkpoint_dev_sample, output_dir=output_dir,
         comparator_scores=comparator_scores,
     )
 
@@ -249,14 +314,13 @@ def main(
         json.dump(dev_rows, f)
 
     print("training complete, adapter saved to", output_dir)
+    print("run expansion/eval/batched_dev_eval.py separately for the full dev-set score "
+          "(batched -- the unbatched per-example version here was too slow: ~75min for 4,519 rows).")
 
 
 if __name__ == "__main__":
     main(
-        mixture_paths=[
-            "data/training_mixture_v1.jsonl",
-            "data/synthetic_match/functional_relation.jsonl",
-            "data/synthetic_match/technical_compatibility.jsonl",
-        ],
-        output_dir="models/shared_adapter_v1",
+        mixture_paths=["training_mixture_final.jsonl"],
+        output_dir="models/shared_adapter_v2",
+        max_steps=800,
     )

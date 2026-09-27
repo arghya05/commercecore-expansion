@@ -1,0 +1,1500 @@
+{
+  "schema_version": 1,
+  "built_from": "/Users/arghyamukherjee/Downloads/training/capability_expansion/related_model_comparators.json",
+  "built_date": "2026-09-27",
+  "purpose": "Full seed inventory of required related-model comparators (38 HF repos + 1 external + 4 frontier provider roles) per RELATED_MODEL_COMPARISON_MATRIX.md R02. This file does not itself carry run results -- see benchmark_cells.json for the per-(model, task) attempted/NOT_RUN disposition produced in this pass.",
+  "models": [
+    {
+      "repository": "CommerAI/ecom-foundational-model",
+      "observed_revision": "616f96008f741f94c6093886ee8bbc69284e9794",
+      "last_modified": "2025-04-11T10:49:29.000Z",
+      "displayed_license": null,
+      "declared_base": null,
+      "declared_datasets": null,
+      "pipeline_tag": null,
+      "hub_safetensors_parameter_count_unverified": null,
+      "gated": false,
+      "listed_weight_files": [
+        "model-436m.pth"
+      ],
+      "metadata_sha256": "d477e4f9aceb658b67755e7b1e4660c716e1d5819ba6b7d960089036cc4167ad",
+      "model_card_sha256": "9c7c66a1e1f2e2f8508e8e8af84d91dda2d1cfc4b2fba0d33a4394c1ebf490a4",
+      "group": "HF14",
+      "comparison_role": "SMALL_COMMERCE_MODEL_LEAD",
+      "planned_tasks": [
+        "PENDING_CONTRACT_AUDIT"
+      ],
+      "planned_tracks": [],
+      "planning_status": "BLOCKED_LICENSE_AND_LOADER_VALIDATION",
+      "source_url": "https://huggingface.co/CommerAI/ecom-foundational-model",
+      "metadata_url": "https://huggingface.co/api/models/CommerAI/ecom-foundational-model",
+      "pinned_card_url": "https://huggingface.co/CommerAI/ecom-foundational-model/blob/616f96008f741f94c6093886ee8bbc69284e9794/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "Marqo/marqo-ecommerce-embeddings-B",
+      "observed_revision": "6854090aa39b2a9d70f390d83ae9e70cf9d9004e",
+      "last_modified": "2024-11-12T02:17:46.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "Marqo/amazon-products-eval",
+        "Marqo/google-shopping-general-eval"
+      ],
+      "pipeline_tag": null,
+      "hub_safetensors_parameter_count_unverified": 203155968,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "open_clip_model.safetensors",
+        "open_clip_pytorch_model.bin"
+      ],
+      "metadata_sha256": "b378048f1dffa0764dd2c116e854f666f3d5efaf28011b88f39b31bff3b089f1",
+      "model_card_sha256": "74c5ee9db3c9c39cfd1d673eaba4b8caca368b08ca65912896524579f19a817d",
+      "group": "HF12",
+      "comparison_role": "COMMERCE_MULTIMODAL_RETRIEVAL",
+      "planned_tasks": [
+        "Retrieve"
+      ],
+      "planned_tracks": [
+        "B15",
+        "PRIVATE_FULL_CORPUS"
+      ],
+      "planning_status": "CONDITIONAL_MODALITY_AUDIT",
+      "source_url": "https://huggingface.co/Marqo/marqo-ecommerce-embeddings-B",
+      "metadata_url": "https://huggingface.co/api/models/Marqo/marqo-ecommerce-embeddings-B",
+      "pinned_card_url": "https://huggingface.co/Marqo/marqo-ecommerce-embeddings-B/blob/6854090aa39b2a9d70f390d83ae9e70cf9d9004e/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "Marqo/marqo-ecommerce-embeddings-L",
+      "observed_revision": "92e3b2606e34fe9a91b732229689e9fb9d422929",
+      "last_modified": "2024-11-12T02:18:35.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "Marqo/amazon-products-eval",
+        "Marqo/google-shopping-general-eval"
+      ],
+      "pipeline_tag": null,
+      "hub_safetensors_parameter_count_unverified": 652150784,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "open_clip_model.safetensors",
+        "open_clip_pytorch_model.bin"
+      ],
+      "metadata_sha256": "ceb555ebab959612524969b1385809aa4535f8eb7ca77ace0a09cbb2dcdc81a7",
+      "model_card_sha256": "3afea5d3861990af1ce429720b3a35c61dbf3a540cff53181541ec215eada360",
+      "group": "HF12",
+      "comparison_role": "COMMERCE_MULTIMODAL_RETRIEVAL",
+      "planned_tasks": [
+        "Retrieve"
+      ],
+      "planned_tracks": [
+        "B15",
+        "PRIVATE_FULL_CORPUS"
+      ],
+      "planning_status": "CONDITIONAL_MODALITY_AUDIT",
+      "source_url": "https://huggingface.co/Marqo/marqo-ecommerce-embeddings-L",
+      "metadata_url": "https://huggingface.co/api/models/Marqo/marqo-ecommerce-embeddings-L",
+      "pinned_card_url": "https://huggingface.co/Marqo/marqo-ecommerce-embeddings-L/blob/92e3b2606e34fe9a91b732229689e9fb9d422929/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "Marqo/marqo-fashionSigLIP",
+      "observed_revision": "c56244cc94f92419e8369fa71efdaf403b124ce8",
+      "last_modified": "2026-02-18T03:34:31.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": null,
+      "pipeline_tag": "zero-shot-image-classification",
+      "hub_safetensors_parameter_count_unverified": 203155968,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "open_clip_model.safetensors",
+        "open_clip_pytorch_model.bin"
+      ],
+      "metadata_sha256": "73f658fcc0f3e19012f05690d3ece9e96c76c354a59d76a9914a0a6547d5e906",
+      "model_card_sha256": "34efcd14c3a139d0591a26843ff06692b87726071faca297a3ce154364398977",
+      "group": "HF12",
+      "comparison_role": "COMMERCE_MULTIMODAL_RETRIEVAL",
+      "planned_tasks": [
+        "Retrieve"
+      ],
+      "planned_tracks": [
+        "B15",
+        "PRIVATE_FULL_CORPUS"
+      ],
+      "planning_status": "CONDITIONAL_MODALITY_AUDIT",
+      "source_url": "https://huggingface.co/Marqo/marqo-fashionSigLIP",
+      "metadata_url": "https://huggingface.co/api/models/Marqo/marqo-fashionSigLIP",
+      "pinned_card_url": "https://huggingface.co/Marqo/marqo-fashionSigLIP/blob/c56244cc94f92419e8369fa71efdaf403b124ce8/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "NingLab/CASLIE-L",
+      "observed_revision": "3b2a577a5f06b8a775d475dbca6d84baedf034c4",
+      "last_modified": "2024-10-28T21:14:14.000Z",
+      "displayed_license": "cc-by-4.0",
+      "declared_base": [
+        "meta-llama/Llama-2-13b-chat-hf"
+      ],
+      "declared_datasets": [
+        "NingLab/MMECInstruct"
+      ],
+      "pipeline_tag": null,
+      "hub_safetensors_parameter_count_unverified": 13015864320,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00006.safetensors",
+        "model-00002-of-00006.safetensors",
+        "model-00003-of-00006.safetensors",
+        "model-00004-of-00006.safetensors",
+        "model-00005-of-00006.safetensors",
+        "model-00006-of-00006.safetensors"
+      ],
+      "metadata_sha256": "99ef44c96471f934e08e18da220292c85a747df7e426e8b2ccb419d620e8d6bd",
+      "model_card_sha256": "0ae450c7439cd764759a053d65ce53c947a7d412d63cc6041b12dcc806d39247",
+      "group": "HF05",
+      "comparison_role": "CAPTION_AUGMENTED_COMMERCE",
+      "planned_tasks": [
+        "Match",
+        "QA",
+        "Taste"
+      ],
+      "planned_tracks": [
+        "B21",
+        "B22",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "CONDITIONAL_CONTRACT_AUDIT",
+      "source_url": "https://huggingface.co/NingLab/CASLIE-L",
+      "metadata_url": "https://huggingface.co/api/models/NingLab/CASLIE-L",
+      "pinned_card_url": "https://huggingface.co/NingLab/CASLIE-L/blob/3b2a577a5f06b8a775d475dbca6d84baedf034c4/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "NingLab/CASLIE-M",
+      "observed_revision": "65674e914124386b9f317569d7a4b202dc0fc3b2",
+      "last_modified": "2024-10-28T21:14:32.000Z",
+      "displayed_license": "cc-by-4.0",
+      "declared_base": [
+        "mistralai/Mistral-7B-Instruct-v0.3"
+      ],
+      "declared_datasets": [
+        "NingLab/MMECInstruct"
+      ],
+      "pipeline_tag": null,
+      "hub_safetensors_parameter_count_unverified": 7248023552,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00003.safetensors",
+        "model-00002-of-00003.safetensors",
+        "model-00003-of-00003.safetensors"
+      ],
+      "metadata_sha256": "d78d7615305af4adac44ce42198fe48975da971a57b177de640ebb735b44a3f8",
+      "model_card_sha256": "e5a3810788f4f02441cd2a779bbec58610213510b07cef807385ef45bc64b303",
+      "group": "HF05",
+      "comparison_role": "CAPTION_AUGMENTED_COMMERCE",
+      "planned_tasks": [
+        "Match",
+        "QA",
+        "Taste"
+      ],
+      "planned_tracks": [
+        "B21",
+        "B22",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "CONDITIONAL_CONTRACT_AUDIT",
+      "source_url": "https://huggingface.co/NingLab/CASLIE-M",
+      "metadata_url": "https://huggingface.co/api/models/NingLab/CASLIE-M",
+      "pinned_card_url": "https://huggingface.co/NingLab/CASLIE-M/blob/65674e914124386b9f317569d7a4b202dc0fc3b2/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "NingLab/CASLIE-S",
+      "observed_revision": "103c5870ceb0118b3e4fc13df993d30564492d54",
+      "last_modified": "2024-10-28T21:11:24.000Z",
+      "displayed_license": "cc-by-4.0",
+      "declared_base": [
+        "meta-llama/Llama-3.2-3B-Instruct"
+      ],
+      "declared_datasets": [
+        "NingLab/MMECInstruct"
+      ],
+      "pipeline_tag": null,
+      "hub_safetensors_parameter_count_unverified": 3212749824,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00002.safetensors",
+        "model-00002-of-00002.safetensors"
+      ],
+      "metadata_sha256": "c3669bb8b6ede51173e11b00ec73edbb4c50be4f53408de96fe7524a3107943b",
+      "model_card_sha256": "1978c139da382ffc6faf050d83f5671ef1da7817970a82b3aa4db85da1c750f4",
+      "group": "HF05",
+      "comparison_role": "CAPTION_AUGMENTED_COMMERCE",
+      "planned_tasks": [
+        "Match",
+        "QA",
+        "Taste"
+      ],
+      "planned_tracks": [
+        "B21",
+        "B22",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "CONDITIONAL_CONTRACT_AUDIT",
+      "source_url": "https://huggingface.co/NingLab/CASLIE-S",
+      "metadata_url": "https://huggingface.co/api/models/NingLab/CASLIE-S",
+      "pinned_card_url": "https://huggingface.co/NingLab/CASLIE-S/blob/103c5870ceb0118b3e4fc13df993d30564492d54/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "NingLab/eCeLLM-L",
+      "observed_revision": "e445758a61f44da7d46e6f83a7ef55c13fa4fbb7",
+      "last_modified": "2024-07-08T15:08:31.000Z",
+      "displayed_license": "cc-by-4.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "NingLab/ECInstruct"
+      ],
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 13015864320,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00006.safetensors",
+        "model-00002-of-00006.safetensors",
+        "model-00003-of-00006.safetensors",
+        "model-00004-of-00006.safetensors",
+        "model-00005-of-00006.safetensors",
+        "model-00006-of-00006.safetensors"
+      ],
+      "metadata_sha256": "8388b833d1821f5f5614609b6ff470cbfd86d98c9245001e8906793d9fe92f29",
+      "model_card_sha256": "a10452e10f0a54559d8cb2b542b7d4e9be841baf9ab95b5a3e5da305b1756c60",
+      "group": "HF01",
+      "comparison_role": "DOMAIN_MULTITASK",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "QA"
+      ],
+      "planned_tracks": [
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B09",
+        "B21",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/NingLab/eCeLLM-L",
+      "metadata_url": "https://huggingface.co/api/models/NingLab/eCeLLM-L",
+      "pinned_card_url": "https://huggingface.co/NingLab/eCeLLM-L/blob/e445758a61f44da7d46e6f83a7ef55c13fa4fbb7/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "NingLab/eCeLLM-M",
+      "observed_revision": "c930223ff865e786707365239b9c28d5acfe2999",
+      "last_modified": "2024-07-08T15:08:41.000Z",
+      "displayed_license": "cc-by-4.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "NingLab/ECInstruct"
+      ],
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 7241732096,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00003.safetensors",
+        "model-00002-of-00003.safetensors",
+        "model-00003-of-00003.safetensors"
+      ],
+      "metadata_sha256": "2a709d41b9ee0d3c3013693ca63a9c16186bd1e1f681c43b321cb980e6c2ce6a",
+      "model_card_sha256": "d839a5281d7636202c736cb28b837c540e4516c1253d6013a6f07cf5c83152cc",
+      "group": "HF01",
+      "comparison_role": "DOMAIN_MULTITASK",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "QA"
+      ],
+      "planned_tracks": [
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B09",
+        "B21",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/NingLab/eCeLLM-M",
+      "metadata_url": "https://huggingface.co/api/models/NingLab/eCeLLM-M",
+      "pinned_card_url": "https://huggingface.co/NingLab/eCeLLM-M/blob/c930223ff865e786707365239b9c28d5acfe2999/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "NingLab/eCeLLM-S",
+      "observed_revision": "35a17d861c51f968a54a010c5c414b72b0c233fa",
+      "last_modified": "2024-07-08T15:08:16.000Z",
+      "displayed_license": "cc-by-4.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "NingLab/ECInstruct"
+      ],
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 2779683840,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00002.safetensors",
+        "model-00002-of-00002.safetensors"
+      ],
+      "metadata_sha256": "420c5a7f983c7177f5a8f4e9930c4baae295ebfdb401067dab74c2dae03fa27e",
+      "model_card_sha256": "7d91e1b75862461b3283d072db79f7641c9a0b8f389b65d83822ea65dfd65b21",
+      "group": "HF01",
+      "comparison_role": "DOMAIN_MULTITASK",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "QA"
+      ],
+      "planned_tracks": [
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B09",
+        "B21",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/NingLab/eCeLLM-S",
+      "metadata_url": "https://huggingface.co/api/models/NingLab/eCeLLM-S",
+      "pinned_card_url": "https://huggingface.co/NingLab/eCeLLM-S/blob/35a17d861c51f968a54a010c5c414b72b0c233fa/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "Qwen/Qwen3-1.7B",
+      "observed_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "last_modified": "2025-07-26T03:46:32.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "Qwen/Qwen3-1.7B-Base"
+      ],
+      "declared_datasets": null,
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 2031739904,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00002.safetensors",
+        "model-00002-of-00002.safetensors"
+      ],
+      "metadata_sha256": "f82032c04da930504a5c381fc623007f68cf1d713befad1f7fbf3b81f310d244",
+      "model_card_sha256": "257e52c419dac2258852643f18af6c974f21f8c6c1b6f371b6cca6201cf29091",
+      "group": "HF13",
+      "comparison_role": "UNTUNED_UPSTREAM_CONTROL",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "Agent",
+        "QA"
+      ],
+      "planned_tracks": [
+        "COMPATIBLE_TEXT_TRACKS"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/Qwen/Qwen3-1.7B",
+      "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3-1.7B",
+      "pinned_card_url": "https://huggingface.co/Qwen/Qwen3-1.7B/blob/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "Qwen/Qwen3-Embedding-0.6B",
+      "observed_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "last_modified": "2026-04-20T02:45:58.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "Qwen/Qwen3-0.6B-Base"
+      ],
+      "declared_datasets": null,
+      "pipeline_tag": "feature-extraction",
+      "hub_safetensors_parameter_count_unverified": 595776512,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "8e11ccc7b7b50274c9cbc71e8bd25e9be98fad13694677ea800d9e023642e499",
+      "model_card_sha256": "c34d9b7e5a267ad3fdd13227a253686bc90844ff4744a2a6a86c7c905e3d06f3",
+      "group": "HF10",
+      "comparison_role": "TEXT_RETRIEVAL_CONTROL",
+      "planned_tasks": [
+        "Retrieve"
+      ],
+      "planned_tracks": [
+        "B06",
+        "B07",
+        "PRIVATE_FULL_CORPUS"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B",
+      "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3-Embedding-0.6B",
+      "pinned_card_url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/blob/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "Qwen/Qwen3-Reranker-0.6B",
+      "observed_revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+      "last_modified": "2026-04-16T08:55:59.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "Qwen/Qwen3-0.6B-Base"
+      ],
+      "declared_datasets": null,
+      "pipeline_tag": "text-ranking",
+      "hub_safetensors_parameter_count_unverified": 595776512,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "3ad0a699f46b2b9d988e958763839005a19b0720f3025f5258418160d06f0db2",
+      "model_card_sha256": "5bba8c734f6dd3ae48317b4139317e45a7fce48fc55e15670b23a0dd15492ab6",
+      "group": "HF11",
+      "comparison_role": "RERANKING_CONTROL",
+      "planned_tasks": [
+        "Rank"
+      ],
+      "planned_tracks": [
+        "B05",
+        "B06"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/Qwen/Qwen3-Reranker-0.6B",
+      "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3-Reranker-0.6B",
+      "pinned_card_url": "https://huggingface.co/Qwen/Qwen3-Reranker-0.6B/blob/e61197ed45024b0ed8a2d74b80b4d909f1255473/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "Qwen/Qwen3.5-2B",
+      "observed_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "last_modified": "2026-03-02T11:26:29.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "Qwen/Qwen3.5-2B-Base"
+      ],
+      "declared_datasets": null,
+      "pipeline_tag": "image-text-to-text",
+      "hub_safetensors_parameter_count_unverified": 2274069824,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors-00001-of-00001.safetensors"
+      ],
+      "metadata_sha256": "9fa731d45ac7f2fb2ce758aa751959d39ec860acaae9d2b2abb97589e7a2bfac",
+      "model_card_sha256": "c0e83a849c776e6fa843d011f023132d942a0f0140d903205bf1c363adad2275",
+      "group": "HF13",
+      "comparison_role": "UNTUNED_UPSTREAM_CONTROL",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "Agent",
+        "QA"
+      ],
+      "planned_tracks": [
+        "COMPATIBLE_TEXT_TRACKS"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/Qwen/Qwen3.5-2B",
+      "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B",
+      "pinned_card_url": "https://huggingface.co/Qwen/Qwen3.5-2B/blob/15852e8c16360a2fea060d615a32b45270f8a8fc/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "cross-encoder/ettin-reranker-150m-v1",
+      "observed_revision": "025501c4e0f9bbeb4c5b198318e0089ff061cc14",
+      "last_modified": "2026-05-19T13:59:34.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": "jhu-clsp/ettin-encoder-150m",
+      "declared_datasets": null,
+      "pipeline_tag": "text-ranking",
+      "hub_safetensors_parameter_count_unverified": 149014272,
+      "gated": false,
+      "listed_weight_files": [
+        "2_Dense/model.safetensors",
+        "3_LayerNorm/model.safetensors",
+        "4_Dense/model.safetensors",
+        "model.safetensors",
+        "openvino/openvino_model.bin",
+        "openvino/openvino_model_qint8_quantized.bin"
+      ],
+      "metadata_sha256": "aa0bc1fb027a70b7dfaa2a138ec0ba822af3b33a1ea9fa8d5220316402a40e94",
+      "model_card_sha256": "41c2b12ce3259391e2fa7bcbb96b00b5d7fd42c413b7e19ace7b4b5600961b13",
+      "group": "HF11",
+      "comparison_role": "RERANKING_CONTROL",
+      "planned_tasks": [
+        "Rank"
+      ],
+      "planned_tracks": [
+        "B05",
+        "B06"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/cross-encoder/ettin-reranker-150m-v1",
+      "metadata_url": "https://huggingface.co/api/models/cross-encoder/ettin-reranker-150m-v1",
+      "pinned_card_url": "https://huggingface.co/cross-encoder/ettin-reranker-150m-v1/blob/025501c4e0f9bbeb4c5b198318e0089ff061cc14/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "observed_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+      "last_modified": "2026-08-09T15:22:24.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "cross-encoder/ms-marco-MiniLM-L12-v2"
+      ],
+      "declared_datasets": [
+        "sentence-transformers/msmarco"
+      ],
+      "pipeline_tag": "text-ranking",
+      "hub_safetensors_parameter_count_unverified": 22714113,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "openvino/openvino_model.bin",
+        "openvino/openvino_model_qint8_quantized.bin",
+        "pytorch_model.bin"
+      ],
+      "metadata_sha256": "7f3b7f7e11b596d7180483966b22c256083b152cc8452494d07d615e1b37f37f",
+      "model_card_sha256": "7c0ec39941d0d1d766ccde671f592971d82fe45b7eea550a80d1ea864ebc3baa",
+      "group": "HF11",
+      "comparison_role": "RERANKING_CONTROL",
+      "planned_tasks": [
+        "Rank"
+      ],
+      "planned_tracks": [
+        "B05",
+        "B06"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2",
+      "metadata_url": "https://huggingface.co/api/models/cross-encoder/ms-marco-MiniLM-L6-v2",
+      "pinned_card_url": "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/blob/233902d25c440f23af6f7d6e94d2946bac0bee0a/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "fastino/gliner2-base-v1",
+      "observed_revision": "9585099e705ab97bad441b836f49bba0f0e26ce3",
+      "last_modified": "2026-09-24T22:06:14.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": null,
+      "pipeline_tag": null,
+      "hub_safetensors_parameter_count_unverified": 208476821,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "b471e6059ad0b202e2115ae9a24420d31a7d5768df44ebe522b0724a1b1ed157",
+      "model_card_sha256": "3a3885e5edd4681754f6425286c6c4a7e6696e816aaffb18cf4512432f211815",
+      "group": "HF08",
+      "comparison_role": "STRUCTURED_EXTRACTION",
+      "planned_tasks": [
+        "Understand"
+      ],
+      "planned_tracks": [
+        "B02",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/fastino/gliner2-base-v1",
+      "metadata_url": "https://huggingface.co/api/models/fastino/gliner2-base-v1",
+      "pinned_card_url": "https://huggingface.co/fastino/gliner2-base-v1/blob/9585099e705ab97bad441b836f49bba0f0e26ce3/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "fastino/gliner2.5-base-v1",
+      "observed_revision": "b0c10b23313ec3ff028821dff298dd743e010706",
+      "last_modified": "2026-09-24T22:08:17.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": null,
+      "pipeline_tag": "token-classification",
+      "hub_safetensors_parameter_count_unverified": 193581591,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "869aa8b617e45ca6ad6af7032e7e6c36df23808eb7ad58a07a84d0a7b3521da8",
+      "model_card_sha256": "45e6c6a5a60c1e97f2eaafbd7b8998f8903427514a6e033b7782da2a02246dbb",
+      "group": "HF08",
+      "comparison_role": "STRUCTURED_EXTRACTION",
+      "planned_tasks": [
+        "Understand"
+      ],
+      "planned_tracks": [
+        "B02",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/fastino/gliner2.5-base-v1",
+      "metadata_url": "https://huggingface.co/api/models/fastino/gliner2.5-base-v1",
+      "pinned_card_url": "https://huggingface.co/fastino/gliner2.5-base-v1/blob/b0c10b23313ec3ff028821dff298dd743e010706/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "gabrielgts/gemma4-e2b-ec-magento",
+      "observed_revision": "576010cbf677b40b0619faa704f233543973682e",
+      "last_modified": "2026-07-16T22:46:53.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": "unsloth/gemma-4-E2B-it-unsloth-bnb-4bit",
+      "declared_datasets": [
+        "NingLab/ECInstruct"
+      ],
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": null,
+      "gated": false,
+      "listed_weight_files": [
+        "adapter_model.safetensors",
+        "gguf/gemma4-e2b-ec-magento-Q6_K.gguf"
+      ],
+      "metadata_sha256": "ad5e7793d852ca5b9fb82b4aba18cee0d8581bc4782fb12ac23162c27cf5762b",
+      "model_card_sha256": "c08ed5924f30bc57424ec142bbbafa99f7751c0f57b4c13344d3545a976531bb",
+      "group": "HF04",
+      "comparison_role": "DOMAIN_MULTITASK_ADAPTER",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "QA"
+      ],
+      "planned_tracks": [
+        "B02",
+        "B04",
+        "B05",
+        "B21",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/gabrielgts/gemma4-e2b-ec-magento",
+      "metadata_url": "https://huggingface.co/api/models/gabrielgts/gemma4-e2b-ec-magento",
+      "pinned_card_url": "https://huggingface.co/gabrielgts/gemma4-e2b-ec-magento/blob/576010cbf677b40b0619faa704f233543973682e/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "gabrielgts/ministral3-3b-ec-magento",
+      "observed_revision": "225e7231f83664364bc746347699b1e730787a9b",
+      "last_modified": "2026-07-10T01:40:39.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": "unsloth/Ministral-3-3B-Instruct-2512-bnb-4bit",
+      "declared_datasets": [
+        "NingLab/ECInstruct"
+      ],
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": null,
+      "gated": false,
+      "listed_weight_files": [
+        "adapter_model.safetensors",
+        "gguf/ministral3-3b-ec-magento-Q4_K_M.gguf"
+      ],
+      "metadata_sha256": "452c01618fb88bc44e4f4bf85c0dbad85b3fd20557ef966feb21ec466e9b9da6",
+      "model_card_sha256": "1a7e639c567bd6e0978cd2947b4a7f4c7f06d0137c988993ff6f2a52cde74cfd",
+      "group": "HF04",
+      "comparison_role": "DOMAIN_MULTITASK_ADAPTER",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "QA"
+      ],
+      "planned_tracks": [
+        "B02",
+        "B04",
+        "B05",
+        "B21",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/gabrielgts/ministral3-3b-ec-magento",
+      "metadata_url": "https://huggingface.co/api/models/gabrielgts/ministral3-3b-ec-magento",
+      "pinned_card_url": "https://huggingface.co/gabrielgts/ministral3-3b-ec-magento/blob/225e7231f83664364bc746347699b1e730787a9b/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "gabrielgts/phi4-3b-ec-magento",
+      "observed_revision": "ad162250469c7f1aa97722c053c6998b14fa92c8",
+      "last_modified": "2026-07-14T20:17:29.000Z",
+      "displayed_license": "mit",
+      "declared_base": "unsloth/Phi-4-mini-instruct-bnb-4bit",
+      "declared_datasets": [
+        "NingLab/ECInstruct"
+      ],
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": null,
+      "gated": false,
+      "listed_weight_files": [
+        "adapter_model.safetensors",
+        "gguf/phi4-3b-ec-magento-Q4_K_M.gguf"
+      ],
+      "metadata_sha256": "0094144b69c762153b8e97181dcf5c825ec3fbe766963fbcc595b1d241965219",
+      "model_card_sha256": "9ba10d3ceee657c22780257fe0522c371d528809144c93bd9048092b59126b49",
+      "group": "HF04",
+      "comparison_role": "DOMAIN_MULTITASK_ADAPTER",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "QA"
+      ],
+      "planned_tracks": [
+        "B02",
+        "B04",
+        "B05",
+        "B21",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/gabrielgts/phi4-3b-ec-magento",
+      "metadata_url": "https://huggingface.co/api/models/gabrielgts/phi4-3b-ec-magento",
+      "pinned_card_url": "https://huggingface.co/gabrielgts/phi4-3b-ec-magento/blob/ad162250469c7f1aa97722c053c6998b14fa92c8/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "gabrielgts/qwen3.5-4b-ec-magento",
+      "observed_revision": "57d3fc7c60aa3175f011124320e0eec86e8d75ca",
+      "last_modified": "2026-07-09T03:26:52.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": "Qwen/Qwen3.5-4B",
+      "declared_datasets": [
+        "NingLab/ECInstruct"
+      ],
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": null,
+      "gated": false,
+      "listed_weight_files": [
+        "adapter_model.safetensors",
+        "gguf/qwen3.5-4b-ec-magento-Q4_K_M.gguf"
+      ],
+      "metadata_sha256": "1b3f22c87d6d4c415da3a3decd99f57fbc15d4ca4eb1b5bc8a2559d8fd90687d",
+      "model_card_sha256": "90f973cd97d83bbc2f6542d7e91b1121848eb8dee64b092f0d44f98fc13d554c",
+      "group": "HF04",
+      "comparison_role": "DOMAIN_MULTITASK_ADAPTER",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "QA"
+      ],
+      "planned_tracks": [
+        "B02",
+        "B04",
+        "B05",
+        "B21",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/gabrielgts/qwen3.5-4b-ec-magento",
+      "metadata_url": "https://huggingface.co/api/models/gabrielgts/qwen3.5-4b-ec-magento",
+      "pinned_card_url": "https://huggingface.co/gabrielgts/qwen3.5-4b-ec-magento/blob/57d3fc7c60aa3175f011124320e0eec86e8d75ca/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "intfloat/multilingual-e5-small",
+      "observed_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "last_modified": "2026-04-02T02:16:05.000Z",
+      "displayed_license": "mit",
+      "declared_base": null,
+      "declared_datasets": null,
+      "pipeline_tag": "sentence-similarity",
+      "hub_safetensors_parameter_count_unverified": 117654272,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "openvino/openvino_model.bin",
+        "pytorch_model.bin"
+      ],
+      "metadata_sha256": "5062813ecefddbbf4215fffc24f6e2a77e70ac01cce8d8e05fb70f21c9b8dd65",
+      "model_card_sha256": "0038de97aee16258cecbad7ffda4b4febd6953e747a00e0ddbc8e6ed241e9c1c",
+      "group": "HF10",
+      "comparison_role": "TEXT_RETRIEVAL_CONTROL",
+      "planned_tasks": [
+        "Retrieve"
+      ],
+      "planned_tracks": [
+        "B06",
+        "B07",
+        "PRIVATE_FULL_CORPUS"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/intfloat/multilingual-e5-small",
+      "metadata_url": "https://huggingface.co/api/models/intfloat/multilingual-e5-small",
+      "pinned_card_url": "https://huggingface.co/intfloat/multilingual-e5-small/blob/614241f622f53c4eeff9890bdc4f31cfecc418b3/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "numind/NuExtract-2.0-2B",
+      "observed_revision": "5eb4a99746edc2ac44900f56a5c9431d3c03b16d",
+      "last_modified": "2026-05-19T18:59:59.000Z",
+      "displayed_license": "mit",
+      "declared_base": [
+        "Qwen/Qwen2-VL-2B-Instruct"
+      ],
+      "declared_datasets": null,
+      "pipeline_tag": "image-text-to-text",
+      "hub_safetensors_parameter_count_unverified": 2208985600,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "c543cbc2bf9283fc6e3298bd1511b2a468fd9df750422e529ba07f20dc32caeb",
+      "model_card_sha256": "4bbcedba7368bd6ce4f69c22a46368400d2e5aa05a18534b368824f37206eb0a",
+      "group": "HF09",
+      "comparison_role": "STRUCTURED_EXTRACTION",
+      "planned_tasks": [
+        "Understand"
+      ],
+      "planned_tracks": [
+        "B02",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/numind/NuExtract-2.0-2B",
+      "metadata_url": "https://huggingface.co/api/models/numind/NuExtract-2.0-2B",
+      "pinned_card_url": "https://huggingface.co/numind/NuExtract-2.0-2B/blob/5eb4a99746edc2ac44900f56a5c9431d3c03b16d/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "oro-ai/qwen3-4b-shoppingbench-kto",
+      "observed_revision": "4172b72e80afa9bbee9ae554ee2c1e64eb6eb887",
+      "last_modified": "2026-06-10T22:12:25.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": "Qwen/Qwen3-4B",
+      "declared_datasets": null,
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 4022468096,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00002.safetensors",
+        "model-00002-of-00002.safetensors"
+      ],
+      "metadata_sha256": "f958618ee5ec5f5c27f7b4a937b6f4e4f4faa6827df1db101358fdf2b497953e",
+      "model_card_sha256": "0a0c1953d0c043f02cb11ca8d1606c3712162aabbba5843d7bed026973f86169",
+      "group": "HF03",
+      "comparison_role": "SHOPPING_AGENT",
+      "planned_tasks": [
+        "Agent"
+      ],
+      "planned_tracks": [
+        "B20",
+        "PRIVATE_MISSIONS"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/oro-ai/qwen3-4b-shoppingbench-kto",
+      "metadata_url": "https://huggingface.co/api/models/oro-ai/qwen3-4b-shoppingbench-kto",
+      "pinned_card_url": "https://huggingface.co/oro-ai/qwen3-4b-shoppingbench-kto/blob/4172b72e80afa9bbee9ae554ee2c1e64eb6eb887/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "oro-ai/qwen3-4b-shoppingbench-rejection",
+      "observed_revision": "74297211bd2557e6f9f3e1f8adc7dc904bcb1d3d",
+      "last_modified": "2026-06-10T22:12:22.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": "Qwen/Qwen3-4B",
+      "declared_datasets": null,
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 4022468096,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00002.safetensors",
+        "model-00002-of-00002.safetensors"
+      ],
+      "metadata_sha256": "a79842bf309aaae71d086de534d7a2189c5ac21e6c70d253e1e7f57739cca121",
+      "model_card_sha256": "78de5c1fde0ba7f9b7d9a12adac9ecc64e609a0d5f2a41f4abdc1559cacfd264",
+      "group": "HF03",
+      "comparison_role": "SHOPPING_AGENT",
+      "planned_tasks": [
+        "Agent"
+      ],
+      "planned_tracks": [
+        "B20",
+        "PRIVATE_MISSIONS"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/oro-ai/qwen3-4b-shoppingbench-rejection",
+      "metadata_url": "https://huggingface.co/api/models/oro-ai/qwen3-4b-shoppingbench-rejection",
+      "pinned_card_url": "https://huggingface.co/oro-ai/qwen3-4b-shoppingbench-rejection/blob/74297211bd2557e6f9f3e1f8adc7dc904bcb1d3d/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "oro-ai/qwen3-4b-shoppingbench-sft",
+      "observed_revision": "2fbf90fc867bb7768a9e034fb8680a830a1d6373",
+      "last_modified": "2026-06-10T22:12:20.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": "Qwen/Qwen3-4B",
+      "declared_datasets": null,
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 4022468096,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00002.safetensors",
+        "model-00002-of-00002.safetensors"
+      ],
+      "metadata_sha256": "aa39cfc934f78f5a3a91c46c2f6aaa9f8c89006d5e73dd920e6c6ca3c119a82e",
+      "model_card_sha256": "01fdbaef8b439f182ed57d247bdce37bb159fb6eb1960db8a98f7956bfe73dcd",
+      "group": "HF03",
+      "comparison_role": "SHOPPING_AGENT",
+      "planned_tasks": [
+        "Agent"
+      ],
+      "planned_tracks": [
+        "B20",
+        "PRIVATE_MISSIONS"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/oro-ai/qwen3-4b-shoppingbench-sft",
+      "metadata_url": "https://huggingface.co/api/models/oro-ai/qwen3-4b-shoppingbench-sft",
+      "pinned_card_url": "https://huggingface.co/oro-ai/qwen3-4b-shoppingbench-sft/blob/2fbf90fc867bb7768a9e034fb8680a830a1d6373/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "sathishphdai/retail-slm-5m",
+      "observed_revision": "1deb752d96fab927e4be873e51a5e21340cf6ea1",
+      "last_modified": "2026-03-07T18:55:18.000Z",
+      "displayed_license": "mit",
+      "declared_base": null,
+      "declared_datasets": null,
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 42082816,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "pytorch_model.bin"
+      ],
+      "metadata_sha256": "25589226714ca23b796cda32252e2bc7db1c006c0763434627cdde56a152b28e",
+      "model_card_sha256": "34b1508b43e6b9c5e5267060787574a63784d0a0dc9c67730da8a4ecac32fd10",
+      "group": "HF15",
+      "comparison_role": "SMALL_RETAIL_MODEL_LEAD",
+      "planned_tasks": [
+        "PENDING_CONTRACT_AUDIT"
+      ],
+      "planned_tracks": [],
+      "planning_status": "BLOCKED_CAPABILITY_AND_CONFIG_VALIDATION",
+      "source_url": "https://huggingface.co/sathishphdai/retail-slm-5m",
+      "metadata_url": "https://huggingface.co/api/models/sathishphdai/retail-slm-5m",
+      "pinned_card_url": "https://huggingface.co/sathishphdai/retail-slm-5m/blob/1deb752d96fab927e4be873e51a5e21340cf6ea1/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "snapcart-ai/sam-1-base",
+      "observed_revision": "bff58c6f1f7b2f2baee216aa83fcc984dc6c4b3b",
+      "last_modified": "2026-02-23T05:11:41.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": "Qwen/Qwen2.5-7B-Instruct",
+      "declared_datasets": [
+        "snapcart-ai/sam-bench"
+      ],
+      "pipeline_tag": "text-generation",
+      "hub_safetensors_parameter_count_unverified": 7615616512,
+      "gated": false,
+      "listed_weight_files": [
+        "model-00001-of-00003.safetensors",
+        "model-00002-of-00003.safetensors",
+        "model-00003-of-00003.safetensors"
+      ],
+      "metadata_sha256": "3a72401a02269561cb8f360e92ea8eb330658d73a6e6d24ba0af97d33c091a2a",
+      "model_card_sha256": "e5c6cc85b8711ab8e3e05f70f8aaed9b3dcbe66cd8c94c1a09a566cca20916eb",
+      "group": "HF02",
+      "comparison_role": "DOMAIN_MULTITASK",
+      "planned_tasks": [
+        "Understand",
+        "Match",
+        "Rank",
+        "Agent",
+        "QA"
+      ],
+      "planned_tracks": [
+        "B19",
+        "PRIVATE_TRANSFER",
+        "PRIVATE_MISSIONS"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/snapcart-ai/sam-1-base",
+      "metadata_url": "https://huggingface.co/api/models/snapcart-ai/sam-1-base",
+      "pinned_card_url": "https://huggingface.co/snapcart-ai/sam-1-base/blob/bff58c6f1f7b2f2baee216aa83fcc984dc6c4b3b/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexBERT-base",
+      "observed_revision": "55bd1c52eb0714beefcb61cae5e304352197f44c",
+      "last_modified": "2026-02-05T02:32:05.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "thebajajra/Ecom-niverse"
+      ],
+      "pipeline_tag": "fill-mask",
+      "hub_safetensors_parameter_count_unverified": 149655232,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "pytorch_model.bin"
+      ],
+      "metadata_sha256": "3298d3045091a748c1f9891822fc9235977902b98bdbc4322864547c25472293",
+      "model_card_sha256": "c0ca253230010f40d08f8c4648155715721edcdffd7c8b75817423aa70e32322",
+      "group": "HF06",
+      "comparison_role": "DOMAIN_ENCODER_REQUIRES_TASK_HEAD",
+      "planned_tasks": [
+        "Match"
+      ],
+      "planned_tracks": [
+        "B03",
+        "B04",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexBERT-base",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexBERT-base",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexBERT-base/blob/55bd1c52eb0714beefcb61cae5e304352197f44c/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexBERT-large",
+      "observed_revision": "3edf1f6f41a05af87e68766d444948d8d8d24489",
+      "last_modified": "2026-02-05T02:32:23.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "thebajajra/Ecom-niverse"
+      ],
+      "pipeline_tag": "fill-mask",
+      "hub_safetensors_parameter_count_unverified": 395881664,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "pytorch_model.bin"
+      ],
+      "metadata_sha256": "26067f70e98b27ee3fef261987aad483f2644d8bcae9df34383f3d308396dc6d",
+      "model_card_sha256": "3eaa945a13b8e23c09f0187964ea6ef284a3f63c4c498781e99e1b1a26f434ee",
+      "group": "HF06",
+      "comparison_role": "DOMAIN_ENCODER_REQUIRES_TASK_HEAD",
+      "planned_tasks": [
+        "Match"
+      ],
+      "planned_tracks": [
+        "B03",
+        "B04",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexBERT-large",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexBERT-large",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexBERT-large/blob/3edf1f6f41a05af87e68766d444948d8d8d24489/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexBERT-micro",
+      "observed_revision": "25587117376236b769710249fdcb66d6041edcee",
+      "last_modified": "2026-02-05T02:31:46.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "thebajajra/Ecom-niverse"
+      ],
+      "pipeline_tag": "fill-mask",
+      "hub_safetensors_parameter_count_unverified": 16913600,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "pytorch_model.bin"
+      ],
+      "metadata_sha256": "1c74e425ae1cbee508152c474162e483c97cf81db29827e6230781476677896d",
+      "model_card_sha256": "f354b4a5c9199ccac66d5c8bf04b2ed987c12a19b5974e5cbed73e4cbb097469",
+      "group": "HF06",
+      "comparison_role": "DOMAIN_ENCODER_REQUIRES_TASK_HEAD",
+      "planned_tasks": [
+        "Match"
+      ],
+      "planned_tracks": [
+        "B03",
+        "B04",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexBERT-micro",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexBERT-micro",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexBERT-micro/blob/25587117376236b769710249fdcb66d6041edcee/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexBERT-mini",
+      "observed_revision": "fb7c32b3666d458f30cf113cdb1694bd09149839",
+      "last_modified": "2026-02-05T02:31:08.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": null,
+      "declared_datasets": [
+        "thebajajra/Ecom-niverse"
+      ],
+      "pipeline_tag": "fill-mask",
+      "hub_safetensors_parameter_count_unverified": 68457664,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors",
+        "pytorch_model.bin"
+      ],
+      "metadata_sha256": "ba25a6257e60736ab918379d5cb7a8234f0c05024268a84cd7da6dbec0541e46",
+      "model_card_sha256": "3258080e108eca271b6282dbdb3ab7310d4c830b052e6c20f11326495d30e0d3",
+      "group": "HF06",
+      "comparison_role": "DOMAIN_ENCODER_REQUIRES_TASK_HEAD",
+      "planned_tasks": [
+        "Match"
+      ],
+      "planned_tracks": [
+        "B03",
+        "B04",
+        "PRIVATE_TRANSFER"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexBERT-mini",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexBERT-mini",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexBERT-mini/blob/fb7c32b3666d458f30cf113cdb1694bd09149839/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexReranker-0.6B",
+      "observed_revision": "9f96518c337a9a608e22abfdafb205a55a7df8e9",
+      "last_modified": "2026-01-24T14:19:30.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "Qwen/Qwen3-Reranker-0.6B"
+      ],
+      "declared_datasets": [
+        "thebajajra/Amazebay-Relevance"
+      ],
+      "pipeline_tag": "text-ranking",
+      "hub_safetensors_parameter_count_unverified": 595776512,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "88e4a875101d3688d02a6e0b0b950bb9f8b5a1b5869d19e80336a61190e0181b",
+      "model_card_sha256": "04d988de9dd55f2e3257770bfa77635d35b0acaa416948ae0577bd60e9423928",
+      "group": "HF07",
+      "comparison_role": "DOMAIN_RERANKER",
+      "planned_tasks": [
+        "Rank"
+      ],
+      "planned_tracks": [
+        "B05",
+        "B06"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexReranker-0.6B",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexReranker-0.6B",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexReranker-0.6B/blob/9f96518c337a9a608e22abfdafb205a55a7df8e9/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexReranker-base",
+      "observed_revision": "f187e434d1505f3f90d709a02f5506c2f147c559",
+      "last_modified": "2026-01-24T14:17:51.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "thebajajra/RexBERT-base"
+      ],
+      "declared_datasets": [
+        "thebajajra/Amazebay-Relevance"
+      ],
+      "pipeline_tag": "text-ranking",
+      "hub_safetensors_parameter_count_unverified": 149605633,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "28be886081d0152ea632d12f59fd45cb2ab14c70ba86949d99633da87ad52ad3",
+      "model_card_sha256": "793ccd673ade106e723ff427110ce2ba3308e3b13a3de6aa82b9d1c51bddce36",
+      "group": "HF07",
+      "comparison_role": "DOMAIN_RERANKER",
+      "planned_tasks": [
+        "Rank"
+      ],
+      "planned_tracks": [
+        "B05",
+        "B06"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexReranker-base",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexReranker-base",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexReranker-base/blob/f187e434d1505f3f90d709a02f5506c2f147c559/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexReranker-large",
+      "observed_revision": "3840b9084c007373f93a4b7c569d28c14d722686",
+      "last_modified": "2026-01-24T14:18:24.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "thebajajra/RexBERT-large"
+      ],
+      "declared_datasets": [
+        "thebajajra/Amazebay-Relevance"
+      ],
+      "pipeline_tag": "text-ranking",
+      "hub_safetensors_parameter_count_unverified": 395832321,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "0e1dad81b245b1573a2951ccad8a2b770adc6bfabaeef0a3713dccb64d415995",
+      "model_card_sha256": "3886cf1afd6b048564f9355b4f9181475018a72270f7baa71bc6f1b66a4dd867",
+      "group": "HF07",
+      "comparison_role": "DOMAIN_RERANKER",
+      "planned_tasks": [
+        "Rank"
+      ],
+      "planned_tracks": [
+        "B05",
+        "B06"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexReranker-large",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexReranker-large",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexReranker-large/blob/3840b9084c007373f93a4b7c569d28c14d722686/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexReranker-micro",
+      "observed_revision": "731930bdaa288b0132acdad018c009c331f7dbf9",
+      "last_modified": "2026-01-24T14:18:46.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "thebajajra/RexBERT-micro"
+      ],
+      "declared_datasets": [
+        "thebajajra/Amazebay-Relevance"
+      ],
+      "pipeline_tag": "text-ranking",
+      "hub_safetensors_parameter_count_unverified": 16863489,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "104c0cc1b34993508a1983ca2afde825f1ccae3ce075848729e4f94a1e9a8bf5",
+      "model_card_sha256": "778b09b90e7d2a9194052b5ae08946977cca77af870b46153b4ac6dd3fd066bb",
+      "group": "HF07",
+      "comparison_role": "DOMAIN_RERANKER",
+      "planned_tasks": [
+        "Rank"
+      ],
+      "planned_tracks": [
+        "B05",
+        "B06"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexReranker-micro",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexReranker-micro",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexReranker-micro/blob/731930bdaa288b0132acdad018c009c331f7dbf9/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    },
+    {
+      "repository": "thebajajra/RexReranker-mini",
+      "observed_revision": "64ee61a1dd958a19fced94d49d12fc5f16ac4296",
+      "last_modified": "2026-01-24T14:11:02.000Z",
+      "displayed_license": "apache-2.0",
+      "declared_base": [
+        "thebajajra/RexBERT-mini"
+      ],
+      "declared_datasets": [
+        "thebajajra/Amazebay-Relevance"
+      ],
+      "pipeline_tag": "text-ranking",
+      "hub_safetensors_parameter_count_unverified": 68407809,
+      "gated": false,
+      "listed_weight_files": [
+        "model.safetensors"
+      ],
+      "metadata_sha256": "1a6a02012928afd34b6cc74746fa580c0606ac7ef8b4363e4fe151e7a3a43101",
+      "model_card_sha256": "1c847c028a5543b7b34ebec3b36433d8ef4c2af7ee5b8de566f292a1260740cd",
+      "group": "HF07",
+      "comparison_role": "DOMAIN_RERANKER",
+      "planned_tasks": [
+        "Rank"
+      ],
+      "planned_tracks": [
+        "B05",
+        "B06"
+      ],
+      "planning_status": "REQUIRED_PENDING_PREFLIGHT",
+      "source_url": "https://huggingface.co/thebajajra/RexReranker-mini",
+      "metadata_url": "https://huggingface.co/api/models/thebajajra/RexReranker-mini",
+      "pinned_card_url": "https://huggingface.co/thebajajra/RexReranker-mini/blob/64ee61a1dd958a19fced94d49d12fc5f16ac4296/README.md",
+      "weight_download_status": "NOT_DOWNLOADED",
+      "runtime_status": "NOT_RUN",
+      "comparison_status": "NOT_RUN",
+      "experiment_revision_status": "REFRESH_AND_PIN_AT_PROTOCOL_FREEZE"
+    }
+  ],
+  "external_comparators": [
+    {
+      "id": "EXT01",
+      "name": "EcomGPT multilingual 7B",
+      "author_repository": "https://github.com/Alibaba-NLP/EcomGPT",
+      "author_linked_checkpoint": "https://www.modelscope.cn/models/damo/nlp_ecomgpt_multilingual-7B-ecom/summary",
+      "source_status": "AUTHOR_REPOSITORY_INSPECTED",
+      "planning_status": "REQUIRED_PENDING_CHECKPOINT_RIGHTS_AND_LOADER_PREFLIGHT",
+      "comparison_status": "NOT_RUN",
+      "note": "Author points to ModelScope; do not invent an official Hugging Face mirror"
+    }
+  ],
+  "provider_roles": [
+    {
+      "id": "ANTHROPIC_STRONG",
+      "resolved_model_id": null,
+      "snapshot": null,
+      "planning_status": "REQUIRED_RESOLVE_AT_EXPERIMENT_FREEZE",
+      "comparison_status": "NOT_RUN"
+    },
+    {
+      "id": "ANTHROPIC_LOWER_COST",
+      "resolved_model_id": null,
+      "snapshot": null,
+      "planning_status": "REQUIRED_RESOLVE_AT_EXPERIMENT_FREEZE",
+      "comparison_status": "NOT_RUN"
+    },
+    {
+      "id": "OPENAI_STRONG",
+      "resolved_model_id": null,
+      "snapshot": null,
+      "planning_status": "REQUIRED_RESOLVE_AT_EXPERIMENT_FREEZE",
+      "comparison_status": "NOT_RUN"
+    },
+    {
+      "id": "OPENAI_LOWER_COST",
+      "resolved_model_id": null,
+      "snapshot": null,
+      "planning_status": "REQUIRED_RESOLVE_AT_EXPERIMENT_FREEZE",
+      "comparison_status": "NOT_RUN"
+    }
+  ],
+  "counts": {
+    "hf_models": 38,
+    "external_comparators": 1,
+    "provider_roles": 4
+  }
+}

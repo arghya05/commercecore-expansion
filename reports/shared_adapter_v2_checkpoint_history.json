@@ -1,0 +1,234 @@
+[
+  {
+    "step": 100,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.26666666666666666,
+      "match_identity": 0.8,
+      "match_functional_relation": 1.0,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {
+      "match_relevance": {
+        "frontier_claude-haiku-4-5": 0.4666666666666667,
+        "frontier_claude-sonnet-5": 0.5833333333333334,
+        "frontier_gpt-5-mini": 0.48333333333333334,
+        "frontier_gpt-5": 0.4666666666666667
+      },
+      "match_identity": {
+        "frontier_claude-haiku-4-5": 0.78,
+        "frontier_claude-sonnet-5": 0.92,
+        "frontier_gpt-5-mini": 0.8,
+        "frontier_gpt-5": 0.84
+      }
+    },
+    "beats_all_comparators": {
+      "match_relevance": false,
+      "match_identity": false,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 200,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.43333333333333335,
+      "match_identity": 0.8,
+      "match_functional_relation": 0.06666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {
+      "match_relevance": {
+        "frontier_claude-haiku-4-5": 0.4666666666666667,
+        "frontier_claude-sonnet-5": 0.5833333333333334,
+        "frontier_gpt-5-mini": 0.48333333333333334,
+        "frontier_gpt-5": 0.4666666666666667
+      },
+      "match_identity": {
+        "frontier_claude-haiku-4-5": 0.78,
+        "frontier_claude-sonnet-5": 0.92,
+        "frontier_gpt-5-mini": 0.8,
+        "frontier_gpt-5": 0.84
+      }
+    },
+    "beats_all_comparators": {
+      "match_relevance": false,
+      "match_identity": false,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 300,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.4,
+      "match_identity": 0.8,
+      "match_functional_relation": 0.4666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {
+      "match_relevance": {
+        "frontier_claude-haiku-4-5": 0.4666666666666667,
+        "frontier_claude-sonnet-5": 0.5833333333333334,
+        "frontier_gpt-5-mini": 0.48333333333333334,
+        "frontier_gpt-5": 0.4666666666666667
+      },
+      "match_identity": {
+        "frontier_claude-haiku-4-5": 0.78,
+        "frontier_claude-sonnet-5": 0.92,
+        "frontier_gpt-5-mini": 0.8,
+        "frontier_gpt-5": 0.84
+      }
+    },
+    "beats_all_comparators": {
+      "match_relevance": false,
+      "match_identity": false,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 400,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.4666666666666667,
+      "match_identity": 0.7666666666666667,
+      "match_functional_relation": 0.4666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {
+      "match_relevance": {
+        "frontier_claude-haiku-4-5": 0.4666666666666667,
+        "frontier_claude-sonnet-5": 0.5833333333333334,
+        "frontier_gpt-5-mini": 0.48333333333333334,
+        "frontier_gpt-5": 0.4666666666666667
+      },
+      "match_identity": {
+        "frontier_claude-haiku-4-5": 0.78,
+        "frontier_claude-sonnet-5": 0.92,
+        "frontier_gpt-5-mini": 0.8,
+        "frontier_gpt-5": 0.84
+      }
+    },
+    "beats_all_comparators": {
+      "match_relevance": false,
+      "match_identity": false,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 500,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.43333333333333335,
+      "match_identity": 0.8666666666666667,
+      "match_functional_relation": 0.6666666666666666,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {
+      "match_relevance": {
+        "frontier_claude-haiku-4-5": 0.4666666666666667,
+        "frontier_claude-sonnet-5": 0.5833333333333334,
+        "frontier_gpt-5-mini": 0.48333333333333334,
+        "frontier_gpt-5": 0.4666666666666667
+      },
+      "match_identity": {
+        "frontier_claude-haiku-4-5": 0.78,
+        "frontier_claude-sonnet-5": 0.92,
+        "frontier_gpt-5-mini": 0.8,
+        "frontier_gpt-5": 0.84
+      }
+    },
+    "beats_all_comparators": {
+      "match_relevance": false,
+      "match_identity": false,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 600,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.5,
+      "match_identity": 0.8666666666666667,
+      "match_functional_relation": 0.9333333333333333,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {
+      "match_relevance": {
+        "frontier_claude-haiku-4-5": 0.4666666666666667,
+        "frontier_claude-sonnet-5": 0.5833333333333334,
+        "frontier_gpt-5-mini": 0.48333333333333334,
+        "frontier_gpt-5": 0.4666666666666667
+      },
+      "match_identity": {
+        "frontier_claude-haiku-4-5": 0.78,
+        "frontier_claude-sonnet-5": 0.92,
+        "frontier_gpt-5-mini": 0.8,
+        "frontier_gpt-5": 0.84
+      }
+    },
+    "beats_all_comparators": {
+      "match_relevance": false,
+      "match_identity": false,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 700,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.5333333333333333,
+      "match_identity": 0.8,
+      "match_functional_relation": 0.8666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {
+      "match_relevance": {
+        "frontier_claude-haiku-4-5": 0.4666666666666667,
+        "frontier_claude-sonnet-5": 0.5833333333333334,
+        "frontier_gpt-5-mini": 0.48333333333333334,
+        "frontier_gpt-5": 0.4666666666666667
+      },
+      "match_identity": {
+        "frontier_claude-haiku-4-5": 0.78,
+        "frontier_claude-sonnet-5": 0.92,
+        "frontier_gpt-5-mini": 0.8,
+        "frontier_gpt-5": 0.84
+      }
+    },
+    "beats_all_comparators": {
+      "match_relevance": false,
+      "match_identity": false,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  },
+  {
+    "step": 800,
+    "dev_accuracy_by_task": {
+      "match_relevance": 0.5,
+      "match_identity": 0.8666666666666667,
+      "match_functional_relation": 0.8666666666666667,
+      "match_technical_compatibility": 1.0
+    },
+    "comparator_scores": {
+      "match_relevance": {
+        "frontier_claude-haiku-4-5": 0.4666666666666667,
+        "frontier_claude-sonnet-5": 0.5833333333333334,
+        "frontier_gpt-5-mini": 0.48333333333333334,
+        "frontier_gpt-5": 0.4666666666666667
+      },
+      "match_identity": {
+        "frontier_claude-haiku-4-5": 0.78,
+        "frontier_claude-sonnet-5": 0.92,
+        "frontier_gpt-5-mini": 0.8,
+        "frontier_gpt-5": 0.84
+      }
+    },
+    "beats_all_comparators": {
+      "match_relevance": false,
+      "match_identity": false,
+      "match_functional_relation": true,
+      "match_technical_compatibility": true
+    }
+  }
+]
