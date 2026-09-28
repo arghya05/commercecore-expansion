@@ -1,3 +1,8 @@
+# An unrelated external clone (WDC PAVE benchmark repo, its own nested .git),
+# not part of this project -- left untouched on disk, excluded here so it
+# doesn't show up as noise in every git status.
+data/pave/
+
 # Large model weights and datasets -- these live on Hugging Face, not GitHub.
 # See README.md for the HF repo link.
 models/

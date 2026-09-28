@@ -1,0 +1,20 @@
+# Serving + inference (required to run the quickstart in README.md)
+fastapi>=0.141
+uvicorn>=0.54
+torch>=2.14
+peft>=0.21
+transformers>=5.16
+bitsandbytes>=0.50
+pydantic>=2.13
+
+# Training + data pipeline
+accelerate>=1.15
+datasets>=5.0
+
+# Evaluation (frontier/comparator sweeps)
+anthropic>=1.8
+openai>=3.19
+sentence-transformers>=6.1
+
+# Load testing
+locust>=2.46

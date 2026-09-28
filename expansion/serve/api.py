@@ -1,8 +1,9 @@
 """Expansion serving API. Entirely separate process/port/namespace from the
 legacy commercecore/serve/api.py `/parse-query` route, per master §1.1.
 
-Serves the new /v1/match/* routes. Does not implement Query parsing (B01/U11
-explicitly excluded per plans/12_data_and_evidence_registry.md).
+Serves /v1/match/relevance, /v1/match/identity, /v1/match/functional-relation,
+and /v1/catalog/normalize (Understand). Does not implement Query parsing
+(B01/U11 explicitly excluded per plans/12_data_and_evidence_registry.md).
 """
 from __future__ import annotations
 
@@ -28,6 +29,32 @@ _understand_model = None
 _understand_tokenizer = None
 _understand_model_lock = threading.Lock()
 
+FUNCTIONAL_RELATION_ADAPTER_PATH = Path("models/functional_relation_adapter_v1")
+_functional_relation_model = None
+_functional_relation_tokenizer = None
+_functional_relation_model_lock = threading.Lock()
+
+# Self-hosted inference has no per-token API price; this is a compute-cost
+# ESTIMATE only, not a billed rate, disclosed as such in every response.
+# Basis: a single RTX 4090 (this project's training/eval hardware) at its
+# RunPod secure-cloud on-demand rate, $0.74/hr (reports/*_2026-09-28 logs),
+# divided by an assumed continuous-serving throughput of ~20 tokens/sec for
+# this 1.7B model on that GPU (a conservative estimate consistent with the
+# ~1.9-2.1 it/s token-generation rates observed during this project's own
+# training runs on the same hardware, e.g. singletoken_train.log). This
+# does NOT include model loading, idle capacity, or batching efficiency
+# gains -- it is deliberately a simple, disclosed, single-request estimate,
+# not a production cost model.
+ESTIMATED_GPU_COST_PER_HOUR_USD = 0.74
+ESTIMATED_TOKENS_PER_SECOND = 20.0
+ESTIMATED_COST_PER_1K_TOKENS_USD = (
+    ESTIMATED_GPU_COST_PER_HOUR_USD / 3600 / ESTIMATED_TOKENS_PER_SECOND
+) * 1000
+
+
+def _estimate_cost_usd(total_tokens: int) -> float:
+    return round((total_tokens / 1000) * ESTIMATED_COST_PER_1K_TOKENS_USD, 8)
+
 
 class MatchRelevanceRequest(BaseModel):
     tenant_id: str
@@ -41,6 +68,10 @@ class MatchRelevanceResponse(BaseModel):
     label: Literal["exact", "substitute", "complement", "irrelevant", "invalid_output"]
     status: Literal["ok", "invalid_input", "model_unavailable"]
     latency_ms: float
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    total_tokens: int = 0
+    estimated_cost_usd: float = 0.0
 
 
 class MatchIdentityRequest(BaseModel):
@@ -55,6 +86,10 @@ class MatchIdentityResponse(BaseModel):
     label: Literal["same", "distinct", "unknown", "invalid_output"]
     status: Literal["ok", "invalid_input", "model_unavailable"]
     latency_ms: float
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    total_tokens: int = 0
+    estimated_cost_usd: float = 0.0
 
 
 class CatalogNormalizeRequest(BaseModel):
@@ -69,6 +104,28 @@ class CatalogNormalizeResponse(BaseModel):
     color: str | None
     status: Literal["ok", "invalid_input", "model_unavailable", "parse_error"]
     latency_ms: float
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    total_tokens: int = 0
+    estimated_cost_usd: float = 0.0
+
+
+class FunctionalRelationRequest(BaseModel):
+    tenant_id: str
+    listing_a: str
+    listing_b: str
+
+
+class FunctionalRelationResponse(BaseModel):
+    request_id: str
+    model_revision: str
+    label: Literal["substitute", "complement", "unrelated", "invalid_output"]
+    status: Literal["ok", "invalid_input", "model_unavailable"]
+    latency_ms: float
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    total_tokens: int = 0
+    estimated_cost_usd: float = 0.0
 
 
 def _load_model():
@@ -100,20 +157,23 @@ def _load_model():
     return _model, _tokenizer
 
 
-def _generate(prompt: str, max_new_tokens: int = 8) -> str:
+def _generate(prompt: str, max_new_tokens: int = 8) -> tuple[str, int, int]:
+    """Returns (text, prompt_tokens, completion_tokens)."""
     import torch
 
     model, tokenizer = _load_model()
     if model is None:
         raise RuntimeError("adapter not available")
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    prompt_tokens = inputs["input_ids"].shape[1]
     with torch.no_grad():
         out = model.generate(
             **inputs, max_new_tokens=max_new_tokens, do_sample=False,
             pad_token_id=tokenizer.eos_token_id,
         )
-    text = tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-    return text.strip()
+    completion_ids = out[0][prompt_tokens:]
+    text = tokenizer.decode(completion_ids, skip_special_tokens=True)
+    return text.strip(), prompt_tokens, completion_ids.shape[0]
 
 
 def _load_understand_model():
@@ -138,20 +198,62 @@ def _load_understand_model():
     return _understand_model, _understand_tokenizer
 
 
-def _generate_understand(prompt: str, max_new_tokens: int = 40) -> str:
+def _generate_understand(prompt: str, max_new_tokens: int = 40) -> tuple[str, int, int]:
     import torch
 
     model, tokenizer = _load_understand_model()
     if model is None:
         raise RuntimeError("understand adapter not available")
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    prompt_tokens = inputs["input_ids"].shape[1]
     with torch.no_grad():
         out = model.generate(
             **inputs, max_new_tokens=max_new_tokens, do_sample=False,
             pad_token_id=tokenizer.eos_token_id,
         )
-    text = tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-    return text.strip()
+    completion_ids = out[0][prompt_tokens:]
+    text = tokenizer.decode(completion_ids, skip_special_tokens=True)
+    return text.strip(), prompt_tokens, completion_ids.shape[0]
+
+
+def _load_functional_relation_model():
+    global _functional_relation_model, _functional_relation_tokenizer
+    if _functional_relation_model is not None:
+        return _functional_relation_model, _functional_relation_tokenizer
+    if not FUNCTIONAL_RELATION_ADAPTER_PATH.exists():
+        return None, None
+    with _functional_relation_model_lock:
+        if _functional_relation_model is not None:
+            return _functional_relation_model, _functional_relation_tokenizer
+        import torch
+        from peft import PeftModel
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        base = AutoModelForCausalLM.from_pretrained(
+            "Qwen/Qwen3-1.7B", torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
+        ).to(device)
+        _functional_relation_model = PeftModel.from_pretrained(base, str(FUNCTIONAL_RELATION_ADAPTER_PATH)).to(device)
+        _functional_relation_tokenizer = AutoTokenizer.from_pretrained(str(FUNCTIONAL_RELATION_ADAPTER_PATH))
+    return _functional_relation_model, _functional_relation_tokenizer
+
+
+def _generate_functional_relation(prompt: str, max_new_tokens: int = 6) -> tuple[str, int, int]:
+    import torch
+
+    model, tokenizer = _load_functional_relation_model()
+    if model is None:
+        raise RuntimeError("functional_relation adapter not available")
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    prompt_tokens = inputs["input_ids"].shape[1]
+    with torch.no_grad():
+        out = model.generate(
+            **inputs, max_new_tokens=max_new_tokens, do_sample=False,
+            pad_token_id=tokenizer.eos_token_id,
+        )
+    completion_ids = out[0][prompt_tokens:]
+    text = tokenizer.decode(completion_ids, skip_special_tokens=True)
+    return text.strip(), prompt_tokens, completion_ids.shape[0]
 
 
 @app.post("/v1/match/relevance", response_model=MatchRelevanceResponse)
@@ -166,7 +268,7 @@ def match_relevance(req: MatchRelevanceRequest):
         f"Query: {req.query}\nProduct: {req.product_title}\nAnswer:"
     )
     try:
-        raw = _generate(prompt)
+        raw, prompt_tokens, completion_tokens = _generate(prompt)
     except RuntimeError:
         return MatchRelevanceResponse(
             request_id=request_id, model_revision="unavailable", label="invalid_output",
@@ -174,9 +276,12 @@ def match_relevance(req: MatchRelevanceRequest):
         )
 
     label = next((l for l in ["exact", "substitute", "complement", "irrelevant"] if l in raw.lower()), "invalid_output")
+    total_tokens = prompt_tokens + completion_tokens
     return MatchRelevanceResponse(
         request_id=request_id, model_revision="shared_adapter_v1", label=label,
         status="ok", latency_ms=(time.time() - t0) * 1000,
+        prompt_tokens=prompt_tokens, completion_tokens=completion_tokens,
+        total_tokens=total_tokens, estimated_cost_usd=_estimate_cost_usd(total_tokens),
     )
 
 
@@ -192,7 +297,7 @@ def match_identity(req: MatchIdentityRequest):
         f"Listing A: {req.title_a}\nListing B: {req.title_b}\nAnswer:"
     )
     try:
-        raw = _generate(prompt)
+        raw, prompt_tokens, completion_tokens = _generate(prompt)
     except RuntimeError:
         return MatchIdentityResponse(
             request_id=request_id, model_revision="unavailable", label="invalid_output",
@@ -200,9 +305,12 @@ def match_identity(req: MatchIdentityRequest):
         )
 
     label = next((l for l in ["same", "distinct", "unknown"] if l in raw.lower()), "invalid_output")
+    total_tokens = prompt_tokens + completion_tokens
     return MatchIdentityResponse(
         request_id=request_id, model_revision="shared_adapter_v1", label=label,
         status="ok", latency_ms=(time.time() - t0) * 1000,
+        prompt_tokens=prompt_tokens, completion_tokens=completion_tokens,
+        total_tokens=total_tokens, estimated_cost_usd=_estimate_cost_usd(total_tokens),
     )
 
 
@@ -219,25 +327,59 @@ def catalog_normalize(req: CatalogNormalizeRequest):
         f"Listing: {req.text}\nAnswer:"
     )
     try:
-        raw = _generate_understand(prompt)
+        raw, prompt_tokens, completion_tokens = _generate_understand(prompt)
     except RuntimeError:
         return CatalogNormalizeResponse(
             request_id=request_id, model_revision="unavailable", brand=None, color=None,
             status="model_unavailable", latency_ms=(time.time() - t0) * 1000,
         )
 
+    total_tokens = prompt_tokens + completion_tokens
     try:
         obj = json.loads(raw)
         return CatalogNormalizeResponse(
             request_id=request_id, model_revision="understand_adapter_v1",
             brand=obj.get("brand"), color=obj.get("color"),
             status="ok", latency_ms=(time.time() - t0) * 1000,
+            prompt_tokens=prompt_tokens, completion_tokens=completion_tokens,
+            total_tokens=total_tokens, estimated_cost_usd=_estimate_cost_usd(total_tokens),
         )
     except json.JSONDecodeError:
         return CatalogNormalizeResponse(
             request_id=request_id, model_revision="understand_adapter_v1", brand=None, color=None,
             status="parse_error", latency_ms=(time.time() - t0) * 1000,
+            prompt_tokens=prompt_tokens, completion_tokens=completion_tokens,
+            total_tokens=total_tokens, estimated_cost_usd=_estimate_cost_usd(total_tokens),
         )
+
+
+@app.post("/v1/match/functional-relation", response_model=FunctionalRelationResponse)
+def match_functional_relation(req: FunctionalRelationRequest):
+    request_id = str(uuid.uuid4())
+    t0 = time.time()
+    if not req.listing_a.strip() or not req.listing_b.strip():
+        raise HTTPException(status_code=400, detail="listing_a and listing_b are required")
+
+    prompt = (
+        "Classify the functional relation: substitute, complement, or unrelated.\n"
+        f"{req.listing_a}\n{req.listing_b}\nAnswer:"
+    )
+    try:
+        raw, prompt_tokens, completion_tokens = _generate_functional_relation(prompt)
+    except RuntimeError:
+        return FunctionalRelationResponse(
+            request_id=request_id, model_revision="unavailable", label="invalid_output",
+            status="model_unavailable", latency_ms=(time.time() - t0) * 1000,
+        )
+
+    label = next((l for l in ["substitute", "complement", "unrelated"] if l in raw.lower()), "invalid_output")
+    total_tokens = prompt_tokens + completion_tokens
+    return FunctionalRelationResponse(
+        request_id=request_id, model_revision="functional_relation_adapter_v1", label=label,
+        status="ok", latency_ms=(time.time() - t0) * 1000,
+        prompt_tokens=prompt_tokens, completion_tokens=completion_tokens,
+        total_tokens=total_tokens, estimated_cost_usd=_estimate_cost_usd(total_tokens),
+    )
 
 
 @app.get("/health")
@@ -246,4 +388,7 @@ def health():
         "status": "ok",
         "match_adapter_available": ADAPTER_PATH.exists(),
         "understand_adapter_available": UNDERSTAND_ADAPTER_PATH.exists(),
+        "functional_relation_adapter_available": FUNCTIONAL_RELATION_ADAPTER_PATH.exists(),
+        "estimated_cost_per_1k_tokens_usd": round(ESTIMATED_COST_PER_1K_TOKENS_USD, 8),
+        "cost_estimate_basis": "self-hosted GPU compute estimate, not a billed API rate -- see code comment on ESTIMATED_GPU_COST_PER_HOUR_USD",
     }
