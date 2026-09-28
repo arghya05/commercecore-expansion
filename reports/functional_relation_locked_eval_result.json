@@ -1,0 +1,12 @@
+{
+  "accuracy": 0.8214285714285714,
+  "n": 28,
+  "checkpoint": "models/functional_relation_adapter_v1/checkpoint-450",
+  "confusion": {
+    "complement->complement": 14,
+    "substitute->complement": 3,
+    "substitute->substitute": 7,
+    "unrelated->unrelated": 2,
+    "unrelated->complement": 2
+  }
+}

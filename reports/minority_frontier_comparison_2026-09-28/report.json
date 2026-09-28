@@ -1,0 +1,256 @@
+{
+  "functional_relation": {
+    "claude-haiku-4-5": {
+      "model_id": "claude-haiku-4-5-20251001",
+      "n": 13,
+      "accuracy": 0.8461538461538461,
+      "invalid_or_error_rate": 0.15384615384615385,
+      "predictions": [
+        "complement",
+        "substitute",
+        "complement",
+        "substitute",
+        "substitute",
+        "substitute",
+        "invalid_output",
+        "complement",
+        "unrelated",
+        "invalid_output",
+        "unrelated",
+        "unrelated",
+        "complement"
+      ],
+      "gold": [
+        "complement",
+        "substitute",
+        "complement",
+        "substitute",
+        "substitute",
+        "substitute",
+        "complement",
+        "complement",
+        "unrelated",
+        "complement",
+        "unrelated",
+        "unrelated",
+        "complement"
+      ]
+    },
+    "claude-sonnet-5": {
+      "model_id": "claude-sonnet-5",
+      "n": 13,
+      "accuracy": 0.8461538461538461,
+      "invalid_or_error_rate": 0.07692307692307693,
+      "predictions": [
+        "complement",
+        "substitute",
+        "complement",
+        "substitute",
+        "substitute",
+        "substitute",
+        "call_error",
+        "complement",
+        "unrelated",
+        "unrelated",
+        "unrelated",
+        "unrelated",
+        "complement"
+      ],
+      "gold": [
+        "complement",
+        "substitute",
+        "complement",
+        "substitute",
+        "substitute",
+        "substitute",
+        "complement",
+        "complement",
+        "unrelated",
+        "complement",
+        "unrelated",
+        "unrelated",
+        "complement"
+      ]
+    },
+    "gpt-5-mini": {
+      "model_id": "gpt-5-mini",
+      "n": 13,
+      "accuracy": 0.8461538461538461,
+      "invalid_or_error_rate": 0.0,
+      "predictions": [
+        "complement",
+        "substitute",
+        "complement",
+        "substitute",
+        "substitute",
+        "substitute",
+        "unrelated",
+        "complement",
+        "unrelated",
+        "unrelated",
+        "unrelated",
+        "unrelated",
+        "complement"
+      ],
+      "gold": [
+        "complement",
+        "substitute",
+        "complement",
+        "substitute",
+        "substitute",
+        "substitute",
+        "complement",
+        "complement",
+        "unrelated",
+        "complement",
+        "unrelated",
+        "unrelated",
+        "complement"
+      ]
+    },
+    "gpt-5": {
+      "model_id": "gpt-5",
+      "n": 13,
+      "accuracy": 0.8461538461538461,
+      "invalid_or_error_rate": 0.0,
+      "predictions": [
+        "complement",
+        "substitute",
+        "complement",
+        "substitute",
+        "substitute",
+        "substitute",
+        "unrelated",
+        "complement",
+        "unrelated",
+        "unrelated",
+        "unrelated",
+        "unrelated",
+        "complement"
+      ],
+      "gold": [
+        "complement",
+        "substitute",
+        "complement",
+        "substitute",
+        "substitute",
+        "substitute",
+        "complement",
+        "complement",
+        "unrelated",
+        "complement",
+        "unrelated",
+        "unrelated",
+        "complement"
+      ]
+    }
+  },
+  "technical_compatibility": {
+    "claude-haiku-4-5": {
+      "model_id": "claude-haiku-4-5-20251001",
+      "n": 8,
+      "accuracy": 1.0,
+      "invalid_or_error_rate": 0.0,
+      "predictions": [
+        "compatible",
+        "incompatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible"
+      ],
+      "gold": [
+        "compatible",
+        "incompatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible"
+      ]
+    },
+    "claude-sonnet-5": {
+      "model_id": "claude-sonnet-5",
+      "n": 8,
+      "accuracy": 1.0,
+      "invalid_or_error_rate": 0.0,
+      "predictions": [
+        "compatible",
+        "incompatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible"
+      ],
+      "gold": [
+        "compatible",
+        "incompatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible"
+      ]
+    },
+    "gpt-5-mini": {
+      "model_id": "gpt-5-mini",
+      "n": 8,
+      "accuracy": 1.0,
+      "invalid_or_error_rate": 0.0,
+      "predictions": [
+        "compatible",
+        "incompatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible"
+      ],
+      "gold": [
+        "compatible",
+        "incompatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible"
+      ]
+    },
+    "gpt-5": {
+      "model_id": "gpt-5",
+      "n": 8,
+      "accuracy": 1.0,
+      "invalid_or_error_rate": 0.0,
+      "predictions": [
+        "compatible",
+        "incompatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible"
+      ],
+      "gold": [
+        "compatible",
+        "incompatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible",
+        "incompatible",
+        "compatible"
+      ]
+    }
+  },
+  "n_functional": 13,
+  "n_compat": 8
+}

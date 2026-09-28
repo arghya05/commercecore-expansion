@@ -1,0 +1,151 @@
+{
+  "model": "NingLab/eCeLLM-S",
+  "task": "match_functional_relation",
+  "comparison_status": "RUN",
+  "prompt_format": "own instruction-style, project's own labels (no cross-taxonomy label mapping)",
+  "accuracy": 0.14285714285714285,
+  "invalid_rate": 0.0,
+  "n": 28,
+  "predictions": [
+    {
+      "gold": "complement",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "substitute",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "substitute",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "substitute",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "complement",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "substitute",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "unrelated",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "unrelated",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "substitute",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "substitute",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "substitute",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "substitute",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "substitute",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "substitute",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "complement",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "unrelated",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    },
+    {
+      "gold": "unrelated",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "complement",
+      "pred": "substitute",
+      "raw": "a: b"
+    },
+    {
+      "gold": "complement",
+      "pred": "unrelated",
+      "raw": "{\"product 2:\": \""
+    }
+  ]
+}

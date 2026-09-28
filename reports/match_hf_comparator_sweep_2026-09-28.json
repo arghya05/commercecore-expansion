@@ -1,0 +1,33 @@
+{
+  "description": "RexBERT/RexReranker/Qwen3-Embedding sweep for match_identity and match_relevance, completing the previously-partial HF comparator sweep. Both models are similarity/ranking models, not native categorical classifiers, so thresholds were fit by scanning candidate values ON THE TEST SET ITSELF -- this is an UPPER BOUND on their real accuracy (a real deployment would have to pick the threshold in advance on separate data), not a conservative estimate, and is disclosed as such rather than presented as a fair apples-to-apples number against the adapters/frontier models (which were not given any equivalent test-set-fit calibration).",
+  "match_identity": {
+    "task_format": "same/distinct binary classification, 50 pairs (25/25), exact same eval set as the frontier comparison",
+    "results": {
+      "Qwen/Qwen3-Embedding-0.6B": {"best_threshold": 0.67, "accuracy_upper_bound": 0.70},
+      "thebajajra/RexReranker-base": {"best_threshold": 0.66, "accuracy_upper_bound": 0.72}
+    },
+    "comparison": {
+      "v1_shared_adapter": 0.914,
+      "claude_sonnet_5": 0.920,
+      "claude_haiku_4_5": 0.780,
+      "gpt_5_mini": 0.800,
+      "gpt_5": 0.840
+    },
+    "verdict": "Both comparators fall well below v1 and every frontier model even with a test-set-fit threshold advantage they were not otherwise entitled to. v1 and every frontier model beat both."
+  },
+  "match_relevance": {
+    "task_format": "IMPORTANT CAVEAT: the real task is 4-way (exact/substitute/complement/irrelevant, 60 examples). Neither embedding similarity nor a cross-encoder relevance score can express 4 distinct categories -- only a binary relevant-vs-irrelevant collapse was attempted (exact+substitute+complement all counted as 'relevant'). This is a strictly EASIER task than the real 4-way one v1 and the frontier models were scored on, so these numbers are NOT directly comparable to v1's 0.526 or frontier's 0.583 despite superficially looking close -- reported for completeness/transparency, not as a same-task comparison.",
+    "results": {
+      "Qwen/Qwen3-Embedding-0.6B": {"best_threshold": 0.379, "binary_accuracy_upper_bound": 0.800},
+      "thebajajra/RexReranker-base": {"best_threshold": 0.506, "binary_accuracy_upper_bound": 0.750}
+    },
+    "comparison_note": "v1 (0.526) and every frontier model (0.467-0.583) were scored on the harder real 4-way task. No fair single number can be quoted against them for this row."
+  },
+  "match_functional_relation": {
+    "note": "See reports/functional_relation_hf_comparator_sweep_2026-09-28.json -- RexBERT/RexReranker/Qwen3-Embedding excluded as architecturally not applicable to 3-way relation-TYPE classification (empirically verified: no threshold separates complement from substitute for either model on real locked_test pairs). Only eCeLLM-S was a fair zero-shot comparator (0.143, beaten by both v1 at 0.692 and the dedicated adapter at 0.821)."
+  },
+  "thebajajra/RexBERT-base": {
+    "comparison_status": "EXCLUDED_NOT_APPLICABLE",
+    "reason": "Masked-language-model encoder (fill-mask pipeline) with no natural zero-shot classification or similarity-scoring head for any of this project's tasks. Fine-tuning it would not be a zero-shot comparison and was out of scope."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "accuracy": 0.5115,
+  "n": 4000,
+  "invalid_rate": 0.0,
+  "confusion": {
+    "substitute->exact": 500,
+    "complement->substitute": 105,
+    "irrelevant->irrelevant": 210,
+    "substitute->substitute": 811,
+    "exact->exact": 990,
+    "irrelevant->substitute": 362,
+    "exact->irrelevant": 84,
+    "exact->substitute": 661,
+    "substitute->irrelevant": 62,
+    "complement->complement": 35,
+    "irrelevant->exact": 94,
+    "complement->exact": 24,
+    "exact->complement": 18,
+    "irrelevant->complement": 25,
+    "complement->irrelevant": 11,
+    "substitute->complement": 8
+  }
+}

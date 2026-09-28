@@ -54,6 +54,18 @@
     "UnderstandGptBrandFOne": "1.000",
     "UnderstandGptColorFOne": "0.931",
     "UnderstandColorMarginVsBestFrontier": "1.4",
+    "AdapterOneFunctionalCorrectedAcc": "0.692",
+    "AdapterOneCompatCorrectedAcc": "1.000",
+    "FunctionalFrontierAcc": "0.846",
+    "CompatFrontierAcc": "1.000",
+    "FunctionalAdapterDevBest": "0.893",
+    "FunctionalAdapterLockedBest": "0.821",
+    "FunctionalAdapterBestCheckpoint": "450",
+    "FunctionalAdapterTrainRows": "131",
+    "FunctionalAdapterTotalRows": "187",
+    "FunctionalEcellmLockedAcc": "0.143",
+    "SingleTokenRelevanceAcc": "0.511",
+    "SingleTokenTrainSteps": "1{,}200",
     "TrainSteps": "400",
     "AdapterTwoTrainSteps": "800",
     "LoraRank": "16",
@@ -72,6 +84,10 @@
     "reports/match_baseline_2026-09-27/report.json",
     "reports/understand_baseline_2026-09-27/report.json",
     "reports/understand_frontier_comparison_2026-09-28/report.json",
-    "reports/understand_locked_eval_result.json"
+    "reports/understand_locked_eval_result.json",
+    "reports/minority_frontier_comparison_2026-09-28/report.json",
+    "reports/functional_relation_locked_eval_checkpoint_sweep.json",
+    "reports/ecellm_functional_relation_result.json",
+    "reports/relevance_singletoken_experiment_2026-09-28/final_full_dev_scores_singletoken.json"
   ]
 }

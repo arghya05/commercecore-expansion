@@ -1,0 +1,17 @@
+{
+  "n": 124,
+  "supported": 122,
+  "supported_rate": 0.9838709677419355,
+  "unsupported": [
+    {
+      "text": "Robot Vacuum - Automatically cleans your apartment floors while you relax, perfect for maintaining carpets between deeper cleanings.\n\nUpright Vacuum Cleaner - Powerful suction for deep carpet cleaning in your apartment with easy maneuverability and quick results.",
+      "label": "substitute",
+      "reason": "The descriptions indicate complementary roles (robot for routine maintenance, upright for deep carpet cleaning), not direct substitutes."
+    },
+    {
+      "text": "Blender - powerful motor with stainless steel base for smoothies, soups, and frozen drinks.\n\nReplacement Blender Blade - sharp stainless steel blade assembly for restoring blending performance.",
+      "label": "complement",
+      "reason": "In the context of fixing a blender with dull blades, a replacement blender blade functions as a substitute for the original blade (a direct replacement) rather than a complementary product used alongside the blender."
+    }
+  ]
+}

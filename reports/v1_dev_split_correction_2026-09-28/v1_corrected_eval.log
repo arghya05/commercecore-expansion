@@ -1,0 +1,161 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [00:01<00:01,  1.83s/it]Fetching 2 files: 100%|██████████| 2/2 [00:04<00:00,  2.53s/it]Fetching 2 files: 100%|██████████| 2/2 [00:04<00:00,  2.43s/it]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   9%|▉         | 28/311 [00:00<00:01, 273.46it/s]Loading weights:  37%|███▋      | 116/311 [00:00<00:00, 624.87it/s]Loading weights:  65%|██████▌   | 203/311 [00:00<00:00, 729.30it/s]Loading weights:  92%|█████████▏| 285/311 [00:00<00:00, 763.58it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 714.07it/s]
+model loaded in 9.4s
+scoring 4521 dev rows
+  batch 1/142
+  batch 2/142
+  batch 3/142
+  batch 4/142
+  batch 5/142
+  batch 6/142
+  batch 7/142
+  batch 8/142
+  batch 9/142
+  batch 10/142
+  batch 11/142
+  batch 12/142
+  batch 13/142
+  batch 14/142
+  batch 15/142
+  batch 16/142
+  batch 17/142
+  batch 18/142
+  batch 19/142
+  batch 20/142
+  batch 21/142
+  batch 22/142
+  batch 23/142
+  batch 24/142
+  batch 25/142
+  batch 26/142
+  batch 27/142
+  batch 28/142
+  batch 29/142
+  batch 30/142
+  batch 31/142
+  batch 32/142
+  batch 33/142
+  batch 34/142
+  batch 35/142
+  batch 36/142
+  batch 37/142
+  batch 38/142
+  batch 39/142
+  batch 40/142
+  batch 41/142
+  batch 42/142
+  batch 43/142
+  batch 44/142
+  batch 45/142
+  batch 46/142
+  batch 47/142
+  batch 48/142
+  batch 49/142
+  batch 50/142
+  batch 51/142
+  batch 52/142
+  batch 53/142
+  batch 54/142
+  batch 55/142
+  batch 56/142
+  batch 57/142
+  batch 58/142
+  batch 59/142
+  batch 60/142
+  batch 61/142
+  batch 62/142
+  batch 63/142
+  batch 64/142
+  batch 65/142
+  batch 66/142
+  batch 67/142
+  batch 68/142
+  batch 69/142
+  batch 70/142
+  batch 71/142
+  batch 72/142
+  batch 73/142
+  batch 74/142
+  batch 75/142
+  batch 76/142
+  batch 77/142
+  batch 78/142
+  batch 79/142
+  batch 80/142
+  batch 81/142
+  batch 82/142
+  batch 83/142
+  batch 84/142
+  batch 85/142
+  batch 86/142
+  batch 87/142
+  batch 88/142
+  batch 89/142
+  batch 90/142
+  batch 91/142
+  batch 92/142
+  batch 93/142
+  batch 94/142
+  batch 95/142
+  batch 96/142
+  batch 97/142
+  batch 98/142
+  batch 99/142
+  batch 100/142
+  batch 101/142
+  batch 102/142
+  batch 103/142
+  batch 104/142
+  batch 105/142
+  batch 106/142
+  batch 107/142
+  batch 108/142
+  batch 109/142
+  batch 110/142
+  batch 111/142
+  batch 112/142
+  batch 113/142
+  batch 114/142
+  batch 115/142
+  batch 116/142
+  batch 117/142
+  batch 118/142
+  batch 119/142
+  batch 120/142
+  batch 121/142
+  batch 122/142
+  batch 123/142
+  batch 124/142
+  batch 125/142
+  batch 126/142
+  batch 127/142
+  batch 128/142
+  batch 129/142
+  batch 130/142
+  batch 131/142
+  batch 132/142
+  batch 133/142
+  batch 134/142
+  batch 135/142
+  batch 136/142
+  batch 137/142
+  batch 138/142
+  batch 139/142
+  batch 140/142
+  batch 141/142
+  batch 142/142
+generation took 37.1s
+{
+  "match_relevance": 0.527,
+  "match_identity": 0.916,
+  "match_functional_relation": 0.6923076923076923,
+  "match_technical_compatibility": 1.0,
+  "_n_by_task": {
+    "match_relevance": 1000,
+    "match_identity": 3500,
+    "match_functional_relation": 13,
+    "match_technical_compatibility": 8
+  }
+}

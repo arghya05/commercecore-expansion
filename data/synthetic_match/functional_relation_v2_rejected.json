@@ -1,0 +1,38 @@
+[
+  {
+    "record": {
+      "task": "match_functional_relation",
+      "scenario": {
+        "item_a": "bicycle",
+        "item_b": "car",
+        "use_context": "commuting to work",
+        "label": "substitute",
+        "directional": false
+      },
+      "generated_text": "Commute faster with our lightweight aluminum road bike, perfect for short urban trips.\nSkip the traffic with our fuel-efficient sedan, ideal for longer commutes and daily driving.",
+      "label": "substitute",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "generated_text does not clearly reference either scenario item (naturalness/coverage gate)"
+    ]
+  },
+  {
+    "record": {
+      "task": "match_functional_relation",
+      "scenario": {
+        "item_a": "20000mAh power bank model A",
+        "item_b": "20000mAh power bank model B",
+        "use_context": "choosing between two similar portable chargers for travel",
+        "label": "substitute",
+        "directional": false
+      },
+      "generated_text": "Model A offers fast charging with dual USB ports, ideal for keeping multiple devices powered during long trips.\nModel B features a compact design with USB-C input, perfect for travelers prioritizing portability and quick recharges.",
+      "label": "substitute",
+      "label_origin": "structured_scenario_fixed_pre_generation"
+    },
+    "errors": [
+      "generated_text does not clearly reference either scenario item (naturalness/coverage gate)"
+    ]
+  }
+]

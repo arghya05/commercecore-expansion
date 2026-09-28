@@ -1,0 +1,29 @@
+{
+  "task": "match_functional_relation",
+  "description": "Attempted HF domain-model comparator sweep for functional_relation (substitute/complement/unrelated), on the same 28-row locked_test set used for the dedicated adapter's honest final check.",
+  "results": [
+    {
+      "model": "NingLab/eCeLLM-S",
+      "comparison_status": "RUN",
+      "accuracy": 0.14285714285714285,
+      "n": 28,
+      "note": "Fair test using the model's own working multiple-choice instruction style (0% invalid-output rate), adapted to this project's own labels rather than eCeLLM's different native taxonomy (viewed-together/bought-together/similar). Result file: ecellm_functional_relation_result.json."
+    },
+    {
+      "model": "thebajajra/RexReranker-base",
+      "comparison_status": "EXCLUDED_NOT_APPLICABLE",
+      "reason": "Cross-encoder relevance-ranking model, not a 3-way relation classifier. Empirically checked: scores for complement-labeled pairs (0.39-0.53) and substitute-labeled pairs (0.29-0.63) on real locked_test examples overlap heavily with no threshold that separates them -- the model measures topical relevance/match strength, not relation TYPE, so it cannot distinguish 'substitute' from 'complement' by design. Forcing a 2-way or 3-way threshold onto it would produce an artificial, not-meaningful number, which this project's evidence discipline treats as worse than an honest exclusion."
+    },
+    {
+      "model": "Qwen/Qwen3-Embedding-0.6B",
+      "comparison_status": "EXCLUDED_NOT_APPLICABLE",
+      "reason": "General-purpose sentence-embedding model. Same empirical check via cosine similarity: complement pairs (0.65-0.83 similarity) and substitute pairs (0.68-0.94 similarity) on real locked_test examples overlap with no separating threshold, because cosine similarity measures topical relatedness, not the specific TYPE of functional relationship. Excluded for the same reason as RexReranker above."
+    },
+    {
+      "model": "thebajajra/RexBERT-base",
+      "comparison_status": "EXCLUDED_NOT_APPLICABLE",
+      "reason": "Masked-language-model encoder (fill-mask pipeline), with no natural zero-shot classification head for this or any downstream task. Fine-tuning it specifically for this task would not be a zero-shot comparison and was out of scope for this comparator sweep."
+    }
+  ],
+  "conclusion": "Only eCeLLM-S is a fair, natively-capable zero-shot comparator for this specific task among the HF domain models checked; it scores 0.143, well below both v1's shared adapter (0.692, corrected split) and the dedicated functional_relation adapter (0.821, locked_test). RexBERT/RexReranker/Qwen3-Embedding are architecturally unsuited to 3-way relation-type classification without their own task-specific fine-tuning, and are excluded as a fair-comparison judgment call rather than force-scored."
+}

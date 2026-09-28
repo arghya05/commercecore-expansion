@@ -7,6 +7,7 @@ explicitly excluded per plans/12_data_and_evidence_registry.md).
 from __future__ import annotations
 
 import json
+import threading
 import time
 import uuid
 from pathlib import Path
@@ -20,10 +21,12 @@ app = FastAPI(title="CommerceCore Expansion API", version="0.1.0")
 ADAPTER_PATH = Path("models/shared_adapter_v1")
 _model = None
 _tokenizer = None
+_model_lock = threading.Lock()
 
 UNDERSTAND_ADAPTER_PATH = Path("models/understand_adapter_v1")
 _understand_model = None
 _understand_tokenizer = None
+_understand_model_lock = threading.Lock()
 
 
 class MatchRelevanceRequest(BaseModel):
@@ -74,16 +77,26 @@ def _load_model():
         return _model, _tokenizer
     if not ADAPTER_PATH.exists():
         return None, None
-    import torch
-    from peft import PeftModel
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    # Load-testing (2026-09-28) found that FastAPI's synchronous route
+    # handlers run in a thread pool: without this lock, concurrent
+    # requests all see _model is None simultaneously and each
+    # independently loads a full copy of the base model, exhausting
+    # memory/CPU and effectively hanging the server under any concurrent
+    # load. Confirmed via server logs showing multiple simultaneous
+    # "Loading weights" progress bars for a single adapter.
+    with _model_lock:
+        if _model is not None:
+            return _model, _tokenizer
+        import torch
+        from peft import PeftModel
+        from transformers import AutoModelForCausalLM, AutoTokenizer
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    base = AutoModelForCausalLM.from_pretrained(
-        "Qwen/Qwen3-1.7B", torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
-    ).to(device)
-    _model = PeftModel.from_pretrained(base, str(ADAPTER_PATH)).to(device)
-    _tokenizer = AutoTokenizer.from_pretrained(str(ADAPTER_PATH))
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        base = AutoModelForCausalLM.from_pretrained(
+            "Qwen/Qwen3-1.7B", torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
+        ).to(device)
+        _model = PeftModel.from_pretrained(base, str(ADAPTER_PATH)).to(device)
+        _tokenizer = AutoTokenizer.from_pretrained(str(ADAPTER_PATH))
     return _model, _tokenizer
 
 
@@ -109,16 +122,19 @@ def _load_understand_model():
         return _understand_model, _understand_tokenizer
     if not UNDERSTAND_ADAPTER_PATH.exists():
         return None, None
-    import torch
-    from peft import PeftModel
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    with _understand_model_lock:
+        if _understand_model is not None:
+            return _understand_model, _understand_tokenizer
+        import torch
+        from peft import PeftModel
+        from transformers import AutoModelForCausalLM, AutoTokenizer
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    base = AutoModelForCausalLM.from_pretrained(
-        "Qwen/Qwen3-1.7B", torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
-    ).to(device)
-    _understand_model = PeftModel.from_pretrained(base, str(UNDERSTAND_ADAPTER_PATH)).to(device)
-    _understand_tokenizer = AutoTokenizer.from_pretrained(str(UNDERSTAND_ADAPTER_PATH))
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        base = AutoModelForCausalLM.from_pretrained(
+            "Qwen/Qwen3-1.7B", torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32
+        ).to(device)
+        _understand_model = PeftModel.from_pretrained(base, str(UNDERSTAND_ADAPTER_PATH)).to(device)
+        _understand_tokenizer = AutoTokenizer.from_pretrained(str(UNDERSTAND_ADAPTER_PATH))
     return _understand_model, _understand_tokenizer
 
 

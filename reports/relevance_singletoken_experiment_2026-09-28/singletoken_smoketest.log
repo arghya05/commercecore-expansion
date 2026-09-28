@@ -1,0 +1,14 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+verified all label tokens are single-token: {'exact': 'A', 'substitute': 'B', 'complement': 'C', 'irrelevant': 'D'}
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   1%|          | 2/311 [00:00<00:23, 13.20it/s]Loading weights:   8%|▊         | 26/311 [00:00<00:02, 121.63it/s]Loading weights:  26%|██▋       | 82/311 [00:00<00:00, 296.47it/s]Loading weights:  47%|████▋     | 147/311 [00:00<00:00, 425.38it/s]Loading weights:  68%|██████▊   | 213/311 [00:00<00:00, 501.03it/s]Loading weights:  90%|████████▉ | 279/311 [00:00<00:00, 546.76it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 437.62it/s]
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+  File "/workspace/commercecore_expansion/expansion/train/train_relevance_adapter_v2_singletoken.py", line 174, in main
+    args = TrainingArguments(
+           ^^^^^^^^^^^^^^^^^^
+TypeError: TrainingArguments.__init__() got an unexpected keyword argument 'warmup_ratio'
+trainable params: 17,432,576 || all params: 1,738,007,552 || trainable%: 1.0030
+relevance single-token: train rows: 40000, dev rows: 4000
+train class distribution: {'substitute': 14071, 'exact': 17401, 'irrelevant': 6678, 'complement': 1850}
+computed class weights: {'substitute': 0.7106815436003127, 'exact': 0.5746796161140164, 'irrelevant': 1.4974543276430068, 'complement': 5.405405405405405}
+token weights applied at ids: {'substitute': (33, 0.7106815436003127), 'exact': (32, 0.5746796161140164), 'irrelevant': (35, 1.4974543276430068), 'complement': (34, 5.405405405405405)}

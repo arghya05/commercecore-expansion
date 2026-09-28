@@ -1,0 +1,22 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   1%|          | 2/311 [00:00<00:17, 17.80it/s]Loading weights:  11%|█▏        | 35/311 [00:00<00:01, 192.42it/s]Loading weights:  36%|███▌      | 112/311 [00:00<00:00, 448.37it/s]Loading weights:  59%|█████▊    | 182/311 [00:00<00:00, 543.29it/s]Loading weights:  83%|████████▎ | 259/311 [00:00<00:00, 623.78it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 539.79it/s]
+trainable params: 17,432,576 || all params: 1,738,007,552 || trainable%: 1.0030
+functional_relation: train rows: 131, dev rows: 28
+train class distribution: {'complement': 63, 'unrelated': 21, 'substitute': 47}
+computed class weights: {'complement': 0.6931216931216931, 'unrelated': 2.0793650793650795, 'substitute': 0.9290780141843972}
+token weights applied at first-token ids: {'complement': (874, 0.6931216931216931), 'unrelated': (359, 2.0793650793650795), 'substitute': (1966, 0.9290780141843972)}
+Loaded real comparator scores to beat: {
+  "match_functional_relation": {
+    "frontier_claude-haiku-4-5": 0.8461538461538461,
+    "frontier_claude-sonnet-5": 0.8461538461538461,
+    "frontier_gpt-5-mini": 0.8461538461538461,
+    "frontier_gpt-5": 0.8461538461538461
+  }
+}
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:01<00:21,  1.12s/it] 10%|█         | 2/20 [00:01<00:13,  1.29it/s] 15%|█▌        | 3/20 [00:02<00:11,  1.49it/s] 20%|██        | 4/20 [00:02<00:09,  1.60it/s] 25%|██▌       | 5/20 [00:03<00:08,  1.70it/s] 30%|███       | 6/20 [00:03<00:07,  1.77it/s] 35%|███▌      | 7/20 [00:04<00:07,  1.82it/s] 40%|████      | 8/20 [00:04<00:06,  1.86it/s] 45%|████▌     | 9/20 [00:05<00:05,  2.18it/s] 50%|█████     | 10/20 [00:05<00:05,  2.00it/s]                                                50%|█████     | 10/20 [00:05<00:05,  2.00it/s] 55%|█████▌    | 11/20 [00:06<00:04,  1.90it/s] 60%|██████    | 12/20 [00:06<00:04,  1.84it/s] 65%|██████▌   | 13/20 [00:07<00:03,  1.81it/s] 70%|███████   | 14/20 [00:08<00:03,  1.79it/s] 75%|███████▌  | 15/20 [00:08<00:02,  1.77it/s] 80%|████████  | 16/20 [00:09<00:02,  1.77it/s] 85%|████████▌ | 17/20 [00:09<00:01,  1.76it/s] 90%|█████████ | 18/20 [00:10<00:00,  2.07it/s] 95%|█████████▌| 19/20 [00:10<00:00,  1.94it/s]100%|██████████| 20/20 [00:11<00:00,  1.87it/s]                                               100%|██████████| 20/20 [00:11<00:00,  1.87it/s]                                               100%|██████████| 20/20 [00:25<00:00,  1.87it/s]100%|██████████| 20/20 [00:25<00:00,  1.25s/it]
+{'loss': '23.01', 'grad_norm': '40.96', 'learning_rate': '1.245e-05', 'epoch': '1.118'}
+{'loss': '19.34', 'grad_norm': '32.57', 'learning_rate': '1.364e-07', 'epoch': '2.235'}
+[checkpoint step 20] dev_accuracy_by_task={'match_functional_relation': 0.25}
+[checkpoint step 20] leaders so far: {"match_functional_relation": {"leading_step": 20, "leading_margin": -0.5961538461538461, "currently_beats_all": false}}
+{'train_runtime': '25.09', 'train_samples_per_second': '12.76', 'train_steps_per_second': '0.797', 'train_loss': '21.18', 'epoch': '2.235'}
+training complete, adapter saved to models/functional_relation_smoketest

@@ -1,0 +1,17 @@
+# Serving API load test — real findings, 2026-09-28
+
+Tool: Locust (`expansion/serve/load_test.py`), headless, 3 concurrent users, 90s runs, against `expansion/serve/api.py` served locally via Uvicorn. Run on this project's local Mac (CPU only, no GPU) — this test measures server *behavior* under concurrent load (correctness, locking, error handling), not production latency, which was already measured separately on GPU (Understand adapter: ~100ms/request, after an earlier serving bug was fixed to actually place the model on `cuda`).
+
+## Finding 1 (real bug, fixed): concurrent requests each independently loaded a full model copy
+
+**Before fix:** `_load_model()`/`_load_understand_model()` used a plain `if _model is not None: return` check with no lock. Under 3 concurrent users, the first three requests to hit an unloaded model all observed `_model is None` simultaneously (FastAPI runs sync route handlers in a thread pool) and each started its own full `AutoModelForCausalLM.from_pretrained(...)` — confirmed directly in the server log, which showed multiple interleaved "Loading weights" progress bars for a single adapter at the same time. Over a 90-second run, only 1 request completed in total (a `/health` check, which needs no model) — every match/normalize request was still stuck loading redundant model copies when the test ended.
+
+**Fix:** added `threading.Lock()` around both model-loading functions (`expansion/serve/api.py`), with a double-checked-locking pattern (check unlocked, then check again inside the lock before loading) so the fast path stays lock-free once a model is loaded.
+
+**Verified fixed:** re-running the same test, the server log now shows exactly one "Loading weights" sequence (~29s on CPU) instead of several concurrent ones. This was a real concurrency bug that would have caused unbounded memory growth and effective request starvation under any concurrent production load, not just a local-CPU artifact — the lock is needed regardless of hardware.
+
+## Finding 2 (real, disclosed, not fixed in this pass): CPU inference is far too slow for interactive serving; production readiness for concurrent load is unverified beyond the load-lock fix
+
+Once the model-loading bug above was fixed, a single foreground `/v1/match/relevance` request still took **over 120 seconds** on this CPU-only machine (timed out at the 120s curl limit) — consistent with earlier single-request CPU smoke tests in this project (the `/v1/catalog/normalize` test took several minutes end-to-end). This makes a meaningful concurrent load test impossible on this machine: FastAPI's default sync-route thread pool means a handful of multi-minute in-flight requests can occupy every worker thread, and no throughput/latency-under-load numbers can be honestly measured here.
+
+**What this means:** the load-loading fix (Finding 1) is real and matters on any hardware. But a genuine concurrent-load number (requests/sec, p50/p99 latency under N simultaneous users) for the *GPU-served* production path has **not** been measured — that would require running Locust against the API on the same RunPod GPU pod used for training/eval, which was not done in this pass. This is disclosed here as a real gap, not silently left out: the API has been checked for the specific bug load-testing exists to catch (unlocked concurrent model loading), but a full production throughput/latency-under-load benchmark on GPU remains outstanding.

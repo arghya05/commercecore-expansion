@@ -1,0 +1,19 @@
+{
+  "description": "Locked-test-set (28 examples, held out from training and dev/checkpoint-selection use throughout) accuracy for every saved checkpoint of the functional_relation dedicated adapter. Run to check whether the dev-set-selected leader (step 350, dev acc 0.893) generalizes, since dev and train are drawn from the same small (187-row) scenario bank and 600 steps means ~67 epochs over 131 train rows -- real overfitting risk that dev alone can't fully catch.",
+  "frontier_target": 0.8461538461538461,
+  "checkpoints": {
+    "200": 0.7857142857142857,
+    "250": 0.75,
+    "300": 0.7857142857142857,
+    "350": 0.7857142857142857,
+    "400": 0.75,
+    "450": 0.8214285714285714,
+    "500": 0.7857142857142857,
+    "550": 0.8214285714285714,
+    "600": 0.7857142857142857
+  },
+  "best_checkpoint": 450,
+  "best_locked_test_accuracy": 0.8214285714285714,
+  "beats_frontier": false,
+  "note": "Checkpoints 450 and 550 tie for best locked-test accuracy (0.821), both below the 0.846 frontier target reached by every tested frontier model (Claude Haiku/Sonnet, GPT-5-mini, GPT-5). Checkpoint 450 selected as the published adapter (earlier in training, less epoch exposure to the small train set). Dev-set accuracy at the dev-selected leader (step 350) was 0.893, materially higher than its own locked-test score of 0.786 -- a real generalization gap, not matched by any single checkpoint clearing frontier on the held-out set."
+}

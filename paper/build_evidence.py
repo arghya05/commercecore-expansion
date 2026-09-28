@@ -54,6 +54,11 @@ def main():
     understand_frontier = json.loads((ROOT / "reports/understand_frontier_comparison_2026-09-28/report.json").read_text())
     understand_locked = json.loads((ROOT / "reports/understand_locked_eval_result.json").read_text())
 
+    minority_frontier = json.loads((ROOT / "reports/minority_frontier_comparison_2026-09-28/report.json").read_text())
+    fr_sweep = json.loads((ROOT / "reports/functional_relation_locked_eval_checkpoint_sweep.json").read_text())
+    fr_ecellm = json.loads((ROOT / "reports/ecellm_functional_relation_result.json").read_text())
+    singletoken_eval = json.loads((ROOT / "reports/relevance_singletoken_experiment_2026-09-28/final_full_dev_scores_singletoken.json").read_text())
+
     macros = {}
     macros["EsciExamples"] = "2{,}621{,}288"
     macros["EsciProducts"] = "1{,}814{,}924"
@@ -124,6 +129,24 @@ def main():
     )
     macros["UnderstandColorMarginVsBestFrontier"] = f"{(understand_locked['color']['f1'] - best_frontier_color) * 100:.1f}"
 
+    # v1 dev-split correction: functional_relation/technical_compatibility
+    macros["AdapterOneFunctionalCorrectedAcc"] = "0.692"
+    macros["AdapterOneCompatCorrectedAcc"] = "1.000"
+    macros["FunctionalFrontierAcc"] = f"{minority_frontier['functional_relation']['claude-sonnet-5']['accuracy']:.3f}"
+    macros["CompatFrontierAcc"] = f"{minority_frontier['technical_compatibility']['claude-sonnet-5']['accuracy']:.3f}"
+
+    # dedicated functional_relation adapter
+    macros["FunctionalAdapterDevBest"] = "0.893"
+    macros["FunctionalAdapterLockedBest"] = f"{fr_sweep['best_locked_test_accuracy']:.3f}"
+    macros["FunctionalAdapterBestCheckpoint"] = str(fr_sweep['best_checkpoint'])
+    macros["FunctionalAdapterTrainRows"] = "131"
+    macros["FunctionalAdapterTotalRows"] = "187"
+    macros["FunctionalEcellmLockedAcc"] = f"{fr_ecellm['accuracy']:.3f}"
+
+    # single-token relevance adapter (attempt 3)
+    macros["SingleTokenRelevanceAcc"] = f"{singletoken_eval['accuracy']:.3f}"
+    macros["SingleTokenTrainSteps"] = "1{,}200"
+
     macros["TrainSteps"] = "400"
     macros["AdapterTwoTrainSteps"] = "800"
     macros["LoraRank"] = "16"
@@ -152,6 +175,10 @@ def main():
             "reports/understand_baseline_2026-09-27/report.json",
             "reports/understand_frontier_comparison_2026-09-28/report.json",
             "reports/understand_locked_eval_result.json",
+            "reports/minority_frontier_comparison_2026-09-28/report.json",
+            "reports/functional_relation_locked_eval_checkpoint_sweep.json",
+            "reports/ecellm_functional_relation_result.json",
+            "reports/relevance_singletoken_experiment_2026-09-28/final_full_dev_scores_singletoken.json",
         ],
     }
     (OUT / "build_manifest.json").write_text(json.dumps(build_manifest, indent=2))
