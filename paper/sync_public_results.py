@@ -104,43 +104,10 @@ universal frontier superiority, or conference acceptance.
 - [Publication gaps and related work]({GITHUB}/blob/main/paper/REVIEW_AND_PUBLICATION_STATUS.md)
 """
     common=common.replace('`',chr(96))
-    header="""# CommerceCore Expansion
-
-Research adapters for product relevance, listing identity, functional relations,
-technical compatibility, and brand/color extraction. This repository is separate
-from the original CommerceCore release. The original
-`arghya2030/commercecore-qwen3-1.7b` weights, runtime and repository are unchanged.
-
-**Status: research prototype.** The evidence supports qualified task-specific
-observations, not a universal frontier-model or production-efficiency claim.
-
-"""
-    models="## Model repositories\n\n"
-    for slug in SLUGS:
-        repo='arghya2030/commercecore-expansion-'+slug
-        models+=f"- [{repo}](https://huggingface.co/{repo})\n"
-    tail=f"""
-## Execution and reproduction
-
-All research computation for the current work runs on **RunPod**. The laptop is
-only a connection/file-transfer and publishing client. Run tests, model loading,
-data processing, serving benchmarks and PDF builds on the remote machine.
-
-- [Research protocol and guards](research_v2/README.md)
-- [RunPod operations](research_v2/runpod/README.md)
-- [Historical inference interfaces](docs/INFERENCE.md)
-- [Paper build and verification](paper/README.md)
-
-`paper/sync_public_results.py` generates the shared numerical summary in this
-README and all four model-card drafts from the audit and saved pilot outputs.
-`--check` detects drift. The historical paper macros use the same audit; the
-new ACM development table is generated from the same pilot report.
-Raw historical runtime, data and report files remain preserved.
-
-The code license is Apache-2.0. Dataset publishers' own licenses and terms
-continue to apply. No conference or arXiv submission has been made.
-"""
-    generated={'README.md':(header+models+'\n'+common+tail).replace('`',chr(96))}
+    template=(ROOT/'paper/README.template.md').read_text()
+    if template.count('{{PUBLIC_RESULTS}}')!=1:
+        raise ValueError('README template must contain exactly one public-results marker')
+    generated={'README.md':template.replace('{{PUBLIC_RESULTS}}',common.rstrip())}
     titles={'understand-v1':'Brand/color extraction adapter',
             'match-v1':'Shared product-matching adapter',
             'functional-relation-v1':'Functional-relation specialist adapter',
