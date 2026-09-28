@@ -197,13 +197,15 @@ commercecore_expansion/
 
 ## How to run inference (quick start)
 
+Each model uses its own adapter + prompt format. All four load the same base (`Qwen/Qwen3-1.7B`) via PEFT; only the repo ID, prompt, and label set change.
+
+### Understand — brand/color extraction (the one clear win)
+
 ```python
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 base = AutoModelForCausalLM.from_pretrained("Qwen/Qwen3-1.7B")
-
-# Understand (brand/color) -- the one clear win
 model = PeftModel.from_pretrained(base, "arghya2030/commercecore-expansion-understand-v1")
 tokenizer = AutoTokenizer.from_pretrained("arghya2030/commercecore-expansion-understand-v1")
 
@@ -218,6 +220,78 @@ out = model.generate(**inputs, max_new_tokens=40, do_sample=False)
 print(tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True))
 # {"brand": "Nike", "color": "Black/White"}
 ```
+
+### Match — relevance (adopted, real disclosed shortfall vs. frontier — see above)
+
+```python
+model = PeftModel.from_pretrained(base, "arghya2030/commercecore-expansion-match-v1")
+tokenizer = AutoTokenizer.from_pretrained("arghya2030/commercecore-expansion-match-v1")
+
+prompt = (
+    "Classify the query-product relevance: exact, substitute, complement, or irrelevant.\n"
+    "Query: wireless bluetooth headphones\n"
+    "Product: Sony WH-1000XM5 Wireless Noise Canceling Headphones\n"
+    "Answer:"
+)
+inputs = tokenizer(prompt, return_tensors="pt")
+out = model.generate(**inputs, max_new_tokens=8, do_sample=False)
+print(tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True))
+# exact
+```
+
+### Match — identity (same adapter as relevance, adopted, ties frontier)
+
+```python
+model = PeftModel.from_pretrained(base, "arghya2030/commercecore-expansion-match-v1")
+tokenizer = AutoTokenizer.from_pretrained("arghya2030/commercecore-expansion-match-v1")
+
+prompt = (
+    "Are these listings the same purchasable item or distinct?\n"
+    "Listing A: Apple iPhone 15 128GB Blue\n"
+    "Listing B: iPhone 15, 128GB, Blue - Unlocked\n"
+    "Answer:"
+)
+inputs = tokenizer(prompt, return_tensors="pt")
+out = model.generate(**inputs, max_new_tokens=8, do_sample=False)
+print(tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True))
+# same
+```
+
+### Match — functional_relation (dedicated adapter, real partial progress — see above)
+
+```python
+model = PeftModel.from_pretrained(base, "arghya2030/commercecore-expansion-functional-relation-v1")
+tokenizer = AutoTokenizer.from_pretrained("arghya2030/commercecore-expansion-functional-relation-v1")
+
+prompt = (
+    "Classify the functional relation: substitute, complement, or unrelated.\n"
+    "Espresso Machine - Brew rich, full-bodied espresso shots for your favorite coffee drinks at home.\n"
+    "Milk Frother - Create velvety steamed milk and foam for lattes, cappuccinos, and macchiatos.\n"
+    "Answer:"
+)
+inputs = tokenizer(prompt, return_tensors="pt")
+out = model.generate(**inputs, max_new_tokens=6, do_sample=False)
+print(tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True))
+# complement
+```
+(This exact example was verified live against the running API during this project's load-testing pass — see "Serving logs" above for the real, measured request/response pair.)
+
+### Match — technical_compatibility (same adapter as relevance/identity, ties frontier)
+
+```python
+model = PeftModel.from_pretrained(base, "arghya2030/commercecore-expansion-match-v1")
+tokenizer = AutoTokenizer.from_pretrained("arghya2030/commercecore-expansion-match-v1")
+
+prompt = (
+    "Classify technical compatibility: compatible, incompatible, or unknown.\n"
+    "PS5 DualSense controller\nPS5 (2020 model)\nAnswer:"
+)
+inputs = tokenizer(prompt, return_tensors="pt")
+out = model.generate(**inputs, max_new_tokens=6, do_sample=False)
+print(tokenizer.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True))
+# compatible
+```
+(Verified directly against the local adapter checkpoint. Not every example is correct — this same adapter also predicted `compatible` for a real `iPhone 14 case` / `iPhone 15` pair whose true label is `incompatible`, a genuine error found while preparing this example, not hidden from it. No serving route exists yet for this subtask — it's currently only reachable via direct model loading, not the REST API below.)
 
 Or run the REST API (same code, runs on RunPod, AWS, GCP, or a local machine):
 
