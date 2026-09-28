@@ -1,0 +1,260 @@
+\section{Introduction}
+Product search depends on several kinds of understanding. A search engine must determine whether an offer satisfies a query; a catalog must determine whether two offers refer to the same purchasable variant; and recommendation or filtering systems must distinguish functional relationships from technical compatibility. Attribute extraction supplies structured evidence for each of these decisions. A compact model covering these tasks could reduce the engineering burden for retailers with limited compute.
+
+Their common vocabulary does not make their labels interchangeable. Two different headphones can both satisfy a query. A charger can complement a laptop without supporting its voltage or connector. A plausible color can be absent from the listing. These distinctions make broad commerce adaptation a demanding evaluation problem: even a numerically high score can fail to establish the operational behavior its label suggests.
+
+This paper examines a practical sequence of shared and specialist QLoRA experiments, then subjects the preserved artifacts to an executable retrospective audit. The study is deliberately explicit about this chronology. The original runs were not a prospectively controlled factorial experiment; a later audit cannot recover missing predictions or make a repeatedly inspected test set independent. It can identify the conclusions that remain supported and provide concrete controls for the next experiment.
+
+We ask three questions. \textbf{RQ1:} What task behavior do the saved adaptation results establish? \textbf{RQ2:} Which comparisons remain interpretable after checking data exposure, evidence equivalence, scoring, and selection? \textbf{RQ3:} What do the recorded training and serving traces establish about efficiency? These questions concern information retrieval because product-understanding labels become inputs to ranking, catalog consolidation, and filtering. We do not equate pair classification with measured improvement in an end-to-end search system.
+
+The contribution has three parts. First, we reconstruct the five task formulations and their shared/specialist training record, exposing minority-task and versioning effects hidden by aggregate scores. Second, we introduce an executable comparison audit that checks scenario and text overlap, scorer counterexamples, checkpoint exposure, and trace completeness. Third, we quantify what the surviving extraction aggregates identify, including the range of paired correctness tests compatible with those aggregates. We provide strict parsing and grouped evaluation code for subsequent runs. These are empirical and reproducibility contributions; we do not claim to invent low-rank adaptation, commerce instruction tuning, or a new foundation-model architecture.
+
+\section{Related Work}
+\paragraph{Commerce instruction tuning.}
+eCeLLM~\cite{ecellm} studies commerce instruction tuning with held-out task and category evaluations and generalist/specialist comparisons. EcomGPT~\cite{ecomgpt} constructs instructions through task transformations and chain-of-task tasks. These works establish that combining commerce tasks and synthetic instructions is prior art. Our local eCeLLM measurements do not reproduce its published suite, and our results cannot establish superiority over its generalization claims. CASLIE~\cite{caslie} adds context-sensitive captions and caption-quality selection; its multimodal evidence differs from our text-only setting.
+
+\paragraph{Compact systems and task-specific alternatives.}
+Licardo and Tankovi\'{c}~\cite{tradeoffs} study small-model commerce adaptation and deployment optimization. Their measured hardware and quantization comparisons highlight why parameter count alone cannot establish serving efficiency. Ditto~\cite{ditto} is a relevant supervised entity-matching baseline. GLiNER2~\cite{gliner2} illustrates compact, schema-driven extraction and classification. Comparisons should include trained task-specific systems as well as general-purpose APIs; an off-the-shelf encoder result is not an upper bound on its architecture.
+
+\paragraph{Data and methodology.}
+ESCI~\cite{esci}, WDC Products~\cite{wdcproducts}, and ABO~\cite{abo} provide the source data. Their publisher-defined tasks and splits differ from our local subsets. LoRA~\cite{lora} and QLoRA~\cite{qlora} supply the adaptation mechanism. GradNorm~\cite{gradnorm} and PCGrad~\cite{pcgrad} provide established alternatives for balancing multitask learning; neither was evaluated here. Leakage analysis~\cite{leakage} and behavioral testing~\cite{checklist} motivate our audit. Applying these principles to this experimental record is a concrete contribution, not a claim that leakage prevention or scorer testing is itself new.
+
+\section{Tasks and Data Provenance}
+\subsection{Task semantics and artifact scope}
+Relevance predicts \emph{exact, substitute, complement, irrelevant} for a query and listing. Identity predicts \emph{same, distinct} for two listings at the purchasable-variant level. Functional relation predicts \emph{substitute, complement, unrelated}. Compatibility predicts \emph{compatible, incompatible}. Extraction returns JSON with \emph{brand} and \emph{color}. Although project schemas allow an unknown relation, the recorded experiments do not train or evaluate calibrated abstention.
+
+A shared four-task adapter, an extraction specialist, and a later functional specialist are distinct parameter states. A letter-label relevance adapter is another experimental state. Consequently, system-level task coverage does not establish that a single parameter state is strong on all tasks. This distinction is central to interpreting a horizontal model claim.
+
+The audit covers original data, source, and report files together with archived trainer states, adapter configurations, and checkpoint histories. Generated tables are derived from these inputs and checked against a source-hash manifest. Historical files are preserved rather than rewritten to agree with the manuscript. Missing raw predictions and environment records remain missing evidence.
+
+\subsection{Mixtures and independent observations}
+The current shared mixture contains \CurrentMixtureRows{} rows: \CurrentTrainRows{} train and \CurrentDevRows{} development. Table~\ref{tab:mixture} distinguishes this state from the saved first-run development file. Functional and compatibility development originally contain only one class each. Their perfect raw accuracy therefore does not establish multiclass performance.
+
+\begin{table}[t]
+\centering\small
+\caption{Current mixture versus saved first-run development data. The final column is the number of represented labels in the saved split.}
+\label{tab:mixture}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrr}
+\toprule
+Task & Train & Dev & Old dev & Labels\\
+\midrule
+\tablerows{evidence/mixture_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+The scaled shared run uses 46,086 training and 7,519 development rows, including 40,000/4,000 relevance rows and 6,000/3,500 identity rows. It preserves earlier minority-task assignments of 50/15 functional and 36/4 compatibility rows. Current files therefore cannot stand in for every historical run. Relevance train/dev query identifiers and normalized full inputs are disjoint in the audited mixtures, but this does not prove product-family, merchant, or pretraining independence. The shared identity development set contains 3,000 distinct and 500 same labels; an always-distinct classifier achieves 0.857 accuracy.
+
+API comparison samples contain 60 relevance rows, balanced at 15 per class, and 50 identity rows, balanced at 25 per class. Their formatted inputs do not exactly match the current shared train/dev inputs. This establishes a sample mismatch, not a paired comparison. Subtracting an API score on these rows from an adapter score on thousands of different rows is not a model effect estimate.
+
+\subsection{Synthetic scenario dependence}
+The synthetic process specifies a scenario and intended relation, generates descriptions with Claude Haiku, and checks them with GPT-5-mini. The judge receives the intended label and scenario. This is a cross-model consistency check rather than blinded human adjudication. Neither naturalness nor factual validity was measured by human raters.
+
+The initial functional and compatibility datasets contain 65 and 40 rows. An expansion audits 124 functional generations and retains 122, producing 187 rows over 63 scenario objects. The final split assigns 131/28/28 rows to train/dev/test. Although normalized generated text is disjoint, 26/28 dev and 25/28 test rows share a scenario object with training. The split separates paraphrases more often than underlying decisions.
+
+An earlier split repair introduces further exposure: 11/13 corrected functional dev texts and 6/8 corrected compatibility dev texts appear in the earlier training assignment preserved in the scaled mixture. Relabeling their partition cannot erase prior model access. These sets diagnose label coverage but cannot establish generalization to unseen scenarios.
+
+\subsection{Extraction grounding and overlap}
+ABO-derived extraction has 9,396 train, 300 dev, and 200 evaluation rows. Training contains 9,359 unique item identifiers and 9,319 unique texts. Train/dev overlap comprises four identifiers and two exact texts; train/evaluation has no identifier overlap but two exact texts. An identifier-only exclusion rule misses this failure.
+
+Every brand value occurs literally in its supplied text under case-insensitive matching. Color values do so for 8,390/9,396 train, 256/300 dev, and 184/200 evaluation rows. A nonliteral value may reflect metadata normalization rather than an incorrect label. Nonetheless, the benchmark mixes span extraction with interpretation. An exact-grounding claim requires a separate policy for extraction, normalization, and inference, with evidence sufficiency checked under that policy.
+
+\section{Adaptation and Evaluation Methods}
+\subsection{Training implementation}
+The adapters use the upstream Qwen3-1.7B identifier. Base weights are quantized with NF4 and double quantization, with bfloat16 computation. For a projection,
+\begin{equation}
+W'=W_{\mathrm{base}}+\frac{\alpha}{r}BA,
+\end{equation}
+where $A$ and $B$ are trainable rank-$r$ matrices. Attention query, key, value, and output projections and feed-forward gate, up, and down projections are adapted. Rank 16, scale 32, and dropout 0.05 are preserved for the initial and specialist adapters; the scaled shared configuration uses rank 32 and scale 64.
+
+Instruction and input prefix positions and padding are masked in the causal loss. Only target completion positions contribute:
+\begin{equation}
+\mathcal L=-\frac{1}{\sum_i|y_i|}\sum_i\sum_{j=1}^{|y_i|}
+\log p_\theta(y_{ij}\mid x_i,y_{i,<j}).
+\end{equation}
+Concatenated examples are truncated from the right. The historical artifacts do not report how often this removes all supervised target tokens. The registry contains an intended base revision, but executed loader calls omit a revision argument and archived adapter configurations record a null revision. The intended pin therefore does not certify every historical download.
+
+\begin{table}[t]
+\centering\small
+\caption{Preserved training configurations. Effective batch is 16 on one device. Shared scripts changed in place; this is a reconstruction, not a frozen historical environment.}
+\label{tab:train}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrr}
+\toprule
+Run & Rank & Steps & Length & LR\\\midrule
+Shared v1 &16&400&256&$10^{-4}$\\
+Shared v2 &16&800&256&$10^{-4}$\\
+Shared v3 &32&1,200&256&$10^{-4}$\\
+Relevance letters &16&1,200&256&$3\cdot10^{-5}$\\
+Functional &16&600&320&$2\cdot10^{-5}$\\
+Extraction &16&1,200&384&$10^{-4}$\\\bottomrule
+\end{tabular}
+\end{table}
+
+The weighted functional and relevance variants assign inverse-frequency weights $N/(Kn_c)$ to selected vocabulary tokens. This differs from example-level class weighting when a label spans multiple tokens. The letter-label variant asserts that each of its four label codes is one token; the functional variant weights the first token of verbal labels. These details affect any interpretation of a weighting ablation.
+
+All configurations use a cosine schedule; specialist scripts record warmup and extraction uses gradient checkpointing. Table~\ref{tab:train} reports optimizer steps, which are not epochs. Preserved states place shared v1 at epoch 0.454, extraction at 2.041, functional at 66.71, and relevance letters at 0.48. Dataset repetition and different row counts make a common step count an inadequate compute control.
+
+\subsection{A comparison contract}
+We represent a result's evaluation contract as
+\begin{equation}
+\mathcal C=(D,I,X,Y,P,G,S,H),
+\end{equation}
+where $D$ identifies the source/split version, $I$ the row identifiers, $X$ the supplied evidence, $Y$ the gold ontology, $P$ the prompt, $G$ the decoding budget, $S$ the scorer, and $H$ the selection history. Model configuration and execution environment are recorded separately. A paired quality comparison requires equal task, rows, evidence, and scoring, with declared prompt/decoding differences. The history component records whether evaluation outcomes influenced prompts, thresholds, checkpoints, or retraining.
+
+This contract makes common failure modes explicit. Same task names do not imply the same sample; the same source corpus does not imply the same gold interpretation; and a file named test is not an independent holdout after selection. It is an engineering representation of established experimental requirements rather than a statistical guarantee or a new learning objective.
+
+\subsection{Scoring and statistical interpretation}
+The original shared scorer tests whether the gold string appears in the prediction. Thus \code{compatible} is accepted within \code{incompatible}; \code{same} is accepted within \code{not same}. Extraction uses either-direction string containment, so a partial color can match a longer value. We report historical scores under those rules and do not silently recast them as strict exact match.
+
+The new evaluator requires complete labels after conservative normalization, rejects duplicate or unexpected JSON keys, distinguishes null from a missing response, and reports exact and normalized field matches separately. Every expected ID must have one output record; failures remain in the denominator. Human-readable explanations or ambiguous multi-label outputs are invalid under a label-only contract.
+
+For future paired measurements, keys for shared queries, entities, or families are joined into connected components before resampling. The implementation reports a cluster-bootstrap interval for binary or joint correctness only when at least 20 components are available. A row-iid McNemar calculation is explicitly diagnostic; it does not replace group-aware uncertainty or establish a field-F1 effect. These controls are implemented infrastructure, not new model-performance results.
+
+\section{Results and Audit Findings}
+\subsection{Shared adaptation and relevance}
+Recomputed logged first-run accuracy is 0.527 on 1,000 relevance rows and 0.916 on 3,500 identity rows. Subsequent shared runs report 0.491/0.914 and 0.50275/0.887714 for relevance/identity; the last relevance sample has 4,000 rows. Mixture size, rank, sampling, steps, and evaluation populations change together. The trajectories do not isolate any one cause and cannot prove catastrophic forgetting or reject multiple causal hypotheses.
+
+The separate letter-label relevance run yields \SingleAccuracy{} accuracy on 4,000 rows, but \SingleMacroF{} macro-F1 and \SingleBalanced{} balanced accuracy. Table~\ref{tab:relevance} shows the minority-class problem: complement recall is 0.200, and substitutes are predicted 1,939 times against 1,381 gold instances. A single aggregate accuracy masks this behavior.
+
+\begin{table}[t]
+\centering\small
+\caption{Letter-label relevance performance on its 4,000-row local evaluation. P/R/F1 are class metrics, not ranking metrics.}
+\label{tab:relevance}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrrr}
+\toprule
+Label&Gold&Pred.&P&R&F1\\\midrule
+\tablerows{evidence/relevance_class_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+On the separate 60/50-row API samples, recorded relevance/identity accuracies are 0.4667/0.780 for Haiku, 0.5833/0.920 for Sonnet, 0.4833/0.800 for GPT-5-mini, and 0.4667/0.840 for GPT-5. These are historical report identifiers, not verified current endpoint snapshots. The artifacts lack per-response model identifiers and complete raw response journals. Output caps also differ: the Anthropic call sets ten tokens while the OpenAI call does not impose the same cap. No corresponding shared-adapter predictions survive on those exact rows. These numbers provide context, not a frontier-model ranking.
+
+\subsection{Functional specialization and test exposure}
+The published functional checkpoint reaches 23/28 accuracy (\FunctionalAccuracy{}) and \FunctionalMacroF{} macro-F1. It correctly classifies 14/14 complements, 7/10 substitutes, and 2/4 unrelated pairs. All five errors become complement predictions. The small, dependent test population cannot establish broad category or scenario transfer.
+
+Nine checkpoints, from step 200 through 600, were evaluated on the same named test set (Figure~\ref{fig:selection}). The earliest development maximum occurs at step 350 and obtains 22/28 test accuracy; the published step-450 checkpoint obtains 23/28. Because test outcomes were available during checkpoint comparison, the published result is an exposed-test diagnostic. A retrospective alternative selection rule cannot restore an unseen test set.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=.98\columnwidth,height=4.3cm,xlabel={Optimizer step},ylabel={Accuracy},xmin=180,xmax=620,ymin=.70,ymax=.94,xtick={200,300,400,500,600},ytick={.7,.8,.9},legend style={font=\scriptsize,at={(.5,1.03)},anchor=south,legend columns=2},tick label style={font=\scriptsize},label style={font=\small},grid=major]
+\addplot+[mark=o,blue] table[x=step,y=dev,col sep=comma]{evidence/functional_sweep.csv};
+\addlegendentry{Development}
+\addplot+[mark=square*,orange] table[x=step,y=exposed_test,col sep=comma]{evidence/functional_sweep.csv};
+\addlegendentry{Exposed test}
+\end{axis}
+\end{tikzpicture}
+\caption{All available functional checkpoint comparisons. Repeated test access is part of the finding; this curve is not a selection protocol to emulate.}
+\Description{Development and exposed-test accuracy across nine functional checkpoints. Development first peaks at step 350. Exposed-test accuracy peaks at 450 and 550.}
+\label{fig:selection}
+\end{figure}
+
+The functional API comparison uses a different 13-row set and reports 11/13 accuracy. Its parser takes the first two newline-delimited fields, leaving the second listing empty in two rows. The local eCeLLM run preserves 28 generations: ten are \code{a: b}, and eighteen are malformed JSON fragments. None is a valid single-label response under the required ontology. A first-character parser manufactures labels from them. This demonstrates an interface failure in that run; it is not evidence that the underlying model lacks functional knowledge.
+
+\subsection{Extraction: a signal with bounded interpretation}
+Table~\ref{tab:extract} reports the shared 200-row extraction sample. Under the historical permissive metric, the dedicated adapter obtains brand F1 1.000 and color F1 0.955. It ties both GPT systems on brand. The strongest API color result is Haiku at $368/391\approx0.9412$, so the observed difference is 1.38 percentage points. Comparing only with GPT-5 would overstate the best-baseline margin.
+
+\begin{table}[t]
+\centering\small
+\caption{Historical extraction results on 200 listings, under the permissive field scorer. Color counts are TP/FP/FN. Two evaluation texts occur in training. These are not decontaminated strict-match results.}
+\label{tab:extract}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrl}
+\toprule
+System&Brand F1&Color F1&Color counts\\\midrule
+Dictionary&0.880&0.754&133/20/67\\
+GLiNER2&0.777&0.854&167/24/33\\
+GLiNER2.5&0.753&0.871&166/15/34\\
+Haiku&0.965&0.941&184/7/16\\
+Sonnet&0.997&0.925&180/9/20\\
+GPT-5-mini&1.000&0.926&182/11/18\\
+GPT-5&1.000&0.931&183/10/17\\
+Dedicated adapter&1.000&0.955&191/9/9\\\bottomrule
+\end{tabular}
+\end{table}
+
+Matched inputs are necessary but insufficient: the saved reports contain aggregates rather than aligned per-row predictions. The two training-overlap texts cannot be removed and rescored reliably, and paired field-F1 confidence intervals cannot be reconstructed. The result supports further investigation of specialization, not a definitive clean-data win.
+
+We can nonetheless characterize what the binary correctness marginals imply. Let $x$ be the number of listings on which both the adapter and Haiku are correct on color. With 191 and 184 correct among 200,
+\begin{equation}
+175=191+184-200\leq x\leq184.
+\end{equation}
+The discordant counts are $b=191-x$ and $c=184-x$. For each feasible $x$, the two-sided exact McNemar value is
+\begin{equation}
+p(x)=\min\left(1,\;2\sum_{j=0}^{\min(b,c)}
+\binom{b+c}{j}2^{-(b+c)}\right).
+\end{equation}
+Across feasible pairings it ranges from 0.015625 to approximately 0.229523. Thus identical marginal totals permit either side of the conventional 0.05 threshold. This is a partial-identification calculation for binary correctness under row independence, not an observed paired test, a bootstrap interval, or an F1 significance result. Missing pairing materially limits the claim even before contamination is considered.
+
+\subsection{Coverage of relevant comparators}
+A broader local comparator sweep is incomplete. Some embedding/relevance results collapse four labels into binary relevance and tune thresholds on the evaluated sample. Those scores cannot be inserted into a four-class table. A trained Ditto-style matcher, appropriately tuned compact extraction systems, and a completed NuExtract comparison remain missing. The same is true of public-protocol results for the full ESCI and WDC benchmarks. We treat these as evidence gaps rather than explain them away through architecture labels.
+
+\section{Training and Serving Evidence}
+\subsection{What the logs measure}
+The preserved loss traces show optimization progress but do not establish generalization. Functional and letter-label states record approximately 389.2 and 1,004 seconds of trainer runtime, respectively. These exclude missing campaign runs, data construction, evaluation, provisioning, idle time, and unsuccessful trials. They are insufficient for a total training-cost comparison. The available configurations also do not constitute fixed-token or fixed-dollar ablations.
+
+The service uses three separately loaded base-model instances for shared matching, extraction, and functional specialization. Locks protect lazy initialization, but do not establish concurrent scheduling efficiency, adapter multiplexing, or GPU memory sharing. A health route reports a process response without demonstrating that every model is loaded and ready for inference.
+
+The available before-change load CSV contains one health completion and zero inference completions. The after-change CSV contains no completed requests. Neither provides an inference latency distribution. Pending, timed-out, or missing requests cannot be treated as zero-latency successes. A rate of 20 tokens per second and a price of \$0.74 per hour appear as assumptions, not measured hardware or billing results. We therefore report no throughput, p95 latency, or serving-cost advantage.
+
+\subsection{Quality-constrained serving measurement}
+A useful serving objective should count successful task outcomes rather than generated tokens alone. For a predeclared latency bound $L$ and observation window of duration $T$, define
+\begin{equation}
+\mathrm{QPS}_{L}=\frac{\sum_i\mathbb{1}[\text{correct}_i\land\text{valid}_i\land\ell_i\leq L]}{T}.
+\end{equation}
+Cost per such completion is the billed cost over that same window divided by the numerator; it is undefined if there are no qualifying completions. This definition makes schema failures, wrong predictions, cold starts, and queueing relevant to the measured service. It is a prospective measurement criterion, not a new serving algorithm or a quantity estimated by the historical traces.
+
+A valid comparison must fix workload IDs, input/output lengths, task mix, concurrency or arrival process, precision, software versions, and warm/cold conditions. It should retain every request's start/end/status, separate warmup, drain outstanding requests to a deadline, and report censored work. Hardware cost requires actual instance specifications and billed time. None of these measurements can be inferred solely from a 1.7B parameter count or a nominal GPU listing.
+
+
+\section{Prospective Protocol and Development Pilot}
+\subsection{A new evaluation population}
+A separate real-source suite contains 17,997 training, 1,495 development, and 3,000 test rows. Relevance uses whole ESCI queries with cross-partition product exclusions; identity uses WDC entity groups; extraction uses ABO item, text, image, and manufacturer-identifier proxies. Previously exposed examples are excluded from new evaluation using available identifiers and group keys. The manifest records zero cross-partition group-key overlap. This is a local subset protocol, not the publishers' complete benchmark or a guarantee against pretraining contamination.
+
+Development contains 595 relevance, 500 identity, and 400 extraction examples. Relevance comprises 278 exact, 225 substitute, 19 complement, and 73 irrelevant rows; identity has 148 same and 352 distinct rows. Majority-class development accuracy is therefore 0.4672 and 0.7040, respectively. These are descriptive controls, not models selected using test outcomes. Extraction requires literal, nonempty brand and color values and cannot test missing-field abstention.
+
+Machine checks do not approve training. Independent human evidence-sufficiency and naturalness review remains outstanding; no new training is performed. New synthetic relation and compatibility tasks remain blocked pending independently reviewed, scenario-disjoint data. Test labels are separated from inference inputs; structural verification is allowed, but no test predictions or test-based selection are made.
+
+\subsection{Pinned-base GPU baseline}
+We evaluate unadapted Qwen3-1.7B revision \code{70d244cc}\ldots{} on all development examples (Table~\ref{tab:newdev}). Full revision, model-file hashes, prompt/scorer hashes, raw outputs, and software versions accompany the artifact. We use one RTX 3090 with 24\,GiB device memory, PyTorch 2.8.0 with CUDA 12.8, Transformers 4.57.6, bfloat16, and batch size one. Greedy generation disables thinking and permits 64 new tokens. Inputs exceeding 2,048 tokens are rejected rather than truncated; failures remain in denominators. The seed is 20260928.
+
+\begin{table}[t]
+\centering\small
+\caption{Untuned base on the new development suite. These strict metrics use a different population from historical adapter results. Norm.\ denotes Unicode, case, and whitespace normalization.}
+\label{tab:newdev}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrll}
+\toprule
+Task & Rows & Metric & Value\\\midrule
+\tablerows{acm/dev_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+All 1,495 outputs satisfy the required schemas, but schema compliance does not imply task competence. The model predicts same for 481/500 identity pairs and never predicts substitute on the relevance subset. Its classification accuracies fall below the descriptive majority controls. Extraction normalized joint accuracy is 0.5800. These behaviors motivate subsequent development; they do not establish that historical adaptation improves the same examples, because the adapters have not been rerun under this contract.
+
+The sequential evaluation loop takes 218.90 seconds, excluding loading, provisioning, and preparation. Per-row timings and generations are retained, but the run has no network queue or concurrency experiment. It supplies neither production tail latency nor a serving-cost advantage. A preliminary nine-row execution check is excluded from this quality table. Neither run accesses the final test for scoring, and no paid frontier comparison is added.
+
+\section{Implications, Limitations, and Reproducibility}
+\paragraph{Controls implemented for the next experiment.}
+The new isolated evaluation code validates exact ontologies and one-to-one output joins, detects cross-partition group overlap, preserves errors in denominators, and generates paired correctness diagnostics from connected groups. The new data builder excludes historical exposure using available query, entity, text, and product-family proxies. Machine checks fail closed when there are insufficient independent rows or missing label support. Test labels are stored separately from inference inputs. File separation is an operational control, not a claim that the experimenter cannot access them.
+
+Product-family grouping based on manufacturer identifiers and shared images is only a proxy. It requires inspection for generic identifiers and does not prove that all semantically related variants have been found. Similarly, public-corpus provenance does not guarantee realistic coverage for every retailer. The current extraction policy emphasizes literal, nonempty fields and does not establish performance on missing attributes, conflicting descriptions, multilingual catalogs, or merchant-specific taxonomy changes.
+
+\paragraph{Experiments needed for stronger claims.}
+A decisive follow-up must run the base model, shared/specialist variants, task-appropriate compact baselines, commerce models, and API systems on the same frozen inputs. Development data may control prompts, loss weights, and stopping; test outcomes may not control further training in the same reported experiment. Multiple seeds and fixed-data/token budgets are needed to attribute gains to a mechanism. In particular, scenario diversity versus paraphrase volume should be varied independently, with blinded human checks of label support and naturalness. Group-disjoint held-out scenarios and categories are necessary to test broad commerce transfer.
+
+Serving requires new GPU measurements with paired quality and actual cost. A single-GPU sequential development run cannot establish an optimal RunPod instance or production throughput. Adaptive training and retention safeguards remain research hypotheses until a controller is implemented and compared with static and established multitask controls. We do not infer universal retailer suitability, absence of catastrophic forgetting, or a guaranteed win against future models.
+
+\paragraph{Scope of reproducibility.}
+The retrospective audit regenerates tables and curves from saved evidence, exercises actual scorer counterexamples, and checks source hashes. It does not recreate training environments that were never archived. For new runs, immutable model revisions, tokenizer/config hashes, adapter hashes, prompt/scorer versions, raw outputs, seeds, and dependency/device records must accompany each metric. Public source datasets retain their licenses and attribution; local subsets must not be mislabeled as official leaderboard submissions. A submission artifact must be distributed through an anonymous channel; an author-identifying public repository is not an anonymous review artifact.
+
+\section{Conclusion}
+This study shows how a seemingly broad commerce-model result narrows when its evaluation history is reconstructed. Relevance errors concentrate in minority classes; functional evaluation reuses scenarios and exposes the test during selection; and a promising extraction margin cannot be converted into a clean paired significance claim from the surviving aggregates. Serving traces provide no completed inference distribution. A new pinned-base development run exposes substantial label biases under a strict contract. The executable audit and evaluation implementation make these limits inspectable and identify the measurements required for stronger product-search and catalog-understanding claims.
+
+\section{Ethical Considerations}
+Incorrect identity merges can conflate incompatible variants, while unjustified compatibility claims can cause unsuitable purchases. Deployment should retain source evidence, permit abstention, and route consequential ambiguity to review; the present results do not validate autonomous compatibility assurance. Uneven category, language, and merchant coverage may distribute errors unevenly. No human naturalness study was performed, and no such validation is claimed. Product datasets remain subject to their publisher terms. Generative AI assisted manuscript drafting and code development; responsibility for all claims, verification, and final submission remains with the human authors.

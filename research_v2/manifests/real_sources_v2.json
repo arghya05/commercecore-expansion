@@ -1,0 +1,132 @@
+{
+  "schema_version": "commerce-research-v2.1",
+  "suite_id": "real_sources_v2",
+  "scope": "local corpus subsets; not official benchmark scores",
+  "status": "MACHINE_GATES_PASS",
+  "blocking_issues": [],
+  "counts": {
+    "train": {
+      "relevance": 5997,
+      "identity": 6000,
+      "extraction": 6000
+    },
+    "dev": {
+      "relevance": 595,
+      "identity": 500,
+      "extraction": 400
+    },
+    "test": {
+      "relevance": 1200,
+      "identity": 1000,
+      "extraction": 800
+    }
+  },
+  "labels": {
+    "train": {
+      "relevance": {
+        "substitute": 2062,
+        "exact": 2558,
+        "irrelevant": 1117,
+        "complement": 260
+      },
+      "identity": {
+        "same": 2565,
+        "distinct": 3435
+      }
+    },
+    "dev": {
+      "relevance": {
+        "substitute": 225,
+        "exact": 278,
+        "irrelevant": 73,
+        "complement": 19
+      },
+      "identity": {
+        "distinct": 352,
+        "same": 148
+      }
+    },
+    "test": {
+      "relevance": {
+        "exact": 541,
+        "substitute": 450,
+        "irrelevant": 146,
+        "complement": 63
+      },
+      "identity": {
+        "distinct": 856,
+        "same": 144
+      }
+    }
+  },
+  "partition_contract_hashes": {
+    "train": "74d73be6443dd43e449ecb9cc292e530e2785be8cacafac5ffc28664b66babd1",
+    "dev": "bcb1198db07a44e815f571caab6b10ff5154c770efe0fab8e22fc166cbd27b05",
+    "test": "e1e9d81b0626046cdb42580cd66a1867555ffe9a5e7b4556f1b111080b4de9f5"
+  },
+  "cross_partition_group_overlap": 0,
+  "source_sha256": {
+    "data/abo/understand_eval_grounded.json": "e6f2cedb74edf66cffe971c5b8b46727145e57c3cf1c6c3333497d0ae82e2ae0",
+    "data/esci/esci-data/shopping_queries_dataset/shopping_queries_dataset_examples.parquet": "4a735b693b4a424a6fc67f5be6e4c811495c488bbf66d02a602d308b2744263a",
+    "data/esci/esci-data/shopping_queries_dataset/shopping_queries_dataset_products.parquet": "25124442d064d64b26f74082d6fa09438d679efc0c183cf28d19064a2b65a265",
+    "data/frontier_eval_identity.json": "529924874e8df1f69a9098be6679b66e44b5b89ccec42970a2d18416d0fd3950",
+    "data/frontier_eval_relevance.json": "d0ea9e2d1e970b46fb0f1e10c5d8ff97024b345e5e2377c8db90a6477e9d4113",
+    "data/relevance_rows_v3.jsonl": "3f197b6931687fc14b817cb58c78e120f846a667f18112fa2efe0786ad4bfbf1",
+    "data/training_mixture_final.jsonl": "80a7a314af422fc6cbdf87dcc01b8ded4b0b37a7e245c11f9661149279d4700a",
+    "data/training_mixture_v1.jsonl": "3fd857d00778df816d6db682279c4a2a7d6d9716c95dd4120fbe5df2d744d952",
+    "data/training_mixture_v3.jsonl": "6fda8f03890b388770a88bba880613e9449d8c2fa80c971c74730117ecec6cb8",
+    "data/understand_dev.jsonl": "5cf52ad2194e11a989f9ae3dbde878109e3858f7005e86c58de8117909f0f20f",
+    "data/understand_train.jsonl": "de0ddddb498303c35b2b6d9b71889d2fca1186b62acd1d4d4b6d36d7f1b0feb5",
+    "data/wdc/wdcproducts80cc20rnd000un_gs.json.gz": "da61541a1a53f427af40b1c3f72009ddf12b3a194a424695cf825ae97d1894c7",
+    "data/wdc/wdcproducts80cc20rnd000un_train_large.json.gz": "53148f25fb0a4796801f30554a09ac258e7ae72a022ad668647bbc99375554c5",
+    "data/wdc/wdcproducts80cc20rnd000un_train_medium.json.gz": "b02249e1843957ebe7f25022a086a6614974eeb310f8428a1c79f957e98c8c22",
+    "data/wdc/wdcproducts80cc20rnd000un_train_small.json.gz": "1915a92de76ddbf63a6c4d7ff3162df98f505033a8ad12ee7072b78b083d77c6",
+    "data/wdc/wdcproducts80cc20rnd000un_valid_large.json.gz": "3f49df54a8d46c6b7dc59cd003e9f2021fab396af04a5e81c27b6e122b1eba6d",
+    "data/wdc/wdcproducts80cc20rnd000un_valid_medium.json.gz": "53fdbb169580bd4f02044fddeaffdac9dfe307ef5f9e37f84c814f00f373a1da",
+    "data/wdc/wdcproducts80cc20rnd000un_valid_small.json.gz": "892e8d39cc8230dce5039a4bded16be1237d5c5c37b94a37404226d349ef3df8",
+    "data/wdc/wdcproducts80cc20rnd050un_gs.json.gz": "54608e9400cccb7cd46f923996323d92f72f6b205eaee5a99b542c32b23c2f72",
+    "data/wdc/wdcproducts80cc20rnd100un_gs.json.gz": "258f9b408e715410f07480bf4ad39788a10d5cee1512e322091de43dafae1297",
+    "research_v2/work/abo_full/listings_0.json.gz": "c5e7723f4a4afa3da4f35c497ab30ac0f8ee5b3e473ec0ffa897511e127e9324",
+    "research_v2/work/abo_full/listings_1.json.gz": "3c1b0d27a008d7db96b22baac53f613cba3322ae1bddca3da90f92c2834550c2",
+    "research_v2/work/abo_full/listings_2.json.gz": "90efc22137ddff87db5889d807b60c19e39f157d74ae7f4e8e95270223cbbf3c",
+    "research_v2/work/abo_full/listings_3.json.gz": "72ffc22271d1ce3e091731c12a24d6875c9864a11fc1966272248b018e25a291",
+    "research_v2/work/abo_full/listings_4.json.gz": "7ff0d40dbfa23c6f0972e1814177f15aa866511f96e4720e5c860c9d314719c5",
+    "research_v2/work/abo_full/listings_5.json.gz": "06b88440b35b47a1924ba15e4b2a7b86b62069fd3a02b79bbf361ef9371d8f7f",
+    "research_v2/work/abo_full/listings_6.json.gz": "2cea3adb5f6d8680f62676e6bbb5e3585a08e089687199755dbfe97d23e60376",
+    "research_v2/work/abo_full/listings_7.json.gz": "8a1a5a4c7c8b426cc081baeb51c84e934218934faffd439732bafd567d4e4c1c",
+    "research_v2/work/abo_full/listings_8.json.gz": "5bcaf1ed85c34f204da3d3e787730ad228a96c410565a4fdb57826a297d868cc",
+    "research_v2/work/abo_full/listings_9.json.gz": "e1a8d0ce00d7d1b858db7bcc384e3301a939f449ded3c04aa8e1ef6bd2a123ae",
+    "research_v2/work/abo_full/listings_a.json.gz": "1655cdb9b83e46f3d5bf870bb92ba4259cb3ba85c7e3fc19786f4da1ba60d648",
+    "research_v2/work/abo_full/listings_b.json.gz": "73df50844054d7f33553012f6f606e8128bc83762acadf9a63440ee39f55349b",
+    "research_v2/work/abo_full/listings_c.json.gz": "6339e61243aa6c9ea88c29cfc72e1e005a7c6c2152185e21ceabe8c8046271c6",
+    "research_v2/work/abo_full/listings_d.json.gz": "b7e252bbff66da0084420ccbbec6d36ed251cadefb1daababd3709114a07e299",
+    "research_v2/work/abo_full/listings_e.json.gz": "9240ddbe9f1712c2179ca8eb2f70efa4053a243bbb2609df3609d4933524a45a",
+    "research_v2/work/abo_full/listings_f.json.gz": "0ef3dd735b0542d017c45d7feb939eeeb01d4d1b37398d17b031fd84d8f5bb1b"
+  },
+  "notes": {
+    "relevance": {
+      "historical_query_rows_by_publisher_split": {
+        "train": 371527,
+        "test": 1504
+      },
+      "historical_product_exclusion_count": 315506,
+      "sampling": "whole queries; natural label mix; cross-partition product exclusion; local subset, not official full benchmark"
+    },
+    "identity": {
+      "historically_exposed_clusters": 500,
+      "sampling": "publisher train and 100%-unseen gold source; entity hashes split dev/test; cross-role edges excluded; natural label proportions"
+    },
+    "extraction": {
+      "source_shards": 16,
+      "historically_exposed_components": 7534,
+      "candidate_components": 16493,
+      "family_independence": "manufacturer model-number/image connected components only; generic model names excluded; true product-family independence requires annotation",
+      "grounding": "nonempty brand and color must occur after NFKC/case/whitespace normalization",
+      "null_cases": "not covered by this initial publisher-derived subset"
+    }
+  },
+  "synthetic_tasks": "BLOCKED: need new scenario-disjoint, independently reviewed data",
+  "human_naturalness_validation": "NOT_PERFORMED",
+  "historical_exposure_policy": "all prior train/dev/eval inputs excluded from new evaluation by available identifiers and group proxies",
+  "test_status": "NOT_RUN; test labels isolated from training inputs"
+}

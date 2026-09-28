@@ -42,11 +42,15 @@ The offline audit cannot recover generations that were never retained, retroacti
 
 ## Format and venue rules
 
-The user requested the same format as the earlier CommerceCore paper. The delivered public preprint therefore retains its `neurips_2026` preprint style and author attribution. It is **not** formatted as an ACM submission.
+The detailed historical preprint retains the earlier paper's style and attribution.
+Separate anonymous ACM SIGIR-style and WSDM-style drafts now use the unmodified
+official class. Formatting checks do not close the scientific gaps above.
+The ACM drafts add the untuned-base RunPod development baseline; historical
+adapter and frontier scores are not reclassified as that new experiment.
 
 The checked [SIGIR 2027 full-paper rules](https://sigir2027.org/pages/submit-full.html) call for anonymous ACM `sigconf` formatting and a nine-page content limit excluding references; the content limit includes appendices. The checked [WSDM 2027 full-paper rules](https://www.wsdm-conference.org/2027/cffp.html) likewise require anonymous ACM review formatting and a nine-page main-content limit, with their stated exclusions. Its posted full-paper deadline has already passed as of this review. Confirm the intended future cycle and its rules before submission.
 
-For an eventual submission, first close the experimental gaps; then select a focused contribution, produce a compliant short main paper, and prepare anonymized permitted artifacts. The expanded public preprint is useful for completeness but should not be uploaded unchanged to a nine-page full-paper track. No conference or arXiv submission has been made by this workflow.
+For an eventual submission, close the experimental gaps, refine the contribution, recheck the intended format, and prepare anonymized permitted artifacts. The expanded public preprint is useful for completeness but should not be uploaded unchanged to a nine-page full-paper track. No conference or arXiv submission has been made by this workflow.
 
 ## Completed checks for this revision
 
@@ -56,3 +60,24 @@ For an eventual submission, first close the experimental gaps; then select a foc
 - Checked primary related-work papers and corrected the ABO citation and incomplete comparator interpretations.
 - Compiled and visually reviewed the final PDF, and separately compiled its extracted LaTeX package (see build manifest for final artifact hashes).
 - Kept historical runtime/data/results intact; the paper describes their limitations without rewriting experimental evidence.
+
+
+## RunPod follow-up and synchronized publication
+
+The 2026-09-28 remote pilot completed 1,495 strict development evaluations with
+untuned Qwen3-1.7B. Raw outputs, model/config hashes, software and GPU records are
+retained in `research_v2/results/runpod_pilot_20260928`. This is not retraining
+or a matched adapter/API comparison. The final test has not been scored.
+
+The README and four Expansion model-card drafts derive historical and new
+development values from separately identified evidence. Shared v1 rescore is
+0.527 relevance / 0.916 identity; earlier headline values are labeled as
+prior-manuscript-only observations. Extraction brand ties the strongest recorded
+API result; color has a 1.38 percentage-point historical margin, qualified by
+permissive scoring, overlap and missing paired predictions.
+
+The focused primary-source review was refreshed on 2026-09-28 for eCeLLM,
+EcomGPT, CASLIE, the small-model optimization study and NuExtract documentation.
+The NuExtract-2.0 card links to [NuExtract3](https://huggingface.co/numind/NuExtract3);
+screen that newer release when freezing future extraction comparators. No
+result against it is claimed. This is not an exhaustive novelty certification.

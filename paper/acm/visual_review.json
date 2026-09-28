@@ -1,0 +1,12 @@
+{
+  "rendered_on": "RunPod",
+  "reviewed": "2026-09-28",
+  "pages_per_draft": 7,
+  "checks": [
+    "Reviewed all pages of both drafts as rendered contact sheets",
+    "No visible text/table/figure overlap or clipping",
+    "WSDM review line numbers stay outside content",
+    "References and conclusion remain present"
+  ],
+  "limits": "Visual formatting review does not establish empirical completeness or conference acceptance."
+}

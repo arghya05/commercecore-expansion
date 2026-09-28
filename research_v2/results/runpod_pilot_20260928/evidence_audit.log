@@ -1,0 +1,99 @@
+{
+  "audited_source_files": 118,
+  "macros": {
+    "CurrentMixtureRows": "18605",
+    "CurrentTrainRows": "14084",
+    "CurrentDevRows": "4521",
+    "SavedDevRows": "4519",
+    "SharedRelevance": "0.527",
+    "SharedIdentity": "0.916",
+    "SingleAccuracy": "0.5115",
+    "SingleMacroF": "0.436",
+    "SingleBalanced": "0.414",
+    "FunctionalAccuracy": "0.821",
+    "FunctionalMacroF": "0.780",
+    "ExtractionBrand": "1.000",
+    "ExtractionColor": "0.955",
+    "ExtractionColorDelta": "1.38",
+    "PairPMin": "0.0156",
+    "PairPMax": "0.2295",
+    "ScenarioTestSeen": "25",
+    "ScenarioDevSeen": "26",
+    "StrictEcellmValid": "0",
+    "EcellmRawN": "28"
+  },
+  "query_overlap": {
+    "current": {
+      "query_id": {
+        "shared_keys": 0,
+        "right_rows_with_left_key": 0,
+        "right_rows": 1000
+      },
+      "input": {
+        "shared_keys": 0,
+        "right_rows_with_left_key": 0,
+        "right_rows": 1000
+      }
+    },
+    "scaled": {
+      "query_id": {
+        "shared_keys": 0,
+        "right_rows_with_left_key": 0,
+        "right_rows": 4000
+      },
+      "input": {
+        "shared_keys": 0,
+        "right_rows_with_left_key": 0,
+        "right_rows": 4000
+      }
+    }
+  },
+  "frontier_overlap": {
+    "relevance": {
+      "train": 0,
+      "dev": 0
+    },
+    "identity": {
+      "train": 0,
+      "dev": 0
+    }
+  },
+  "parser": {
+    "n": 28,
+    "legacy_correct": 4,
+    "strict_valid": 0,
+    "strict_correct": 0,
+    "raw_counts": {
+      "a: b": 10,
+      "{\"product 2:\": \"": 18
+    }
+  },
+  "runtime": {
+    "shared_v1": {
+      "global_step": 400,
+      "epoch": 0.4542873367404884,
+      "train_batch_size": 8,
+      "runtime_seconds": null
+    },
+    "understand": {
+      "global_step": 1200,
+      "epoch": 2.0408684546615583,
+      "train_batch_size": 4,
+      "runtime_seconds": null
+    },
+    "functional": {
+      "train_runtime": 389.2,
+      "train_samples_per_second": 24.67,
+      "train_steps_per_second": 1.542,
+      "train_loss": 1.33,
+      "epoch": 66.71
+    },
+    "single_token": {
+      "train_runtime": 1004.0,
+      "train_samples_per_second": 19.12,
+      "train_steps_per_second": 1.195,
+      "train_loss": 2.443,
+      "epoch": 0.48
+    }
+  }
+}

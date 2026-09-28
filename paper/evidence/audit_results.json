@@ -320,7 +320,7 @@
         "substitute->irrelevant": 1,
         "substitute->substitute": 6
       },
-      "macro_f1": 0.45220214568040656,
+      "macro_f1": 0.4522021456804065,
       "n": 60,
       "per_class": {
         "complement": {
@@ -475,7 +475,7 @@
     },
     "relevance/gpt-5-mini": {
       "accuracy": 0.48333333333333334,
-      "balanced_accuracy": 0.4833333333333333,
+      "balanced_accuracy": 0.48333333333333334,
       "confusion": {
         "complement->complement": 6,
         "complement->exact": 4,
@@ -494,7 +494,7 @@
         "substitute->irrelevant": 3,
         "substitute->substitute": 7
       },
-      "macro_f1": 0.47320288268564137,
+      "macro_f1": 0.4732028826856413,
       "n": 60,
       "per_class": {
         "complement": {
@@ -542,7 +542,7 @@
       "unrelated->complement": 2,
       "unrelated->unrelated": 2
     },
-    "macro_f1": 0.7795603089720736,
+    "macro_f1": 0.7795603089720737,
     "n": 28,
     "per_class": {
       "complement": {
@@ -790,7 +790,7 @@
       "substitute->irrelevant": 62,
       "substitute->substitute": 811
     },
-    "macro_f1": 0.43570981493227473,
+    "macro_f1": 0.4357098149322747,
     "n": 4000,
     "per_class": {
       "complement": {

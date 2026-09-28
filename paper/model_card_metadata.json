@@ -1,0 +1,6 @@
+{
+  "understand-v1": "license: apache-2.0\nbase_model: Qwen/Qwen3-1.7B\nlanguage:\n- en\npipeline_tag: text-generation\ntags:\n- ecommerce\n- product-matching\n- qlora\n- fine-tuned",
+  "match-v1": "license: apache-2.0\nbase_model: Qwen/Qwen3-1.7B\nlanguage:\n- en\npipeline_tag: text-generation\ntags:\n- ecommerce\n- product-matching\n- qlora\n- fine-tuned",
+  "functional-relation-v1": "license: apache-2.0\nbase_model: Qwen/Qwen3-1.7B\nlanguage:\n- en\npipeline_tag: text-generation\ntags:\n- ecommerce\n- product-matching\n- qlora\n- fine-tuned",
+  "relevance-singletoken-v1": "license: apache-2.0\nbase_model: Qwen/Qwen3-1.7B\nlanguage:\n- en\npipeline_tag: text-generation\ntags:\n- ecommerce\n- product-matching\n- qlora\n- fine-tuned"
+}

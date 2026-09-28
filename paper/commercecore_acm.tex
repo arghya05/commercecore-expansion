@@ -1,0 +1,36 @@
+\ifdefined\WSDMReview
+  \documentclass[sigconf,review,natbib=true,anonymous=true]{acmart}
+\else
+  \documentclass[sigconf,natbib=true,anonymous=true]{acmart}
+\fi
+\usepackage{amsmath,booktabs,tabularx,pgfplots}
+\usepackage{microtype}
+\emergencystretch=2em
+\pgfplotsset{compat=1.18}
+\setcopyright{none}
+\settopmatter{printacmref=false}
+\acmDOI{}\acmISBN{}
+\acmConference[Anonymous review draft]{}{}{}
+\acmYear{2026}\copyrightyear{2026}
+\renewcommand{\shortauthors}{Anonymous Author(s)}
+\newcommand{\code}[1]{\texttt{\small #1}}
+\makeatletter
+\newcommand{\tablerows}[1]{\@@input #1 }
+\makeatother
+\input{evidence/numbers.tex}
+\begin{document}
+\title{Auditing Small-Model Adaptation for Product Search and Catalog Understanding}
+\author{Anonymous Author(s)}
+\begin{abstract}
+Small language models offer a practical route to product-search and catalog decisions, but apparent task gains can depend on data exposure, scoring, and checkpoint selection. We study a 1.7-billion-parameter model adapted for relevance, product identity, functional relations, compatibility, and attribute extraction. An executable retrospective audit reconstructs the available data versions, training trajectories, comparator inputs, and serving traces. It finds that 25 of 28 functional test rows reuse training scenarios, that a substring scorer accepts opposite compatibility labels, and that nine checkpoints were evaluated on the same named test set. A dedicated extraction adapter obtains brand/color F1 of 1.000/0.955 on 200 listings under the historical scorer, but two test texts overlap training and missing paired predictions prevent a definitive significance analysis. A relevance alternative attains 0.5115 accuracy yet only 0.436 macro-F1. We formalize a comparison contract and provide a strict evaluation implementation. A new GPU baseline on 1,495 development examples retains complete outputs and exposes further label biases without accessing the final test for scoring. The results establish a narrow extraction signal and concrete limits on multitask and efficiency claims, rather than universal superiority over general-purpose models.
+\end{abstract}
+\begin{CCSXML}
+<ccs2012><concept><concept_id>10002951.10003317</concept_id><concept_desc>Information systems~Information retrieval</concept_desc><concept_significance>500</concept_significance></concept></ccs2012>
+\end{CCSXML}
+\ccsdesc[500]{Information systems~Information retrieval}
+\keywords{product search, entity matching, small language models, evaluation, data leakage, reproducibility}
+\maketitle
+\input{acm/body.tex}
+\label{end:main}
+\input{acm/references.tex}
+\end{document}

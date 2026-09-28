@@ -1,0 +1,8 @@
+{
+  "pod_id": "7a8m28to62j50i",
+  "python": "3.12.3",
+  "torch": "2.8.0+cu128",
+  "cuda": "12.8",
+  "device": "NVIDIA GeForce RTX 3090",
+  "gpu_memory_bytes": 25296044032
+}

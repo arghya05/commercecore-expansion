@@ -1,0 +1,26 @@
+Anonymous ACM manuscript source package
+======================================
+Compile on a Linux RunPod machine with XeLaTeX. No model or dataset download
+is required to typeset the manuscript.
+
+Dependencies used for the verified build:
+- Ubuntu 24.04, TeX Live 2023 (XeTeX)
+- texlive-xetex, texlive-latex-extra, texlive-fonts-recommended
+- fonts-linuxlibertine
+- Libertinus fonts, including Libertinus Math, installed from official CTAN:
+  https://mirrors.ctan.org/fonts/libertinus-fonts.zip
+- Poppler tools for validation, not required for typesetting
+
+The unmodified official acmart 2.20 class is included. Its source and license
+materials are under acm/vendor/. Default ACM fonts and margins are used.
+
+From the extracted directory, run three times:
+  xelatex -interaction=nonstopmode -halt-on-error paper.tex
+
+For the alternative draft with review line numbering, run three times:
+  xelatex -interaction=nonstopmode -halt-on-error paper_wsdm.tex
+
+These are alternative venue drafts, not simultaneous submissions. No conference
+submission or arXiv processing has occurred. Check the intended cycle's rules
+and anonymize any accompanying artifact before submission. Tables are supplied
+as derived artifacts; rerunning the audit requires the full research repository.

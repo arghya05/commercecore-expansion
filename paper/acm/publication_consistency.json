@@ -1,0 +1,20 @@
+{
+  "execution_location": "RunPod",
+  "pdf_checks": {
+    "CommerceCore_Expansion_Paper.pdf": {
+      "historical_metric_presence": "PASS",
+      "new_development_metrics": "outside_historical_preprint_scope"
+    },
+    "CommerceCore_Expansion_SIGIR_Draft.pdf": {
+      "historical_metric_presence": "PASS",
+      "new_development_metrics": "PASS"
+    },
+    "CommerceCore_Expansion_WSDM_Draft.pdf": {
+      "historical_metric_presence": "PASS",
+      "new_development_metrics": "PASS"
+    }
+  },
+  "hf_cards_match_published_hashes": true,
+  "hf_repositories": 4,
+  "qualification": "Presence checks supplement source-derived generation and manual contextual review; different experiments remain separately labeled."
+}

@@ -1,0 +1,20 @@
+{
+  "status": "MACHINE_GATES_PASS",
+  "counts": {
+    "train": {
+      "relevance": 5997,
+      "identity": 6000,
+      "extraction": 6000
+    },
+    "dev": {
+      "relevance": 595,
+      "identity": 500,
+      "extraction": 400
+    },
+    "test": {
+      "relevance": 1200,
+      "identity": 1000,
+      "extraction": 800
+    }
+  }
+}

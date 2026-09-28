@@ -1,0 +1,16 @@
+{
+  "execution_location": "RunPod",
+  "source_zip_sha256": "4a9312a4e45a76b570eb7e5df38898d29dd6288a82281015a98ac1a7f5d171dd",
+  "outputs": {
+    "CommerceCore_Expansion_SIGIR_Draft": {
+      "text_matches_delivered_pdf": true,
+      "pages": 7,
+      "standalone_build": "PASS"
+    },
+    "CommerceCore_Expansion_WSDM_Draft": {
+      "text_matches_delivered_pdf": true,
+      "pages": 7,
+      "standalone_build": "PASS"
+    }
+  }
+}

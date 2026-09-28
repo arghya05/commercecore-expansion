@@ -1,19 +1,21 @@
-# CommerceCore Expansion
+---
+license: apache-2.0
+base_model: Qwen/Qwen3-1.7B
+language:
+- en
+pipeline_tag: text-generation
+tags:
+- ecommerce
+- product-matching
+- qlora
+- fine-tuned
+---
 
-Research adapters for product relevance, listing identity, functional relations,
-technical compatibility, and brand/color extraction. This repository is separate
-from the original CommerceCore release. The original
-`arghya2030/commercecore-qwen3-1.7b` weights, runtime and repository are unchanged.
+# Functional-relation specialist adapter
 
-**Status: research prototype.** The evidence supports qualified task-specific
-observations, not a universal frontier-model or production-efficiency claim.
-
-## Model repositories
-
-- [arghya2030/commercecore-expansion-understand-v1](https://huggingface.co/arghya2030/commercecore-expansion-understand-v1)
-- [arghya2030/commercecore-expansion-match-v1](https://huggingface.co/arghya2030/commercecore-expansion-match-v1)
-- [arghya2030/commercecore-expansion-functional-relation-v1](https://huggingface.co/arghya2030/commercecore-expansion-functional-relation-v1)
-- [arghya2030/commercecore-expansion-relevance-singletoken-v1](https://huggingface.co/arghya2030/commercecore-expansion-relevance-singletoken-v1)
+This card describes **arghya2030/commercecore-expansion-functional-relation-v1**. The weights are unchanged; this revision corrects
+and synchronizes the documented evidence. The tables identify which observations
+belong to this adapter and which belong to other parameter states.
 
 ## Audited results — 2026-09-28
 
@@ -98,22 +100,10 @@ universal frontier superiority, or conference acceptance.
 - [New development report and raw outputs](https://github.com/arghya05/commercecore-expansion/tree/main/research_v2/results/runpod_pilot_20260928/qwen_base_gpu_dev_v2)
 - [Publication gaps and related work](https://github.com/arghya05/commercecore-expansion/blob/main/paper/REVIEW_AND_PUBLICATION_STATUS.md)
 
-## Execution and reproduction
+## Use and scope
 
-All research computation for the current work runs on **RunPod**. The laptop is
-only a connection/file-transfer and publishing client. Run tests, model loading,
-data processing, serving benchmarks and PDF builds on the remote machine.
-
-- [Research protocol and guards](research_v2/README.md)
-- [RunPod operations](research_v2/runpod/README.md)
-- [Historical inference interfaces](docs/INFERENCE.md)
-- [Paper build and verification](paper/README.md)
-
-`paper/sync_public_results.py` generates the shared numerical summary in this
-README and all four model-card drafts from the audit and saved pilot outputs.
-`--check` detects drift. The historical paper macros use the same audit; the
-new ACM development table is generated from the same pilot report.
-Raw historical runtime, data and report files remain preserved.
-
-The code license is Apache-2.0. Dataset publishers' own licenses and terms
-continue to apply. No conference or arXiv submission has been made.
+Use this adapter with its historical task-specific prompt interface; see the
+[GPU inference guide](https://github.com/arghya05/commercecore-expansion/blob/main/docs/INFERENCE.md). The new development
+pilot uses an untuned base and a separate chat interface. The original
+[CommerceCore release](https://huggingface.co/arghya2030/commercecore-qwen3-1.7b)
+is a separate project and is not modified by this work.

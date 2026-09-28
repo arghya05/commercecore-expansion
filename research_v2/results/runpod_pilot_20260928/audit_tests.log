@@ -1,0 +1,12 @@
+test_confusion_reconstruction_with_invalid_output (test_audit_evidence.EvidenceTests.test_confusion_reconstruction_with_invalid_output) ... ok
+test_exact_pairing_endpoints (test_audit_evidence.EvidenceTests.test_exact_pairing_endpoints) ... ok
+test_invalid_margins_rejected (test_audit_evidence.EvidenceTests.test_invalid_margins_rejected) ... ok
+test_pairing_bounds_exhaustively_on_small_universes (test_audit_evidence.EvidenceTests.test_pairing_bounds_exhaustively_on_small_universes) ... ok
+test_real_extraction_scorer_accepts_partial_and_overlong_fields (test_audit_evidence.EvidenceTests.test_real_extraction_scorer_accepts_partial_and_overlong_fields) ... ok
+test_real_shared_scorer_opposite_label_counterexamples (test_audit_evidence.EvidenceTests.test_real_shared_scorer_opposite_label_counterexamples) ... ok
+test_scenario_key_order_does_not_change_group (test_audit_evidence.EvidenceTests.test_scenario_key_order_does_not_change_group) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.006s
+
+OK
