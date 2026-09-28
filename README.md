@@ -21,6 +21,18 @@ A set of small (1.7B parameter), self-hostable QLoRA adapters that classify and 
 | [commercecore-expansion-functional-relation-v1](https://huggingface.co/arghya2030/commercecore-expansion-functional-relation-v1) | functional_relation (dedicated adapter) | 0.821 locked-test accuracy | Real improvement over the shared adapter (0.692), still below the 0.846 frontier bar |
 | [commercecore-expansion-relevance-singletoken-v1](https://huggingface.co/arghya2030/commercecore-expansion-relevance-singletoken-v1) | relevance (rejected hypothesis) | 0.5115 accuracy | Preserved as evidence, not adopted — use the shared adapter instead |
 
+### Sample input → output, for each subtask
+
+| Subtask | Sample input | Model output |
+|---|---|---|
+| **Understand** (brand/color) | *"Nike Air Max 270 Women's Trainers - Black/White. Breathable mesh upper."* | `{"brand": "Nike", "color": "Black/White"}` |
+| **Match — relevance** | Query: *"wireless bluetooth headphones"* · Product: *"Sony WH-1000XM5 Wireless Noise Canceling Headphones"* | `exact` |
+| **Match — identity** | Listing A: *"Apple iPhone 15 128GB Blue"* · Listing B: *"iPhone 15, 128GB, Blue - Unlocked"* | `same` |
+| **Match — functional_relation** | Listing A: *"Espresso Machine - Brew rich, full-bodied espresso shots..."* · Listing B: *"Milk Frother - Create velvety steamed milk and foam..."* | `complement` |
+| **Match — technical_compatibility** | Item: *"PS5 DualSense controller"* · Device: *"PS5 (2020 model)"* | `compatible` |
+
+Full runnable code for each of these (exact prompt format, model repo ID, imports) is in "How to run inference (quick start)" further down.
+
 ## The problem
 
 A production ecommerce system needs several distinct decisions about products that a general-purpose frontier model is not specialized for: is this listing what a shopper searched for (relevance); are two listings the same purchasable item (identity); do two items serve a compatible or substitutable role (functional relation); is a specific accessory guaranteed to fit a specific device revision (technical compatibility); and what brand and color does a listing actually describe (extraction). Each has a distinct, non-interchangeable label space — conflating query relevance (query + offer) with product identity (offer + offer) is a specific, real error this project's governing specification identified and avoided before any data was collected.
