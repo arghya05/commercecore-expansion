@@ -2,6 +2,7 @@
 
 A set of small (1.7B parameter), self-hostable QLoRA adapters that classify and extract structured facts from ecommerce product data — query-product relevance, listing identity, functional relationships between products, technical compatibility, and brand/color extraction. One of these (brand/color extraction) beats every tested frontier model on both fields; the others report real, disclosed partial progress or rejected hypotheses rather than an inflated headline number.
 
+**Model weights + model cards:** https://huggingface.co/arghya2030/commercecore-expansion-understand-v1 (and 3 more — see table below)
 **Source code + docs:** https://github.com/arghya05/commercecore-expansion
 **Paper (PDF):** [`paper/CommerceCore_Expansion_Paper.pdf`](paper/CommerceCore_Expansion_Paper.pdf)
 
