@@ -1,0 +1,17 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 2,horizontal sep=1.3cm,vertical sep=1.5cm},width=.46\textwidth,height=4cm,xlabel={Optimizer step},ylabel={Training loss},ymode=log,grid=major,tick label style={font=\scriptsize},label style={font=\small},title style={font=\small}]
+\nextgroupplot[title={Shared v1 (trainer state)}]
+\addplot[blue!70!black,thick] table[x=step,y=loss,col sep=comma]{evidence/loss_shared_v1.csv};
+\nextgroupplot[title={Extraction (trainer state)}]
+\addplot[teal!70!black,thick] table[x=step,y=loss,col sep=comma]{evidence/loss_understand.csv};
+\nextgroupplot[title={Functional (rounded console log)}]
+\addplot[orange!85!black,thick] table[x=step,y=loss,col sep=comma]{evidence/loss_functional.csv};
+\nextgroupplot[title={Relevance letters (rounded log)}]
+\addplot[purple!70!black,thick] table[x=step,y=loss,col sep=comma]{evidence/loss_single_token.csv};
+\end{groupplot}
+\end{tikzpicture}
+\caption{All saved ten-step training-loss records for the four runs with available loss traces. Each panel has its own logarithmic vertical scale. Loss magnitudes differ across objectives and must not be ranked as task quality. Decreasing functional loss is compatible with limited generalization and repeated exposure to 131 training rows.}
+\label{fig:loss}
+\end{figure}

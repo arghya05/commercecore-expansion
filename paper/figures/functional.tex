@@ -1,0 +1,15 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=.88\textwidth,height=5.1cm,xlabel={Optimizer step},ylabel={Recorded accuracy},xmin=180,xmax=620,ymin=.70,ymax=.94,grid=major,legend style={at={(.5,1.02)},anchor=south,legend columns=2,font=\small},tick label style={font=\small}]
+\addplot+[blue!70!black,mark=*] table[x=step,y=dev,col sep=comma]{evidence/functional_sweep.csv};
+\addlegendentry{Development (28 rows)}
+\addplot+[orange!85!black,mark=square*] table[x=step,y=exposed_test,col sep=comma]{evidence/functional_sweep.csv};
+\addlegendentry{Exposed test (28 rows)}
+\draw[densely dashed,gray] (axis cs:350,.70)--(axis cs:350,.94);
+\draw[densely dashed,gray] (axis cs:450,.70)--(axis cs:450,.94);
+\end{axis}
+\end{tikzpicture}
+\caption{Dedicated functional adapter: all nine checkpoints in the saved test sweep. Step 350 is the earliest development maximizer; step 450 is the published checkpoint selected after test inspection. The difference in their test score is one example. Scenario overlap and repeated test access prevent interpreting this curve as an untouched generalization evaluation.}
+\label{fig:functional}
+\end{figure}

@@ -1,0 +1,104 @@
+\section{Tasks, Data Construction, and Split Integrity}
+\label{sec:data}
+\subsection{Operational task definitions}
+Table~\ref{tab:tasks} defines the labels actually represented in the experimental data. The broader project schemas include an \emph{unknown} state for some relations, but these experiments do not train or evaluate a calibrated abstention class. We therefore do not count schema support as measured model capability. Functional context and compatibility constraints can be present in the scenario metadata without being fully exposed in the generated listing prompt, an important limitation for tasks whose answer depends on such evidence.
+
+\begin{table}[t]
+\centering\small
+\caption{Implemented task formulations. ``Extraction'' contains two evaluated fields.}
+\label{tab:tasks}
+\begin{tabularx}{\textwidth}{P{2.2cm}YY}
+\toprule
+Task & Input & Observed output labels \\
+\midrule
+Relevance & Query and product listing & exact, substitute, complement, irrelevant \\
+Identity & Two product listings & same, distinct \\
+Functional relation & Two product descriptions & substitute, complement, unrelated \\
+Compatibility & Two product descriptions & compatible, incompatible \\
+Extraction & Listing text & JSON fields: brand, color \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Real-data mixtures and historical split versions}
+The current shared-adapter mixture contains \CurrentMixtureRows{} rows, of which \CurrentTrainRows{} are assigned to training and \CurrentDevRows{} to development. These counts are not interchangeable with the number of optimizer examples processed. Training may repeat or oversample rows, while the files also contain development data. Relevance uses ESCI-derived query--product pairs; identity uses WDC-derived listing pairs. Table~\ref{tab:mixture} distinguishes the current files from the development rows saved with the original shared adapter.
+
+\begin{table}[t]
+\centering\small
+\caption{Current shared mixture and preserved v1 development split. The last column counts labels in the historical split, exposing the single-class minority-task evaluations. Counts are regenerated from row files.}
+\label{tab:mixture}
+\begin{tabular}{lrrrr}
+\toprule
+Task & Current train & Current dev & Saved v1 dev & Saved labels \\
+\midrule
+\tablerows{evidence/mixture_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+The scaled v3 mixture contains 46,086 training and 7,519 development rows. Its relevance component grows to 40,000/4,000 train/dev rows; identity remains 6,000/3,500. It retains an earlier minority-task assignment of 50/15 functional-relation and 36/4 compatibility rows. Consequently, the current mixture is not a frozen representation of every historical run. In both relevance mixtures, the audit finds zero shared query identifiers and zero normalized full-input duplicates between train and dev. This is a positive split check, but it does not establish disjoint product families, merchants, or pretrained-model exposure.
+
+The API relevance sample contains 60 rows, balanced at 15 per class; its identity sample contains 50 rows, balanced at 25 per class. None of their normalized formatted inputs exactly matches the current shared training or development inputs. This check establishes that those API samples differ from the adapter's recorded development populations; it does not establish their independence at every product or query level. The shared identity development set is imbalanced: 3,000 of 3,500 labels are \emph{distinct}, giving an always-distinct accuracy of 0.857. We report this reference because raw accuracy alone can conceal weak performance on true matches.
+
+\subsection{Scenario-conditioned synthetic data}
+The synthetic pipeline first defines a structured product-pair scenario and an intended relation. Claude Haiku generates surface descriptions from that scenario; GPT-5-mini subsequently assesses support for the assigned label. The judge sees the scenario and proposed label. This provides a cross-model consistency check, not blinded human adjudication, a factuality guarantee, or a measured naturalness score. Hard-coding the intended label constrains generation but does not guarantee that the generated text entails it.
+
+The original functional set has 65 rows and the compatibility set 40. The expanded functional generation pass audits 124 rows and retains 122, which are merged with the original 65 to form 187 rows over 63 distinct scenario objects. The final row assignments are 131 train, 28 dev, and 28 named \code{locked\_test}. All three functional labels occur in each final partition. However, stratification is performed over paraphrases rather than independent scenarios: \ScenarioDevSeen{}/28 development and \ScenarioTestSeen{}/28 test rows have a scenario object also present in training. There are no exact normalized generated-text duplicates across those partitions, so text deduplication alone would miss this dependence.
+
+The earlier split repair creates an additional problem for a frozen model. Comparing the corrected development rows with the earlier training assignment preserved in the scaled mixture shows that 11/13 functional and 6/8 compatibility development texts were assigned to training under the earlier split. This is reconstructed exposure evidence, not a newly independent holdout. Re-stratifying existing examples cannot remove information already available during an earlier fit. These sets are useful diagnostics of label coverage; they do not support claims about unseen scenarios.
+
+\subsection{Attribute extraction and evidence grounding}
+The ABO-derived extraction files contain 9,396 training, 300 development, and 200 evaluation rows. Training has 9,359 unique item identifiers and 9,319 unique texts. Train/dev overlap comprises four item identifiers and two exact texts; train/evaluation overlap has zero item identifiers but two exact texts. An identifier-only exclusion rule therefore does not establish text independence.
+
+All brand values in the three files occur literally in their listing text under case-insensitive matching. Color values do so for 8,390/9,396 training, 256/300 development, and 184/200 evaluation rows. Nonliteral colors may reflect normalization or metadata-specific names rather than necessarily incorrect labels. Nevertheless, these observations contradict a stronger claim that every gold value is an exact span of the supplied text. A strictly grounded benchmark would separate extraction, normalization, and inference, then adjudicate each case under the corresponding policy.
+
+\section{Adaptation Methods and Experimental Record}
+\label{sec:methods}
+\subsection{Shared and specialist adapters}
+All implemented adapters use the upstream \code{Qwen/Qwen3-1.7B} identifier. A shared Match adapter predicts four relation types using task-specific instructions. The Understand adapter predicts brand/color JSON; a dedicated functional adapter is trained after the shared runs. A separate single-token relevance adapter is retained as an experimental alternative. Thus the delivered system is a family of adapters, not evidence that one parameter state performs every commerce task well. Figure~\ref{fig:architecture} distinguishes the training and serving roles.
+
+\input{figures/architecture.tex}
+
+The scripts quantize base weights with 4-bit NF4 and double quantization, using bfloat16 computation. Following LoRA~\cite{lora}, an adapted projection is
+\begin{equation}
+ W' = W_{\mathrm{base}} + \frac{\alpha}{r}BA,
+ \qquad A\in\mathbb{R}^{r\times d_{\mathrm{in}}},\quad B\in\mathbb{R}^{d_{\mathrm{out}}\times r}.
+\end{equation}
+The frozen quantized base and trainable low-rank matrices follow the QLoRA setup~\cite{qlora}. The target modules are the query, key, value, and output attention projections and the gate, up, and down feed-forward projections. Archived specialist and v1 configurations use rank 16, scale 32, and dropout 0.05. The current shared script uses rank 32 and scale 64 for the v3 configuration; it also contains relevance oversampling. Running that script today does not reproduce the earlier v1 experiment unchanged.
+
+The registry records a base revision, but the actual \code{from\_pretrained} calls omit the revision argument and archived adapter configurations contain a null revision. We therefore record the intended pin separately from the executed loader behavior. Neither a registry entry nor a model name alone certifies the exact weights downloaded in every historical run.
+
+\subsection{Training objective, batching, and label representation}
+Each example concatenates an instruction/input prefix $x$ with a short target $y$ and an end-of-sequence token. Prefix and padding labels are masked. The unweighted causal objective is
+\begin{equation}
+\mathcal{L}_{\mathrm{SFT}}
+ =-\frac{1}{\sum_i |y_i|}\sum_i\sum_{j=1}^{|y_i|}
+ \log p_{\theta}(y_{ij}\mid x_i,y_{i,<j}),
+\label{eq:sft}
+\end{equation}
+where only unmasked completion positions contribute. The implementations truncate the concatenated sequence from the right. They do not archive an audit of the fraction of targets removed by truncation; future controlled runs should reject examples with no supervised completion tokens.
+
+For weighted relevance and functional training, the scripts construct a vocabulary-level weight vector. A class with count $n_c$ among $N$ examples receives $w_c=N/(K n_c)$ at the selected label-token identifier, while other tokens retain weight one. The single-token variant maps relevance labels to four letters and asserts that each maps to one token. The functional variant weights the first token of each verbal label. This is token-weighted cross-entropy, not a clean example-level loss weighting when labels have multiple tokens or share a token. We preserve that implementation distinction in interpreting the trials.
+
+\begin{table}[t]
+\centering\small
+\caption{Recorded configurations. Learning rate, length, and batching describe preserved scripts; step counts are supported by histories/logs. Shared v1/v2 scripts were edited in place, so this table is not a fully frozen historical environment. Effective batch is per-device batch times accumulation on one device.}
+\label{tab:config}
+\begin{tabular}{lrrrrrl}
+\toprule
+Run & Rank & Steps & Max length & Batch & LR & Objective \\
+\midrule
+Shared v1 & 16 & 400 & 256 & 16 & $10^{-4}$ & Completion CE \\
+Shared v2 & 16 & 800 & 256 & 16 & $10^{-4}$ & Resampled mixture \\
+Shared v3 & 32 & 1,200 & 256 & 16 & $10^{-4}$ & Expanded mixture \\
+Relevance letters & 16 & 1,200 & 256 & 16 & $3\cdot10^{-5}$ & Token-weighted CE \\
+Functional specialist & 16 & 600 & 320 & 16 & $2\cdot10^{-5}$ & Token-weighted CE \\
+Extraction specialist & 16 & 1,200 & 384 & 16 & $10^{-4}$ & Completion CE \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The extraction batch is $4\times4=16$, despite a stale source comment claiming 32. Its script enables gradient checkpointing. The dedicated functional and letter-label runs use explicit warmup-step counts; all listed scripts use cosine learning-rate schedules. Available v1 trainer state ends at epoch 0.454, extraction at 2.041, functional at approximately 66.71, and single-token relevance at 0.48. Update counts therefore correspond to very different data exposure. There are no repeated-seed estimates or matched compute budgets across configurations.
+
+\subsection{Checkpoint evaluation is monitoring, not adaptive training}
+Callbacks evaluate development samples periodically: preserved v1 monitoring uses small per-task samples; current shared code caps each task at 100, single-token relevance uses 150 rows, and extraction uses 100. Functional monitoring uses all 28 development rows. These samples differ from full development evaluations. Callbacks record scores and compare them with stored comparator numbers, but do not implement a validated automatic curriculum, loss controller, rollback policy, or adaptive stopping rule. Some stored comparator numbers come from different samples, so their comparison flags cannot be used as release gates. Section~\ref{sec:contract} formalizes the missing conditions.

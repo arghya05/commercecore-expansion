@@ -1,0 +1,61 @@
+{
+  "baseline_commit": "c7deee76caa8c22058088d501befc32c57513d41",
+  "archive_date": "2026-09-28",
+  "files": [
+    {
+      "original_path": "models/shared_adapter_v1/dev_rows_for_eval.json",
+      "archive_path": "paper/evidence/archive/local_artifacts/models/shared_adapter_v1/dev_rows_for_eval.json",
+      "sha256": "77ffa86e8a317a8f15ca800009a33d7576747c58ae802504bf2c19253ddf1c51"
+    },
+    {
+      "original_path": "models/shared_adapter_v1/checkpoint-400/trainer_state.json",
+      "archive_path": "paper/evidence/archive/local_artifacts/models/shared_adapter_v1/checkpoint-400/trainer_state.json",
+      "sha256": "73e7f208690127c9043092247e165fd5d6a58b0e3b0f938f48dbe4169f0e102a"
+    },
+    {
+      "original_path": "models/understand_adapter_v1/checkpoint-1200/trainer_state.json",
+      "archive_path": "paper/evidence/archive/local_artifacts/models/understand_adapter_v1/checkpoint-1200/trainer_state.json",
+      "sha256": "06c27a4f8bc4bdf73de0c3db047a1f63b1634454437619ab22147862e5f29205"
+    },
+    {
+      "original_path": "models/functional_relation_adapter_v1/checkpoint_history.json",
+      "archive_path": "paper/evidence/archive/local_artifacts/models/functional_relation_adapter_v1/checkpoint_history.json",
+      "sha256": "ed53f1c5b9220cfd520b56dc0829b0b1b9860e2079e61b6201b9e1b036faffb0"
+    },
+    {
+      "original_path": "models/shared_adapter_v1/adapter_config.json",
+      "archive_path": "paper/evidence/archive/local_artifacts/models/shared_adapter_v1/adapter_config.json",
+      "sha256": "222676a19d42f0008fb10726c37846786ab6bd9b20a45dba23d093f509c9f8f9"
+    },
+    {
+      "original_path": "models/understand_adapter_v1/adapter_config.json",
+      "archive_path": "paper/evidence/archive/local_artifacts/models/understand_adapter_v1/adapter_config.json",
+      "sha256": "0020bca4c11d09cb69cc24326409c1c389bede3a791d9eb8f86515b351f8443a"
+    },
+    {
+      "original_path": "models/functional_relation_adapter_v1/adapter_config.json",
+      "archive_path": "paper/evidence/archive/local_artifacts/models/functional_relation_adapter_v1/adapter_config.json",
+      "sha256": "9c97a20e4a39e2c1a473f376a7d735b6478d41328bdad8a554a7dd4feca4b622"
+    },
+    {
+      "original_path": "models/relevance_adapter_v2_singletoken/adapter_config.json",
+      "archive_path": "paper/evidence/archive/local_artifacts/models/relevance_adapter_v2_singletoken/adapter_config.json",
+      "sha256": "2767f7394b30bc02e927e638afd250e3bd6c457f86cfcda251c539ef8aa6aedb"
+    },
+    {
+      "original_path": "paper/commercecore_expansion_paper.tex",
+      "archive_path": "paper/evidence/archive/pre_revision_commercecore_expansion_paper.tex",
+      "sha256": "1f15ea319f2b64ab150b2b5aa50e6fe6fb5680838a326f32cd19c79aae3ed825"
+    },
+    {
+      "original_path": "paper/build_evidence.py",
+      "archive_path": "paper/evidence/archive/pre_revision_build_evidence.py",
+      "sha256": "a2f446a91bf38ef70468c213fe9bc6a06a248ada61ffc0b0702b96dd8dea1669"
+    },
+    {
+      "original_path": "paper/evidence/numbers.tex",
+      "archive_path": "paper/evidence/archive/pre_revision_numbers.tex",
+      "sha256": "d411bb802a3a7b5849787cccc47f22869167189e8a77ce18e4dcbaeea7447e4a"
+    }
+  ]
+}

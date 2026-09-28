@@ -1,0 +1,11 @@
+{
+  "source_zip_sha256": "a1abfd8a257a9ad660bbb01348bf3b516a03467ee4588dc5d07ea9382cbf598f",
+  "public_pdf_sha256": "9ff6aafb265d9e82510f813fde89e32c21c11956851a9e544b5002f3a7076616",
+  "zip_crc": "passed",
+  "source_entries_hash_verified": 32,
+  "isolated_zip_compilation": "passed",
+  "isolated_pdf_text_matches_public_pdf": true,
+  "page_count": 21,
+  "undefined_references_or_citations": false,
+  "overfull_boxes_or_missing_characters": false
+}

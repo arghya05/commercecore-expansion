@@ -1,0 +1,214 @@
+\section{Artifact Provenance and Reproduction}
+\label{app:artifacts}
+\subsection{What is preserved}
+The evidence inventory records the 106 originally tracked non-paper files at baseline commit \code{c7deee76caa8c22058088d501befc32c57513d41}. The audit reads and verifies the original runtime, dataset, report, and manifest files against those hashes; the repository README may be updated to reflect this manuscript. Additional archived evidence includes the original shared development rows, v1 and extraction trainer states, the functional checkpoint history, four adapter configurations, and the previous manuscript, evidence builder, and macros. The archive manifest distinguishes original files from analysis generated in this revision.
+
+The audit's output records hashes for each source it reads. Numerical TeX rows and plot CSVs are generated from these inputs, while methodological prose is supported by source inspection. The paper source package includes every TeX/style/CSV dependency required to compile the manuscript; the full repository supplies the underlying data and reports needed to regenerate the analysis. Model weights are not required to execute the offline audit.
+
+\begin{table}[h]
+\centering\small
+\caption{Evidence map. Paths are relative to the repository; abbreviated report directories are dated in the committed inventory.}
+\begin{tabularx}{\textwidth}{P{3.1cm}Y}
+\toprule
+Claim or analysis & Primary evidence \\
+\midrule
+Mixture and split counts & \path{data/training_mixture_final.jsonl}; \path{data/training_mixture_v3.jsonl} \\
+Historical v1 split & \path{paper/evidence/archive/local_artifacts/models/shared_adapter_v1/dev_rows_for_eval.json} \\
+Scenario reuse & \path{data/synthetic_match/functional_relation_v3_final.jsonl} \\
+Extraction overlap & \path{data/understand_train.jsonl}; \path{data/understand_dev.jsonl}; \path{data/abo/understand_eval_grounded.json} \\
+API parsed predictions & \path{reports/frontier_comparison_2026-09-27/report.json} \\
+Extraction aggregate counts & \path{reports/understand_locked_eval_result.json}; \path{reports/understand_frontier_comparison_2026-09-28/report.json} \\
+Functional checkpoint selection & \path{reports/functional_relation_locked_eval_checkpoint_sweep.json} \\
+Single-token confusion & \path{reports/relevance_singletoken_experiment_2026-09-28/final_full_dev_scores_singletoken.json} \\
+Serving completions & \path{reports/load_test_2026-09-28/result_stats.csv}; \path{result_after_fix_stats.csv} in the same directory \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Reproduction commands and boundaries}
+From the repository root, \code{python3 paper/audit\_evidence.py} regenerates the audit JSON, metric macros, table rows, and plot CSVs using only the Python standard library. The unit checks in \path{paper/test_audit_evidence.py} exercise the metric reconstruction, scorer counterexamples, and aggregate pairing enumeration. \code{python3 paper/build\_paper.py} runs the audit, compiles the manuscript with Tectonic, checks the log, and packages the sources. A fresh compilation of the extracted source ZIP verifies that the paper does not depend on unbundled local figure files.
+
+This workflow reproduces the analysis, not the unavailable raw generations or historical software environments. Trainer scripts contain version-sensitive arguments and were edited between runs; an early smoke log records an unsupported \code{warmup\_ratio} argument, followed by scripts using explicit warmup steps. A source comment records an extraction batch reduction after an out-of-memory event, but a complete OOM trace is not archived. Dependency ranges, incomplete hardware metadata, and missing model-load revision enforcement prevent a stronger exact-replay claim. These constraints are disclosed rather than filled with estimated settings.
+
+\section{Additional Data and Comparison Diagnostics}
+\label{app:data}
+\begin{table}[h]
+\centering\small
+\caption{Selected split checks. A zero in one key space is not proof of independence in another. Scenario equality uses a hash of canonicalized structured metadata; text checks use exact or explicitly normalized text as described in the audit.}
+\begin{tabularx}{\textwidth}{Yrr}
+\toprule
+Check & Shared keys / affected rows & Evaluation rows \\
+\midrule
+Current relevance train/dev query IDs & 0 shared keys & 1,000 \\
+Scaled relevance train/dev query IDs & 0 shared keys & 4,000 \\
+Expanded functional dev: training scenario seen & 26 affected rows & 28 \\
+Expanded functional test: training scenario seen & 25 affected rows & 28 \\
+Corrected functional dev: earlier train text seen & 11 affected rows & 13 \\
+Corrected compatibility dev: earlier train text seen & 6 affected rows & 8 \\
+Extraction train/dev item IDs & 4 shared keys & 300 \\
+Extraction train/dev exact text & 2 shared keys & 300 \\
+Extraction train/eval item IDs & 0 shared keys & 200 \\
+Extraction train/eval exact text & 2 shared keys & 200 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The current 8,000-row relevance training component has 3,405 exact, 2,849 substitute, 382 complement, and 1,364 irrelevant labels. Its 1,000-row development component has 435, 303, 60, and 202 respectively. The scaled 40,000-row training set contains 17,401 exact, 14,071 substitute, 1,850 complement, and 6,678 irrelevant labels; the corresponding 4,000-row development counts are 1,753, 1,381, 175, and 691. This distribution shift alone makes raw differences across the two development populations difficult to attribute to a model change.
+
+The expanded functional training labels are 63 complement, 47 substitute, and 21 unrelated. Both 28-row evaluation partitions contain 14 complement, ten substitute, and four unrelated. A majority-complement classifier obtains 0.5 on each. Although the dedicated adapter exceeds that reference in the recorded results, scenario overlap prevents treating all 28 rows as independent novel scenarios. The exact number of statistically independent examples cannot be inferred from row count alone.
+
+\subsection{Comparison status ledger}
+\begin{table}[h]
+\centering\small
+\caption{Interpretation of prominent historical claims after applying the evaluation contract.}
+\begin{tabularx}{\textwidth}{P{3.4cm}YY}
+\toprule
+Comparison & Available evidence & Defensible interpretation \\
+\midrule
+Adapter vs APIs, relevance/identity & Different sample IDs and label prevalence & Separate descriptive scores \\
+Adapter vs APIs, extraction & Common sample and permissive field metric & Favorable point estimate; no paired inference \\
+Shared vs dedicated functional & Different splits and scenario exposure & Separate diagnostics; no isolated adaptation gain \\
+Compatibility perfection & Gold substring scorer accepts opposite label & Strict accuracy unknown \\
+eCeLLM functional loss & All raw answers fail a strict letter parser & Evaluation-format failure, not fair capability ranking \\
+Scaled mixture causes forgetting & Multiple changes; single-class monitoring & Interference hypothesis, not causal demonstration \\
+Serving cost/latency advantage & No completed inference in load CSVs & Advantage unmeasured \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Prompt, Decoding, and Scoring Details}
+\label{app:protocol}
+\subsection{Training and model prompts}
+The shared adapter receives a plain-text instruction followed by the stored input and \code{Answer:}. For relevance, the instruction is ``Classify the query-product relevance: exact, substitute, complement, or irrelevant.'' Identity asks whether the listings describe the same purchasable item or are distinct. Shared functional and compatibility prompts additionally mention \emph{unknown}, despite that class being absent from their training labels. This discrepancy is preserved in the audit and should be resolved in a future ontology-controlled run.
+
+Extraction uses the instruction to extract brand and color and respond with only a JSON object. The API extraction prompt explicitly permits null when a field is not mentioned or unclear; the adapter prompt does not include that additional sentence. Both see the listing text, but the null instruction is a prompt-policy difference that should be aligned or ablated before asserting an intrinsic model advantage. Raw JSON parse outcomes are counted as missing field predictions by the retained scorer.
+
+The API relevance prompt supplies natural-language definitions of all four classes, unlike the shorter adapter instruction. The identity prompt emphasizes the purchasable variant. These are reasonable model-interface choices, but they are not identical prompts or evidence of a controlled prompting study. The source scripts contain the complete templates; no prompt search history or equal tuning budget is archived.
+
+\begin{table}[h]
+\centering\small
+\caption{Preserved decoding settings. Unspecified values follow the installed model/provider defaults and cannot be reconstructed as fixed cross-provider settings.}
+\begin{tabularx}{\textwidth}{P{3.3cm}YY}
+\toprule
+Path & Generation settings & Important missing control \\
+\midrule
+Shared development & Greedy; up to 6 new tokens & Raw full-dev generations \\
+Extraction adapter & Greedy; up to 40 new tokens & Raw per-row JSON and score vector \\
+Anthropic Match calls & Up to 10 output tokens; 30-second timeout & Matched reasoning/output budget \\
+Anthropic extraction & Up to 100 output tokens; 30-second timeout & Per-response usage and revision record \\
+OpenAI comparator calls & 30-second timeout; no explicit output cap in inspected calls & Explicit budget and returned revision per response \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The preflight resolution report lists Haiku as \path{claude-haiku-4-5-20251001}, Sonnet as \code{claude-sonnet-5}, GPT-5-mini as \path{gpt-5-mini-2025-08-07}, and GPT-5 as \path{gpt-5-2025-08-07}. These are recorded experiment metadata, not a claim that they are the latest available models. The scoring functions use their configured model strings; in particular, the OpenAI calls use aliases rather than the preflight's dated strings. Parsed predictions and aggregate reports alone cannot prove which backend served every call.
+
+\subsection{Scorer stress cases}
+A small deterministic test suite can establish that a scorer is unsound without assuming that a particular model emitted the offending answer. The cases in Table~\ref{tab:stress} are constructed fixtures. They do not count as additional benchmark examples or model failures. The audit tests execute the retained extraction scoring function without importing its GPU dependencies and isolate the shared evaluator's actual correctness expression for the classification fixtures.
+
+\begin{table}[h]
+\centering\small
+\caption{Constructed scorer counterexamples and one retained raw-output pattern.}
+\label{tab:stress}
+\begin{tabularx}{\textwidth}{P{2.1cm}P{2.5cm}YY}
+\toprule
+Gold & Answer & Historical treatment & Required distinction \\
+\midrule
+compatible & incompatible & Correct substring & Opposite labels \\
+same & not same & Correct substring & Negated assertion \\
+black suede & black & Correct extraction field & Partial versus exact value \\
+Any letter label & \code{a: b} & First letter becomes label & Ambiguous/malformed answer \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Complete Available Error and Checkpoint Analyses}
+\label{app:checkpoints}
+\subsection{Confusion matrices}
+\begin{table}[h]
+\centering\small
+\caption{Single-token relevance development confusion matrix. Rows are gold labels and columns predictions; total 4,000.}
+\begin{tabular}{lrrrr}
+\toprule
+Gold / predicted & exact & substitute & complement & irrelevant \\
+\midrule
+\tablerows{evidence/relevance_confusion_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\caption{Published functional checkpoint confusion matrix on the exposed 28-row test partition.}
+\begin{tabular}{lrrr}
+\toprule
+Gold / predicted & substitute & complement & unrelated \\
+\midrule
+\tablerows{evidence/functional_confusion_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Monitoring trajectories}
+Figure~\ref{fig:monitor} preserves the recorded monitoring histories separately from the full-development results. V1/v2 relevance and identity monitoring uses 30-row samples, while the v3 histories use larger samples consistent with the later 100-row cap. Minority-task monitoring uses the available 15/4-row historical development partitions. These differences prohibit treating the curves as a matched data-scaling ablation. They still show why a single final score is an incomplete account of training behavior.
+
+The letter-label callback's recorded values differ substantially from its final full-development score. It uses a 150-row sample and the inherited substring-based callback rather than the final parsed-label confusion evaluation. With no paired callback generation vector retained, we do not attribute that discrepancy solely to sampling, parsing, or model state. It is a further reason to preserve one versioned evaluator and raw predictions throughout a controlled run.
+
+The extraction monitor uses 100 sampled development rows and field-correctness rates, not the 200-row final field-F1 evaluation. Its color monitor reaches 0.94 at step 900 and 0.93 at step 1,200, while its brand monitor remains 1.0 throughout. The saved final model is the end-of-run adapter, so a best-development checkpoint policy should not be retroactively asserted.
+
+\input{figures/monitoring.tex}
+\FloatBarrier
+
+\begin{table}[h]
+\centering\small
+\caption{Loss-trace endpoints. Functional console loss is rounded in the table; the underlying final printed value is approximately $6.477\cdot10^{-5}$. Traces are not matched objectives.}
+\begin{tabular}{lrrrr}
+\toprule
+Run & Records & First logged loss & Last logged loss & Last logged epoch \\
+\midrule
+\tablerows{evidence/loss_summary_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\caption{Every checkpoint evaluated in the functional test sweep. Development scores come from the separately preserved history.}
+\begin{tabular}{rrr}
+\toprule
+Step & Development accuracy & Exposed-test accuracy \\
+\midrule
+\tablerows{evidence/functional_checkpoints.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Interpretation of earlier specialist attempts}
+The repository narrative records an unweighted dedicated relevance trial and a weighted verbal-label trial, including small manually inspected samples dominated by \emph{exact}. These observations motivated the letter-label run. Their full per-example outputs, stable environment snapshots, and a matched final evaluation are not retained. The manuscript therefore reports them as exploratory development observations, not as five independently falsified scientific hypotheses. The preserved code also shows that the latest shared script includes oversampling despite a historical description of v3 as ``no rebalancing.'' This unresolved source-history mismatch is a reason to rerun a controlled ablation, not to choose whichever account supports a preferred explanation.
+
+\FloatBarrier
+\section{Derivation of Aggregate Pairing Bounds}
+\label{app:pairing}
+Let $A$ and $B$ be subsets of correctly answered rows, with $|A|=a$ and $|B|=b$ in a universe of size $n$. Since $|A\cup B|\leq n$, their intersection obeys $|A\cap B|\geq a+b-n$; nonnegativity and containment give the remaining bounds in Section~\ref{sec:bounds}. Every integer $x$ in that range yields a feasible $2\times2$ correctness table:
+\begin{equation}
+\begin{array}{c|cc}
+ & B\text{ correct} & B\text{ incorrect}\\\hline
+ A\text{ correct} & x & a-x\\
+ A\text{ incorrect} & b-x & n-a-b+x
+\end{array}.
+\end{equation}
+At $x=184$, the discordant counts are $(7,0)$, giving $p=2/2^7=0.015625$. At $x=175$, they are $(16,9)$, giving $p\approx0.229523$. The released script enumerates all ten possibilities rather than assuming an overlap pattern. Unit tests compare the bounds against exhaustive binary correctness assignments on small universes. A paired F1 analysis would require the joint pattern of missing, incorrect, and correct field predictions, which these binary margins do not retain. Even complete vectors would still require attention to clustered listings and training contamination before inferential claims.
+
+\section{Prospective Controlled Study}
+\label{app:future}
+This appendix specifies experiments that would strengthen a future version; none is presented as already performed. The first gate is data integrity: create a new scenario bank, group splits before paraphrase generation, exclude item and normalized-text duplicates, and freeze a scored test set whose labels are not used by a training controller. Add blinded human judgments of label support and naturalness on a stratified sample, reporting annotator agreement and disagreement resolution separately from automated-judge agreement. Annotate whether the supplied evidence suffices to answer, and represent unknown cases explicitly.
+
+The next gate is a matched baseline study. Evaluate the unfine-tuned base, shared adapter, equal-budget specialists, a supervised compact relevance classifier, Ditto-style identity matching, task-tuned extraction encoders, and relevant commerce models on the same test contracts. Apply model-specific prompt formatting selected only on development data. Preserve raw outputs, request IDs, exact provider/model revisions when available, all failed requests, parser versions, and token usage. Compute class macro-F1 and per-class recall, query-level metrics where the official search task requires them, and both exact and normalized field metrics. Use paired uncertainty estimates with query/entity/scenario grouping and disclose the family of comparisons.
+
+For data-selection originality, test whether allocating a fixed annotation/token budget to new scenarios outperforms allocating it to additional paraphrases. Cross this with automated-judge acceptance versus blinded human filtering, keeping domain and label coverage matched. A learning curve over unique scenarios and total tokens would isolate diversity from repetition. Such a study could substantiate a data-selection contribution; the current scenario-overlap diagnosis alone does not establish a superior selection algorithm.
+
+For training originality, compare uniform task sampling with a development-only controller that reacts to minority-task regression. Its intervention budget, stopping rule, and replay allocation must be fixed before test access. Include existing balancing methods and equal-budget specialist controls; log per-task losses and gradient conflict if an interference mechanism is claimed. Three or more seeds would permit an initial variance estimate, but the final replication budget should depend on observed uncertainty and the effect size of interest. Test scores must never drive automatic retraining decisions.
+
+For serving originality, compare separate model instances with one resident base and explicit adapter scheduling, then vary quantization, batch size, and concurrency while re-evaluating output quality. Record GPU model, memory, runtime versions, request lengths, cold/warm conditions, completion/error counts, and actual billed intervals. A scheduling method would need a throughput--tail-latency--quality advantage over existing serving strategies under the same workload. Measure on candidate hardware before choosing a deployment instance; the available logs cannot identify an optimal RunPod GPU or guarantee uninterrupted service.
+
+A publishable systems or learning claim would require these interventions to be implemented, compared with relevant prior methods, and supported by independent test and serving evidence. The present paper instead offers a transparent empirical foundation and an executable account of which measurements remain missing.

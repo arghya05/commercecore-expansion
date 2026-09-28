@@ -1,0 +1,134 @@
+\section{Evaluation Contracts and Audit Procedure}
+\label{sec:contract}
+We represent an evaluation by
+\begin{equation}
+ \mathcal{E}=(D,I,X,Y,P,G,S,H),
+\end{equation}
+where $D$ identifies the data version and partition, $I$ the ordered example identifiers, $X$ the evidence exposed to the model, $Y$ the label ontology, $P$ the prompt/decoding protocol, $G$ the gold labels, $S$ the scoring program, and $H$ the history of training and selection exposure. This is a reporting contract, not a new learning algorithm. In particular, equal metric names or equal sample sizes do not imply equal evaluations.
+
+A paired model comparison requires aligned $(D,I,X,Y,G,S)$ and documented, task-appropriate choices of $P$ for each model. It need not force identical syntax on models trained with different interfaces, but any prompt adaptation must preserve the underlying evidence and be selected without using test outcomes. $H$ distinguishes a diagnostic sample from an untouched generalization test. For a leaderboard claim, the contract must additionally match the publisher's official split and metric. For a cost comparison, it must include request lengths, decoding budgets, hardware, concurrency, warmup, and the accounting interval.
+
+The offline audit performs four operations. It checks file hashes against the original inventory; reconstructs counts and overlap keys from every row in the analyzed data files; recomputes metrics where predictions, confusion matrices, or sufficient counts exist; and labels missing information explicitly. It verifies 118 source inputs, including preserved local artifacts. Reproducibility here means that another reader can regenerate the reported analysis from the released evidence. It does not mean that every historical model run can be replayed bit-for-bit.
+
+\subsection{Scoring semantics and counterexamples}
+\label{sec:scorers}
+The shared-adapter evaluation marks an answer correct when the lowercased gold string is a substring of the generated answer. Formally,
+\begin{equation}
+ S_{\mathrm{sub}}(y,\hat y)=\mathbb{1}[\operatorname{lower}(y)\subseteq\operatorname{lower}(\hat y)].
+\end{equation}
+This rule accepts gold \emph{compatible} with prediction \emph{incompatible}. It also accepts gold \emph{same} in \emph{not same}. These are executable counterexamples to the scorer, not reconstructed predictions from missing model outputs. In particular, the saved 1.0 compatibility score cannot certify perfect label accuracy. The raw outputs needed to rescore that historical result are absent.
+
+Extraction scoring accepts a nonempty field when either the predicted string contains the gold string or vice versa. It computes field-level precision, recall, and F1 from the resulting counts. Thus \emph{black} can match \emph{black suede}, and an overlong answer containing the gold value can receive credit. We retain the original metric for traceability and call it \emph{permissive field F1}. It should be supplemented by normalized exact match and evidence-grounding evaluation in a future run.
+
+The functional eCeLLM evaluator scans for the first character in \code{a}, \code{b}, or \code{c}, mapping that character to a relation. Its 28 saved outputs consist of ten instances of \code{a: b} and eighteen malformed JSON-like fragments. A character inside an unrelated word can therefore become a label. The stored parser reports four correct labels and no invalid outputs; a strict full-answer check accepting one letter with optional trailing punctuation accepts \StrictEcellmValid{}/\EcellmRawN{}. This demonstrates format noncompliance under this particular evaluation setup. It does not establish that the model intrinsically cannot solve functional relation.
+
+\subsection{API evidence and benchmark scope}
+The saved API relevance/identity report includes per-example parsed labels, allowing its accuracy to be recomputed. A preflight records resolved provider model names, but the scoring calls use configured model strings and do not retain the returned model identifier for each response. We therefore use the historical aliases in the tables without certifying a frozen provider snapshot. Output-budget policies also differ between providers. Appendix~\ref{app:protocol} details these limitations.
+
+Public datasets are used as sources rather than as completed official benchmark submissions. No query-level ranking metric, full ESCI leaderboard score, complete WDC generalization grid, or general retail task suite is available. Compatibility and functional relation are small project-specific diagnostics, not public benchmarks. We make no assertion that these results beat all public, open-weight, or contemporary frontier systems.
+
+\section{Results and Error Analysis}
+\label{sec:results}
+\subsection{RQ1: shared adaptation and task-specific behavior}
+Table~\ref{tab:shared} reports the complete logged full-development shared-adapter results. The v1 rescore reaches \SharedRelevance{} relevance and \SharedIdentity{} identity under the historical substring scorer. The prior manuscript reported 0.526 and 0.914; its original complete evaluation vector is unavailable, so those values are retained in the archive rather than silently equated with the later rescore. Neither score should be substituted for a matched result on the API sample.
+
+\begin{table}[t]
+\centering\small
+\caption{Logged shared-adapter full-development scores under the historical substring scorer. Parentheses give sample size. Rows do not share one complete evaluation contract. Compatibility values are particularly compromised by the label-containment bug.}
+\label{tab:shared}
+\begin{tabular}{lrrrr}
+\toprule
+Run & Relevance & Identity & Functional & Compatibility \\
+\midrule
+v1 rescore & 0.527 (1,000) & 0.916 (3,500) & 0.692 (13) & 1.000 (8) \\
+v2 & 0.491 (1,000) & 0.914 (3,500) & 1.000 (15) & 1.000 (4) \\
+v3 & 0.503 (4,000) & 0.888 (3,500) & 0.133 (15) & 1.000 (4) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The shared experiments change several factors at once: relevance sampling, mixture size, update budget, rank, and in some cases evaluation population. Their order documents the development process, but the observed differences cannot isolate the causal effect of any one change. In particular, the v3 functional decrease occurs on a 15-row single-class diagnostic; it motivates investigation of task interference but does not by itself demonstrate catastrophic forgetting of a broad capability. No pre/post general-ability suite or controlled gradient-conflict experiment is available.
+
+\begin{table}[t]
+\centering\small
+\caption{API and eCeLLM measurements on the separate balanced relevance/identity samples. API counts are recomputed from saved parsed labels; eCeLLM counts are reconstructed from aggregates. The shared adapter has no saved evaluation on these same 60/50 rows, so no adapter-versus-API difference is calculated.}
+\label{tab:frontier}
+\begin{tabular}{lrrrr}
+\toprule
+Model label & Relevance correct & Accuracy & Identity correct & Accuracy \\
+\midrule
+\tablerows{evidence/frontier_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+The API scores in Table~\ref{tab:frontier} are independently useful reference measurements on those samples. They cannot support claims that v1 beats three APIs, ties the strongest identity model, or falls short by an exact number of points. The adapter's identity majority baseline of 0.857 also differs from the balanced API sample's baseline of 0.5. Subtracting accuracies across those populations would conflate model quality with class prevalence and difficulty.
+
+\subsection{Single-token relevance: avoiding one collapse is not balanced performance}
+The dedicated letter-label adapter's full 4,000-row confusion matrix supports a deeper analysis than aggregate accuracy alone. Accuracy is \SingleAccuracy{}, macro-F1 is \SingleMacroF{}, and balanced accuracy is \SingleBalanced{}. All four classes are predicted, but complement recall is only 0.200 and irrelevant recall 0.304 (Table~\ref{tab:classes}). Substitute predictions occupy 1,939/4,000 outputs although only 1,381 gold rows have that class.
+
+\begin{table}[t]
+\centering\small
+\caption{Recomputed single-token relevance metrics. Support and predicted counts expose errors hidden by the headline accuracy. These are development-set results, not an untouched test estimate.}
+\label{tab:classes}
+\begin{tabular}{lrrrrr}
+\toprule
+Class & Support & Predicted & Precision & Recall & F1 \\
+\midrule
+\tablerows{evidence/relevance_class_rows.tex}
+\midrule
+Macro average & & & & \SingleBalanced{} & \SingleMacroF{} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Of 175 true complements, 105 are predicted substitute; of 691 irrelevant pairs, 362 receive that prediction. The pattern is compatible with an overly broad substitute decision region, but no representation-level analysis was performed. Earlier free-form specialist attempts are described in development notes as class collapse on small inspected samples; their complete prediction vectors are absent. The available evidence therefore establishes the letter model's final error structure, not a controlled proof that token length caused the earlier failures.
+
+\subsection{Functional relation: exposure and selection dominate the interpretation}
+The dedicated functional adapter's published checkpoint reaches 23/28 = \FunctionalAccuracy{} on the partition named \code{locked\_test}, with macro-F1 \FunctionalMacroF{}. Its confusion matrix shows all 14 complements correct, seven of ten substitutes correct, and two of four unrelated examples correct; every remaining prediction is complement. The test partition is small and predominantly shares training scenarios.
+
+Checkpoint selection creates a second limitation. Development accuracy is maximal at steps 350 and 550 (25/28). A retrospective earliest-tie development rule would select step 350, which obtains 22/28 on the exposed test. The saved sweep evaluates nine checkpoints on that test, and the published step 450 obtains 23/28. The one-example increase is thus part of a test-informed selection process. It is not an unbiased final evaluation of a rule fixed beforehand. Figure~\ref{fig:functional} retains every saved test-sweep value.
+
+\input{figures/functional.tex}
+
+All four APIs obtain 11/13 on the earlier functional diagnostic, but that is a different set from the dedicated adapter's 28 rows. In addition, the API prompt constructor takes the first two newline-separated strings of the generated description; two of the 13 second-listing fields are empty because of blank lines. Consequently, neither the apparent development advantage nor the apparent test deficit relative to 0.846 is a defensible paired model difference. The correct next comparison requires new scenario-disjoint examples and identical complete evidence.
+
+\subsection{RQ2: extraction provides the clearest matched signal}
+\label{sec:extraction}
+Table~\ref{tab:extraction} compares systems on the same 200-listing extraction sample with the recorded permissive field scorer. This is the strongest common-population comparison in the artifact. The adapter ties GPT-5-mini and GPT-5 at brand F1 1.000, and its color F1 0.955 is \ExtractionColorDelta{} points above the best API color result, Haiku at 0.941. The earlier narrative incorrectly identified GPT-5's 0.931 as the strongest color baseline. Counts, not rounded differences, determine the corrected ordering.
+
+\begin{table}[t]
+\centering\small
+\caption{Extraction on the same 200 rows. Counts are TP/FP/FN under permissive field matching, not strict string equality. All F1 values are recomputed from counts. Two evaluation texts overlap training; per-example prediction vectors are unavailable for decontamination and paired F1 inference.}
+\label{tab:extraction}
+\begin{tabular}{lrrrr}
+\toprule
+System & Brand counts & Brand F1 & Color counts & Color F1 \\
+\midrule
+\tablerows{evidence/extraction_rows.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+For each field, $F_1=2TP/(2TP+FP+FN)$. A missing prediction contributes a false negative; an incorrect nonempty value can contribute both a false positive and a false negative. The adapter records zero JSON parse failures on this sample. Brand is an easier field here in the sense that every gold value occurs literally in the supplied text; this observation is specific to the selected data, not a general claim about brand extraction difficulty.
+
+The result supports a promising specialization signal but not a statistically established advantage. The sample contains only 200 listings, two exact texts overlap training, and the report retains aggregate counts without the raw paired field outputs. We cannot determine the corrected score after removing overlaps, stratify errors by evidence availability, or bootstrap paired F1 without inventing missing outcomes. It is also not possible to infer that a stronger baseline tuned on the same training data would retain the same gap: the GLiNER variants were used as off-the-shelf baselines.
+
+\subsection{What aggregate counts imply about paired uncertainty}
+\label{sec:bounds}
+A useful diagnostic can still be derived without reconstructing nonexistent predictions. Treat a color true positive as binary correctness on each of the $n=200$ rows. The adapter has $a=191$ correct and Haiku has $b=184$. Let $x$ be the unobserved number both get correct. The feasible overlap is
+\begin{equation}
+ \max(0,a+b-n)\leq x\leq\min(a,b),\qquad 175\leq x\leq184.
+\end{equation}
+The discordant counts are $(a-x,b-x)$. Under the usual paired binary-test assumptions, the two-sided exact McNemar probability for any feasible pairing is
+\begin{equation}
+ p(x)=\min\left\{1,\;2\sum_{k=0}^{\min(a-x,b-x)}
+ {a+b-2x\choose k}2^{-(a+b-2x)}\right\}.
+\label{eq:pair}
+\end{equation}
+Enumerating all feasible integer $x$ yields $p\in[\PairPMin{},\PairPMax{}]$. Some possible pairings cross a conventional 0.05 threshold and others do not. Thus the marginal counts alone cannot determine even this binary paired-test conclusion. This range is \emph{not} an observed p-value, a confidence interval, or a paired F1 test. It also does not repair training overlap or dependence among related listings. The calculation illustrates why preserving raw paired predictions is scientifically necessary even when point estimates look favorable.
+
+\subsection{Open-weight comparator coverage}
+The artifact contains useful comparator attempts but not an exhaustive matched Hugging Face benchmark. eCeLLM relevance/identity reports contain aggregates; its functional raw-output failure was analyzed in Section~\ref{sec:scorers}. The Qwen embedding and Rex reranker sweep fits identity thresholds on the evaluation sample itself. Its 0.70/0.72 identity accuracies are optimistic selection diagnostics over the tried thresholds, not independently calibrated test scores. Its relevance numbers evaluate a binary relevant/irrelevant reduction, whose positive-class majority baseline is 0.75; they cannot be compared with four-class relevance accuracy.
+
+RexBERT without a fitted classification head is not a completed supervised comparator. NuExtract's missing completed evaluation is an execution gap, not proof that text-only extraction is inapplicable. Comparator registries and status manifests are partly stale and do not substitute for prediction artifacts. We consequently retain a distinction between \emph{listed}, \emph{attempted}, \emph{measured}, and \emph{comparably evaluated} systems throughout the paper.

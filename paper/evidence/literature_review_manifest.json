@@ -1,0 +1,62 @@
+{
+  "review_date": "2026-09-28",
+  "scope": "Focused related-work review, not an exhaustive survey",
+  "downloaded_pdfs_reviewed": [
+    {
+      "arxiv_id": "2510.21970",
+      "primary_url": "https://arxiv.org/abs/2510.21970",
+      "pdf_sha256": "dc81b6eaefcf515375b937a3080898ab07ccf6d30b8eb932bf83cd260afffe3f",
+      "review_scope": "Full-text methods/experiments or evaluation methodology consulted; no independent reproduction"
+    },
+    {
+      "arxiv_id": "2402.08831",
+      "primary_url": "https://arxiv.org/abs/2402.08831",
+      "pdf_sha256": "7255ce844f3ac50b50376752b7300ff6c4862d374523cb5a016d3d2760eec614",
+      "review_scope": "Full-text methods/experiments or evaluation methodology consulted; no independent reproduction"
+    },
+    {
+      "arxiv_id": "2410.17337",
+      "primary_url": "https://arxiv.org/abs/2410.17337",
+      "pdf_sha256": "33e413f41a695f1345c58c2846c93f771bf7a03984f1b12c2e88adbd27ba5e1d",
+      "review_scope": "Full-text methods/experiments or evaluation methodology consulted; no independent reproduction"
+    },
+    {
+      "arxiv_id": "2507.18546",
+      "primary_url": "https://arxiv.org/abs/2507.18546",
+      "pdf_sha256": "44354a8287827488310d2f237912ed5892fdb896f6180f1420e9b4414d6294f3",
+      "review_scope": "Full-text methods/experiments or evaluation methodology consulted; no independent reproduction"
+    },
+    {
+      "arxiv_id": "2308.06966",
+      "primary_url": "https://arxiv.org/abs/2308.06966",
+      "pdf_sha256": "7b4ebf50a2f98e38c34555e20d356d0715c138b52df9ab2303ba24d1a647c14d",
+      "review_scope": "Full-text methods/experiments or evaluation methodology consulted; no independent reproduction"
+    },
+    {
+      "arxiv_id": "2207.07048",
+      "primary_url": "https://arxiv.org/abs/2207.07048",
+      "pdf_sha256": "c433bceda841ca09fe2fd7ddf857fc0818fdf98553e62e54a37cc394c6f70c42",
+      "review_scope": "Full-text methods/experiments or evaluation methodology consulted; no independent reproduction"
+    }
+  ],
+  "additional_primary_metadata_checked": [
+    "https://arxiv.org/abs/2206.06588",
+    "https://arxiv.org/abs/2301.09521",
+    "https://arxiv.org/abs/2110.06199",
+    "https://arxiv.org/abs/2004.00584",
+    "https://arxiv.org/abs/2106.09685",
+    "https://arxiv.org/abs/2305.14314",
+    "https://arxiv.org/abs/1711.02257",
+    "https://arxiv.org/abs/2001.06782",
+    "https://arxiv.org/abs/2005.04118"
+  ],
+  "model_documentation_checked": [
+    "https://huggingface.co/numind/NuExtract-2.0-2B",
+    "https://huggingface.co/NingLab/eCeLLM-S",
+    "https://huggingface.co/fastino/gliner2-base-v1"
+  ],
+  "venue_rules_checked": [
+    "https://sigir2027.org/pages/submit-full.html",
+    "https://www.wsdm-conference.org/2027/cffp.html"
+  ]
+}

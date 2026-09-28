@@ -1,4 +1,4 @@
-% Canonical manuscript; see README.md for the reproducible build.
+% Public preprint: same template as the original CommerceCore paper.
 \documentclass{article}
 \usepackage[preprint,nonatbib]{neurips_2026}
 \usepackage[T1]{fontenc}
@@ -6,171 +6,41 @@
 \usepackage{microtype}
 \usepackage{amsmath,amssymb}
 \usepackage{xcolor}
-\usepackage{graphicx,booktabs,tabularx,array}
+\usepackage{graphicx,booktabs,tabularx,array,multirow}
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{arrows.meta,positioning}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\usepackage{placeins}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,
- pdftitle={CommerceCore Expansion: A Shared Multitask Adapter for Product Matching, Tested Against Frontier Models},pdfauthor={Arghya Mukherjee}}
+ pdftitle={CommerceCore Expansion: Auditing Small-Model Adaptation for Product Matching and Attribute Extraction},pdfauthor={Arghya Mukherjee}}
 \newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\method}{CommerceCore Expansion}
+\newcommand{\na}{\textemdash}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\makeatletter
+\newcommand{\tablerows}[1]{\@@input #1 }
+\makeatother
 \input{evidence/numbers.tex}
-\title{CommerceCore Expansion: A Shared Multitask Adapter\\for Product Matching, Tested Against Frontier Models}
+\title{CommerceCore Expansion: Auditing Small-Model\\Adaptation for Product Matching and Attribute Extraction}
 \author{Arghya Mukherjee\\Independent Researcher\\\texttt{arghya05@gmail.com}\\\href{https://orcid.org/0009-0008-3423-8574}{ORCID: 0009-0008-3423-8574}}
 \begin{document}
+\raggedbottom
 \maketitle
-
 \begin{abstract}
-We study whether a single small, shared QLoRA adapter can jointly serve four e-commerce product-matching subtasks -- query-product relevance, listing identity, functional relation, and technical compatibility -- and whether it can match or exceed frontier language models on the two subtasks where a frontier comparison is directly measurable. A rank-\LoraRank{} adapter is trained on an independently pinned \code{Qwen/Qwen3-1.7B} base (explicitly isolated from a previously released, unrelated query-parsing model built on the same base) using \TrainingMixtureRows{} real and synthetic examples: \EsciExamples{} ESCI query-product pairs, \WdcTrainPairs{} WDC Products identity pairs, and a small synthetic set for the two subtasks with no adequate public benchmark, generated with a structured-scenario-first method and independently audited by a different model than the one that generated the surface text. On a held-out \DevSetRows{}-row development set, the trained adapter reaches \AdapterOneRelevanceAcc{} relevance accuracy and \AdapterOneIdentityAcc{} identity accuracy. Measured against four frontier models on a separate, class-balanced held-out set, the strongest comparator (\code{claude-sonnet-5}) reaches \SonnetRelevanceAcc{} relevance accuracy and \SonnetIdentityAcc{} identity accuracy: the trained adapter does not clear this bar on relevance (a \RelevanceGapVsSonnet{}-point gap) and is within measurement noise on identity (a \IdentityGapVsSonnet{}-point gap), while exceeding all three other tested frontier models on both subtasks. A second training run tested whether severe class imbalance in the relevance data explained the shortfall; class-balanced oversampling with double the training budget made relevance accuracy \emph{worse} (\AdapterTwoRelevanceAcc{}, a \AdapterTwoRelevanceDelta{}-point change), rejecting that specific hypothesis. A third run tested whether scaling real relevance data alone, without rebalancing, would close the gap: \AdapterThreeRelevanceRows{} relevance examples (five times the first run's data), rank-\AdapterThreeLoraRank{} instead of rank-\LoraRank{}, and \AdapterThreeTrainSteps{} steps instead of \TrainSteps{}. Relevance accuracy still did not clear the frontier bar (\AdapterThreeRelevanceAcc{}, marginally below the first run), and the much larger relevance share of the training mixture caused a fourth subtask, functional relation, to collapse from perfect held-out accuracy to \AdapterThreeFunctionalAcc{} through catastrophic forgetting within the shared adapter -- a genuine architectural cost of naively scaling one subtask's data inside a multitask mixture. We additionally evaluate eCeLLM-S~\cite{ecellm}, a \EcellmParams{}-parameter open commerce-domain model from the same task family, correcting an initial evaluation attempt that used a generic instruction format the model did not follow, in favor of its own training data's native prompt format; the trained adapter from the first run exceeds it by a wide margin on both subtasks (\EcellmRelevanceAcc{} relevance accuracy, \EcellmIdentityAcc{} identity accuracy). A fourth attempt isolated relevance into its own dedicated, non-shared adapter to test whether capacity competition with the other three subtasks explained the shortfall; this also failed, collapsing to predicting only a subset of the four possible classes even after correcting for class imbalance. A fifth attempt reformulated the four class labels as single tokens to isolate a token-length confound identified in the fourth attempt's failure mode; this removed the collapse (all four classes were predicted) but the resulting accuracy, \SingleTokenRelevanceAcc{}, remains marginally below the first, adopted adapter and short of frontier -- five distinct, falsifiable hypotheses tested and rejected in total. A later audit found that the functional-relation and technical-compatibility subtasks' development split had never been stratified by label, so the first adapter's reported perfect accuracy on both had only ever been tested on one class each; correcting the split revealed technical-compatibility genuinely ties frontier models, but functional-relation's real accuracy is 15.4 points behind every tested frontier model, a gap invisible until the split bug was fixed. A dedicated adapter retrained for functional-relation alone, following the method that worked for Understand, reached its best development-set accuracy above the frontier bar, but an honest check against a locked test partition (held out from both training and checkpoint selection) revealed a real generalization gap: the best locked-test accuracy across every saved checkpoint remains below frontier, a genuine but incomplete improvement, not a win. Separately, for a second, non-shared subtask -- product attribute extraction (Commerce-Understand) -- the same four frontier models were measured against off-the-shelf extraction baselines and beat all of them by 10-25 points; a dedicated fine-tuned adapter for this task, the first attempted, closed this gap completely, reaching \UnderstandAdapterBrandFOne{} brand F1 (tying the best frontier result) and \UnderstandAdapterColorFOne{} color F1 (exceeding every frontier model). A domain-model comparator sweep (RexBERT, RexReranker, Qwen3-Embedding, eCeLLM-S) was completed for every task where each is architecturally applicable, with exclusions justified by direct empirical checks rather than assumption, and the serving API was load-tested, surfacing and fixing one real concurrency bug (unlocked, redundant concurrent model loading). We report every training attempt across all three subtask families, every rejected hypothesis, the one clear win, and every adapter's real, disclosed limitations rather than a superiority claim the evidence does not support.
+Small language models could support several product-understanding operations within a retailer's infrastructure, but evidence of task accuracy is easily confounded with evidence of generalization or serving efficiency. We study QLoRA adaptation of Qwen3-1.7B for query--product relevance, listing identity, functional relation, technical compatibility, and brand/color extraction. We reconstruct the experiments from committed data, checkpoint histories, training logs, prediction records, and serving traces, and release an offline audit that regenerates the quantitative analysis. On a common 200-listing extraction sample, the dedicated adapter attains brand F1 of \ExtractionBrand{} and color F1 of \ExtractionColor{} under the recorded permissive matching rule; the latter exceeds the strongest tested API comparator by \ExtractionColorDelta{} percentage points. This is a descriptive result: two evaluation texts also occur in training, and missing paired outputs prevent a significance claim. Matching results expose a different problem. Adapter and API relevance scores use different samples; a single-token relevance adapter reaches \SingleAccuracy{} accuracy but only \SingleMacroF{} macro-F1; and \ScenarioTestSeen{} of 28 functional-relation test rows reuse training scenarios. A checkpoint sweep further exposes that test partition to model selection. We formalize the information required for comparable evaluations, demonstrate scorer counterexamples, and bound the paired correctness uncertainty recoverable from aggregate extraction counts. Available load tests contain no completed inference requests and therefore establish neither throughput nor cost advantage. The evidence supports promising narrow extraction behavior and a reproducible account of evaluation failure modes, rather than universal superiority or a production-ready horizontal model.
 \end{abstract}
 
-\section{Introduction}
-\label{sec:intro}
-A production e-commerce system needs several distinct decisions about products: is this listing what a shopper searched for; are two listings the same purchasable item; do two items serve a compatible or substitutable role; is a specific accessory guaranteed to physically fit a specific device revision. Each of these decisions has a distinct, non-interchangeable label space, and treating them as one relation risks conflating query relevance (which concerns a query and an offer) with product identity (which concerns two offers) -- a specific error this project's governing specification identified and corrected before any data was collected.
-
-This work asks two separate questions. \textbf{RQ1}: can one small shared adapter, rather than four separate specialist models, serve all four subtasks at an acceptable quality, when architecture and serving cost favor sharing over specialization by default? \textbf{RQ2}: does that shared adapter clear the bar set by contemporary frontier models on the subtasks where a frontier comparison is directly measurable, using a matched protocol rather than an aggregated or historical comparison?
-
-Unlike a typical adaptation study that reports only a successful configuration, we report a negative result alongside the positive one. A specific, testable hypothesis for the adapter's relevance shortfall (severe class imbalance in the training data) was tested with a dedicated second training run and rejected by the evidence; both configurations, their measured scores, and the reasoning that motivated the second run are reported in full.
-
-\paragraph{Contributions.}
-\begin{enumerate}
-\item \textbf{A real, hash-verified data pipeline} for four distinct product-matching subtasks, built from two license-verified public sources (Section~\ref{sec:data}) and a small, independently audited synthetic set for the two subtasks with no adequate public benchmark.
-\item \textbf{A matched frontier comparison} on class-balanced, held-out data, using resolved model snapshots rather than historical aliases (Section~\ref{sec:results}).
-\item \textbf{A disclosed negative result}: a specific hypothesis for an observed shortfall, tested directly, and rejected, rather than omitted or reframed as a positive finding (Section~\ref{sec:v2}).
-\end{enumerate}
-
-\section{Task Definitions and Isolation from Prior Work}
-\label{sec:isolation}
-This project shares an upstream base model family (\code{Qwen/Qwen3-1.7B}) with a previously released, unrelated query-to-constraints parsing model, but no other artifact, training run, or serving process. The adapter here is trained from an independently pinned copy of the original upstream checkpoint, never from the previously released model's merged weights; the two projects have separate repositories, separate Hugging Face model identifiers, and separate serving code. Standalone query-to-constraints parsing is explicitly out of scope for this project's training data and evaluation suite.
-
-Four subtasks are defined with distinct, non-overlapping label spaces:
-\begin{itemize}
-\item \textbf{Relevance} $(q, o) \to \{\text{exact}, \text{substitute}, \text{complement}, \text{irrelevant}\}$: a query-offer pair.
-\item \textbf{Identity} $(o_a, o_b) \to \{\text{same}, \text{distinct}, \text{unknown}\}$: an offer-offer pair, never derived from a relevance label.
-\item \textbf{Functional relation} $(i_a, i_b, \text{context}) \to \{\text{substitute}, \text{complement}, \text{unrelated}, \text{unknown}\}$: contextual and potentially directional.
-\item \textbf{Technical compatibility} $(i_a, i_b, \text{revision}, \text{region}) \to \{\text{compatible}, \text{incompatible}, \text{unknown}\}$.
-\end{itemize}
-A query's relevance label to an offer says nothing about whether that offer is identical to a second, unrelated offer; the specification this project follows explicitly forbids converting one label space into another, since a query can be relevant (``exact'') to many distinct, non-identical products in the same category.
-
-\section{Data}
-\label{sec:data}
-\begin{table}[t]
-\centering
-\caption{Real, hash-verified acquired data. All counts match publisher-reported statistics.}
-\label{tab:data}
-\begin{tabularx}{\textwidth}{lXX X}
-\toprule
-Source & License & Rows & Role \\
-\midrule
-ESCI~\cite{esci} & Apache-2.0 & \EsciExamples{} examples, \EsciProducts{} products & Relevance \\
-WDC Products~\cite{wdcproducts} & Publisher terms & \WdcTrainPairs{} train / \WdcGoldPairs{} gold & Identity \\
-ABO~\cite{abo} & CC BY 4.0 & \AboListings{} listings (1 of 16 shards) & Understand extraction (baseline) \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-ESCI's examples file was hash-verified against its Git LFS pointer (SHA-256 prefix \code{\EsciExamplesShaPrefix{}...}) and its row counts, locale distribution, and label distribution match the publisher's reported statistics. Functional relation and technical compatibility have no adequate public benchmark for this exact task formulation; a small synthetic set was generated instead, described in Section~\ref{sec:synthetic}.
-
-\subsection{Synthetic data: structured-scenario-first generation and independent audit}
-\label{sec:synthetic}
-For the two subtasks without an adequate public source, each example's label is fixed in code from a small hand-authored scenario list \emph{before} any language-model call; the model's only role is paraphrasing that fixed scenario into natural product-listing text, so a generation failure can produce bad text but cannot silently relabel the example. The scenario list, generation prompts, and every generated record are in the released repository.
-
-Every generated record was then judged by a model from a different provider and family than the generator (\code{gpt-5-mini} judging text generated by \code{claude-haiku-4-5-20251001}), avoiding a generator grading its own output. Three audit rounds were required for the functional-relation subtask before reaching a clean result: an initial pass surfaced two genuine scenario-authoring errors (a real physical size mismatch between a stated laptop and its paired sleeve size, and a scenario mislabeled ``unrelated'' for a pair the auditor correctly identified as complementary); a second pass, after fixing those, surfaced a distinct defect (an ``unrelated'' scenario's shared context, ``furnishing a home office,'' was permissive enough that any two office-adjacent items could be read as complementary); a third pass, using explicitly disconnected item pairs under an unambiguous no-functional-connection framing, reached \SyntheticFunctionalAuditRate{} label-supported agreement. The technical-compatibility subtask reached \SyntheticCompatAuditRate{} on its first pass, after an earlier prompt revision required generated text to state an explicit fit or mismatch signal rather than merely co-listing two items, a defect the auditor caught on an initial draft of that subtask.
-
-\section{Method}
-\label{sec:method}
-A rank-\LoraRank{}, alpha-\LoraAlpha{} QLoRA adapter is trained jointly on all four subtasks, formatted as prompt-completion pairs with an assistant-only loss mask (verified token-by-token before any paid training run). Sequence length is set from a measured length audit of the actual training mixture (99th percentile 115 tokens, maximum 246), not copied from an unrelated prior run's setting. The base run uses \TrainSteps{} steps; a second run (Section~\ref{sec:v2}) uses \AdapterTwoTrainSteps{}. Checkpoints are evaluated on a small development sample at each save interval against the already-measured frontier scores, so a checkpoint's relative standing is visible during training rather than only at the end; the checkpoint selected for the reported final score is evaluated on the complete \DevSetRows{}-row development set, not the small per-checkpoint sample.
-
-\section{Results}
-\label{sec:results}
-\begin{table}[t]
-\centering
-\caption{Baselines measured before any training, per the project's own release gate: train only where a baseline demonstrably fails.}
-\label{tab:baselines}
-\begin{tabular}{llr}
-\toprule
-Task & Baseline & Score \\
-\midrule
-Understand -- brand & Dictionary rules & \RulesBrandFOne{} F1 \\
-Understand -- brand & GLiNER2-base & \GlinerTwoBrandFOne{} F1 \\
-Understand -- brand & GLiNER2.5-base (distinct loader) & \GlinerTwoFiveBrandFOne{} F1 \\
-Understand -- color & Dictionary rules & \RulesColorFOne{} F1 \\
-Understand -- color & GLiNER2-base & \GlinerTwoColorFOne{} F1 \\
-Understand -- color & GLiNER2.5-base & \GlinerTwoFiveColorFOne{} F1 \\
-Match -- relevance & TF-IDF + logistic regression & \RelevanceTfidfMacroFOne{} macro-F1 \\
-Match -- identity & Token-overlap rules & \IdentityJaccardFOne{} F1 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[t]
-\centering
-\caption{Trained adapter versus four frontier models on the two subtasks with a matched comparison, on a class-balanced held-out set never seen in training.}
-\label{tab:frontier}
-\begin{tabular}{lrr}
-\toprule
-System & Relevance accuracy & Identity accuracy \\
-\midrule
-Trained adapter, run 1 (adopted) & \AdapterOneRelevanceAcc{} & \AdapterOneIdentityAcc{} \\
-\code{claude-sonnet-5} & \textbf{\SonnetRelevanceAcc{}} & \textbf{\SonnetIdentityAcc{}} \\
-\code{gpt-5} & \GptRelevanceAcc{} & \GptIdentityAcc{} \\
-\code{gpt-5-mini} & \GptMiniRelevanceAcc{} & \GptMiniIdentityAcc{} \\
-\code{claude-haiku-4-5} & \HaikuRelevanceAcc{} & \HaikuIdentityAcc{} \\
-eCeLLM-S (\EcellmParams{}) & \EcellmRelevanceAcc{} & \EcellmIdentityAcc{} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Table~\ref{tab:baselines} establishes that the pre-training baselines are weak enough, on both subtasks, to justify training under the project's own release gate. Table~\ref{tab:frontier} reports the first trained adapter (retained as the best of three attempts; see Section~\ref{sec:v2}) against four frontier models and one open commerce-domain model, on a separate, class-balanced held-out set (15 examples per relevance class, 25 same/25 distinct identity pairs), each queried once per example with resolved model snapshots recorded at experiment time. The adapter does not clear \code{claude-sonnet-5}, the strongest tested comparator, on relevance (\RelevanceGapVsSonnet{} points) and is within likely measurement noise on identity (\IdentityGapVsSonnet{} points). It exceeds all three other tested frontier models and eCeLLM-S on both subtasks. This is reported as a genuine partial result, not reframed as an aggregate win.
-
-\paragraph{A note on the eCeLLM-S comparison.} An initial attempt used a generic instruction (``answer with exactly one word'') and produced 0.0 accuracy on both subtasks; inspecting raw model output showed it was not following that instruction at all, continuing the prompt as an unrelated exercise rather than answering. Inspecting the model's own training corpus, \code{NingLab/ECInstruct}, revealed its actual native instruction/input format: a structured instruction plus a JSON-formatted product dictionary, matching its \emph{Product\_Matching} and relation-classification training tasks. Re-running with that native format produced the scores reported in Table~\ref{tab:frontier}, a fair test rather than the invalid first attempt. This illustrates a general risk in comparator evaluation: an unfamiliar prompt format can produce a spuriously low score that reflects instruction-following mismatch, not task capability, and a null or zero result should be inspected before being trusted.
-
-\section{Two Rejected Hypotheses}
-\label{sec:v2}
-The relevance training data has severe class imbalance: the \code{complement} class is under five percent of relevance training rows, against the other three classes' larger shares. A specific, falsifiable hypothesis followed: that this imbalance, combined with only one near-epoch of training, explained the relevance shortfall against \code{claude-sonnet-5}.
-
-\paragraph{Hypothesis 1: class-balanced resampling.} A second adapter was trained to test this directly: the relevance portion of the training mixture was oversampled to a uniform class distribution, and the training budget was doubled to \AdapterTwoTrainSteps{} steps. If the hypothesis were correct, relevance accuracy should improve. The measured result was the opposite: relevance accuracy decreased to \AdapterTwoRelevanceAcc{} (a \AdapterTwoRelevanceDelta{}-point change from the first run), while identity, functional relation, and technical compatibility scores were unchanged. Rejected.
-
-\paragraph{Hypothesis 2: more real data and more capacity, without rebalancing.} A third adapter tested whether the shortfall was instead a scale problem: relevance training data was increased fivefold to \AdapterThreeRelevanceRows{} real ESCI examples (drawn from the full available train pool, natural class distribution, no synthetic rebalancing), LoRA rank was doubled to \AdapterThreeLoraRank{}, and the training budget was tripled to \AdapterThreeTrainSteps{} steps. Checkpoint tracking during training showed relevance accuracy climbing through the first third of training, then plateauing for the remaining two-thirds with no further gain. The final full-development-set score, \AdapterThreeRelevanceAcc{}, is marginally \emph{below} the first run's \AdapterOneRelevanceAcc{}. More consequentially, the functional-relation subtask -- trained on only a few dozen examples, now a much smaller fraction of a much larger shared mixture -- collapsed from perfect held-out accuracy at an early checkpoint to \AdapterThreeFunctionalAcc{} by two-thirds of the way through training, and did not recover for the remainder of the run: a clear case of catastrophic forgetting induced by an imbalanced multitask training mixture, not measurement noise, confirmed by five consecutive checkpoints at the same collapsed value. Rejected; the first run remains the best real candidate across all four subtasks.
-
-Both rejected attempts and their full checkpoint trajectories are retained in the released repository, not discarded in favor of only the adopted configuration. A fourth attempt -- training relevance as an independent, non-shared adapter, removing capacity competition from the other three subtasks -- was also tried and is reported in Section~\ref{sec:relevance-isolated}; it did not succeed either, for a different reason than the first three attempts.
-
-\section{An Independent Relevance Adapter: Also Rejected, for a Different Reason}
-\label{sec:relevance-isolated}
-A fourth hypothesis followed directly from Section~\ref{sec:v2}'s two rejected attempts: perhaps relevance's shortfall was neither a data-volume nor a class-balance problem, but a capacity-competition problem -- one small shared adapter serving four subtasks of very different sizes and difficulties. Isolating relevance into its own dedicated adapter, with none of the other three subtasks competing for gradient updates, would test this directly.
-
-Two implementations were attempted. The first, with the natural class distribution and no loss weighting, collapsed to predicting a single majority class for nearly every input by an early checkpoint and did not recover -- confirmed by direct inspection of real predictions, not inferred from the aggregate score alone; four consecutive checkpoints reported the exact same accuracy to full floating-point precision, which is what a fixed always-predict-one-class policy produces on a fixed evaluation sample. The second added per-token class-weighted cross-entropy loss, correcting two further implementation defects surfaced along the way (a vocabulary-size mismatch between the tokenizer and the model's actual output layer, and a checkpoint-interval calculation error that made short diagnostic runs appear catastrophically slow when the underlying training loop was not). Once genuinely verified to run at normal speed, the class-weighted version still collapsed at its first checkpoint, predicting only two of the four possible labels across a diverse real sample and never producing the two multi-token labels at all. This suggests the collapse is not primarily a data-imbalance problem: the two labels the model refused to predict are also the two whose surface form spans multiple subword tokens, a structural asymmetry class-reweighting the first token alone does not address.
-
-\paragraph{A fifth hypothesis: single-token label reformulation.} Direct tokenization confirmed the structural observation above: under the base model's tokenizer, \code{exact} is the only one-token label among the four; \code{substitute}, \code{complement}, and \code{irrelevant} are each two subword tokens. A third implementation of the isolated relevance adapter remapped each of the four classes to a single distinct letter token, keeping the same class-weighted loss and training data as the second implementation, and mapped predictions back to the real label names only at scoring time. This removed the collapse entirely: direct inspection of real predictions at both an early and the final checkpoint showed all four classes predicted, including \code{complement}, which the second implementation never predicted once. The full development-set accuracy, \SingleTokenRelevanceAcc{}, confirms token length was a real, partial cause of the earlier collapse -- but the fix is incomplete: this score is marginally below the first, retained shared adapter's \AdapterOneRelevanceAcc{}, and both remain short of \code{claude-sonnet-5}. The isolated-adapter hypothesis is rejected across all three implementations; the shared adapter from the first run remains the only adopted configuration for relevance, and its shortfall against the strongest frontier model remains open after five distinct, falsifiable hypotheses.
-
-\section{A Data-Split Defect and a Third Task Family: Functional Relation}
-\label{sec:functional-relation}
-After the first shared adapter was published, an audit of the functional-relation and technical-compatibility training data found that their train/development split, assigned at synthetic-data-generation time rather than during either training run, had never been stratified by label. Every development-set row for functional-relation was labeled \code{complement}; every development-set row for technical-compatibility was labeled \code{compatible}. The first adapter's reported perfect accuracy on both subtasks had therefore only ever been tested on one of three classes for the first, and one of two classes for the second.
-
-The split was corrected by re-stratifying both files so every class appears in both partitions, and the first adapter's already-published checkpoint was re-scored against the corrected development sets, with frontier models measured on the same corrected examples for the first time (no such comparison had existed before this point). Technical-compatibility held up: \AdapterOneCompatCorrectedAcc{} for the adapter against \CompatFrontierAcc{} for every tested frontier model, a genuine tie. Functional-relation did not: the adapter's real accuracy on the corrected set is \AdapterOneFunctionalCorrectedAcc{}, a full 15.4 points behind every tested frontier model's \FunctionalFrontierAcc{}, discovered only because the split bug was fixed. Direct inspection of the corrected predictions ruled out a majority-class collapse -- all three classes were predicted, with three genuine confusions, not a fixed policy.
-
-Given this real, previously-hidden gap and only a few dozen total training rows behind the original signal, functional-relation was retrained as its own dedicated adapter, following the method that worked for Understand. The scenario bank was expanded from 15 to 63 distinct item-pair scenarios, generating candidate rows through the same structured-scenario-first pipeline and independent audit process used throughout this project; the first audit pass caught real scenario defects (90.5 percent supported), which were fixed at the scenario-definition level rather than discarded row-by-row, and a second pass reached 98.4 percent supported. Combined with the original audited data, this produced \FunctionalAdapterTotalRows{} total rows, re-split by label into training, development, and a locked test partition held out from both training and checkpoint selection throughout.
-
-Training reached a development-set accuracy of \FunctionalAdapterDevBest{} at its best checkpoint, clearing the frontier target from roughly one-third of the way through training onward -- on the development set alone, this looked like a clean win. It was not, on the honest check: scoring every saved checkpoint against the untouched locked test partition revealed a real generalization gap. The development-selected best checkpoint scores markedly lower on the locked set than on development, and the best locked-test accuracy across every checkpoint is \FunctionalAdapterLockedBest{} (checkpoint \FunctionalAdapterBestCheckpoint{}) -- still below the frontier target. With only \FunctionalAdapterTrainRows{} training rows, the training budget used represents dozens of passes over the same small set, and the development partition, drawn from the same scenario bank as training, did not fully catch the resulting overfitting.
-
-A Hugging Face domain-model comparator was also evaluated on this task's locked test set: \code{eCeLLM-S}, using its own working instruction style (verified against its training data, as in the earlier Match comparison) rather than a generic prompt. It scored \FunctionalEcellmLockedAcc{}, well below both the original adapter's corrected score and the dedicated adapter's locked-test score. Two further candidate comparators -- a domain cross-encoder reranker and a general-purpose sentence-embedding model -- were checked directly on real locked-test pairs and found architecturally unable to separate \code{complement} from \code{substitute} by any threshold, because both measure topical relatedness rather than relation type; they are excluded from this comparison as a documented, empirically-justified judgment call rather than force-scored.
-
-\textbf{Verdict: real, non-collapsed, partial progress, not a win.} The dedicated adapter (checkpoint \FunctionalAdapterBestCheckpoint{}) is published as the model of record for this subtask -- a genuine improvement over the original shared adapter's corrected score -- but does not clear the bar this project requires of beating every tested comparator.
-
-\section{A Second, Independent Task: Understand Extraction}
-\label{sec:understand}
-Commerce-Understand (extracting structured facts such as brand and color from unstructured product listings) is a separate, non-shared subtask from Match, evaluated independently. Before any training, three off-the-shelf baselines were measured on 200 real, text-grounded Amazon Berkeley Objects (ABO) listings: rule-based dictionary lookup (\RulesBrandFOne{} brand F1, \RulesColorFOne{} color F1), GLiNER2-base (\GlinerTwoBrandFOne{}, \GlinerTwoColorFOne{}), and GLiNER2.5-base (\GlinerTwoFiveBrandFOne{}, \GlinerTwoFiveColorFOne{}). The same four frontier models used for Match were then measured on the identical 200 examples: \code{claude-haiku-4-5} (brand \UnderstandHaikuBrandFOne{}, color \UnderstandHaikuColorFOne{}), \code{claude-sonnet-5} (\UnderstandSonnetBrandFOne{}, \UnderstandSonnetColorFOne{}), \code{gpt-5-mini} (\UnderstandGptMiniBrandFOne{}, \UnderstandGptMiniColorFOne{}), and \code{gpt-5} (\UnderstandGptBrandFOne{}, \UnderstandGptColorFOne{}). Every frontier model beat every baseline on both fields by a wide margin (10-25 points), a substantially larger gap than Match's relevance shortfall.
-
-Unlike the relevance case, this gap had a straightforward remaining hypothesis that had not yet been tested: no dedicated model had been trained for Understand at all. A rank-16 QLoRA adapter was trained on \UnderstandTrainRows{} real, text-grounded ABO listings for \UnderstandTrainSteps{} steps, using a JSON-structured output format. Direct prediction inspection at the first checkpoint showed diverse, correct brand and color predictions across many distinct real brands, not a collapse. On the same 200-example locked test set used for every baseline and frontier model above, the trained adapter reaches \UnderstandAdapterBrandFOne{} brand F1 and \UnderstandAdapterColorFOne{} color F1, with a zero percent JSON parse-error rate. This ties the best frontier brand result and exceeds every frontier model's color result by \UnderstandColorMarginVsBestFrontier{} points over the previous best. Unlike the relevance case, this hypothesis succeeded on the first properly-verified attempt: the model, published as \code{arghya2030/commercecore-expansion-understand-v1}, is a genuine measured win against the full comparator set for this subtask.
-
-\section{Limitations}
-\label{sec:limitations}
-The relevance shortfall against the strongest tested frontier model is real and unresolved; five direct, falsifiable hypotheses for it have now been tested and rejected (Sections~\ref{sec:v2} and~\ref{sec:relevance-isolated}) without identifying a working fix. The functional-relation subtask also has a real, unresolved shortfall against frontier models after a dedicated retraining attempt (Section~\ref{sec:functional-relation}); technical-compatibility is the only Match subtask confirmed to tie frontier models under a properly-stratified evaluation split. A broader set of open-source domain and commerce-specific model comparators (RexBERT, RexReranker, Qwen3-Embedding, eCeLLM-S) has now been evaluated for every task where each is architecturally applicable, with exclusions justified by direct empirical checks (documented per-task) rather than by dependency failures alone; two of those comparators are excluded from the functional-relation comparison specifically because they cannot separate relation types by any threshold on real evaluation pairs, which is itself a limitation of using general-purpose similarity models as comparators for relation-typing tasks, not of the adapters evaluated here. The Understand result covers brand and color extraction only, not the full specified scope of that capability (taxonomy mapping, document/table extraction, evidence-conflict handling). The serving API has been load-tested and one real concurrency bug (unlocked, redundant concurrent model loading) was found and fixed; a genuine production throughput/latency benchmark under concurrent load on GPU-served hardware has not been run, since CPU-only local testing cannot produce a meaningful concurrent-load number for a model of this size.
-
-\bibliographystyle{plain}
-\begin{thebibliography}{9}
-\bibitem{esci} Reddy, C. K. et al. Shopping Queries Dataset: A Large-Scale ESCI Benchmark for Improving Product Search. \emph{arXiv:2206.06588}, 2022.
-\bibitem{wdcproducts} Peeters, R., Der, R., Bizer, C. WDC Products: A Multi-Dimensional Entity Matching Benchmark. Web Data Commons, 2023.
-\bibitem{abo} Reddy, N. et al. The Amazon Berkeley Objects (ABO) Dataset. Registry of Open Data on AWS, 2021.
-\bibitem{ecellm} Peng, B., Ling, X., Chen, Z., Sun, H., Ning, X. eCeLLM: Generalizing Large Language Models for E-commerce from Large-scale, High-quality Instruction Data. \emph{ICML}, 2024.
-\end{thebibliography}
-
+\input{sections/01_introduction_related.tex}
+\input{sections/02_data_methods.tex}
+\input{sections/03_evaluation_results.tex}
+\input{sections/04_serving_discussion.tex}
+\FloatBarrier
+\input{sections/references.tex}
+\clearpage
+\appendix
+\input{sections/appendix.tex}
 \end{document}

@@ -1,0 +1,21 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 2,horizontal sep=1.3cm,vertical sep=2.6cm},width=.46\textwidth,height=4.1cm,xlabel={Optimizer step},ylabel={Recorded dev score},ymin=0,ymax=1.05,grid=major,tick label style={font=\scriptsize},label style={font=\small},title style={font=\small},legend style={font=\tiny,at={(.5,-.32)},anchor=north,legend columns=2}]
+\nextgroupplot[title={Shared v1: sampled diagnostics}]
+\addplot[blue!70!black,mark=*] table[x=step,y=relevance,col sep=comma]{evidence/checkpoint_shared_v1.csv};\addlegendentry{Relevance}
+\addplot[orange!80!black,mark=square*] table[x=step,y=identity,col sep=comma]{evidence/checkpoint_shared_v1.csv};\addlegendentry{Identity}
+\nextgroupplot[title={Shared v2: sampled diagnostics}]
+\addplot[blue!70!black,mark=*] table[x=step,y=relevance,col sep=comma]{evidence/checkpoint_shared_v2.csv};\addlegendentry{Relevance}
+\addplot[orange!80!black,mark=square*] table[x=step,y=identity,col sep=comma]{evidence/checkpoint_shared_v2.csv};\addlegendentry{Identity}
+\nextgroupplot[title={Shared v3: different monitoring set}]
+\addplot[blue!70!black,mark=*] table[x=step,y=relevance,col sep=comma]{evidence/checkpoint_shared_v3.csv};\addlegendentry{Relevance}
+\addplot[purple!70!black,mark=triangle*] table[x=step,y=functional_relation,col sep=comma]{evidence/checkpoint_shared_v3.csv};\addlegendentry{Functional (one class)}
+\nextgroupplot[title={Extraction: 100-row dev monitor}]
+\addplot[teal!70!black,mark=*] table[x=step,y=brand,col sep=comma]{evidence/checkpoint_understand.csv};\addlegendentry{Brand correctness}
+\addplot[orange!80!black,mark=square*] table[x=step,y=color,col sep=comma]{evidence/checkpoint_understand.csv};\addlegendentry{Color correctness}
+\end{groupplot}
+\end{tikzpicture}
+\caption{Monitoring trajectories from saved histories. Each panel represents its own evaluation sample and scorer; no cross-model API threshold is overlaid. The v3 functional monitor and the final batched score differ (0.067 versus 0.133), underscoring that recorded evaluations cannot be silently merged. Full machine-readable histories, including single-token and compatibility values, accompany the paper.}
+\label{fig:monitor}
+\end{figure}

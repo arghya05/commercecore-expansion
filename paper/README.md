@@ -1,42 +1,52 @@
-# CommerceCore Expansion paper
+# CommerceCore Expansion research paper
 
-Author: [Arghya Mukherjee](https://orcid.org/0009-0008-3423-8574) · [arghya05@gmail.com](mailto:arghya05@gmail.com) · ORCID: 0009-0008-3423-8574
+**Canonical manuscript:** [CommerceCore Expansion: Auditing Small-Model Adaptation for Product Matching and Attribute Extraction](CommerceCore_Expansion_Paper.pdf).
 
-This folder contains the research manuscript, its complete LaTeX source, and the evidence audit, following the same build-and-verify pattern as [the original CommerceCore paper](https://github.com/arghya05/commercecore/tree/main/paper) — entirely independent of it: no shared LaTeX, no shared evidence files, no shared repo. The PDF is a public preprint. It is not an accepted conference paper and has not been submitted to arXiv by this workflow.
+This revision reconstructs the experiments from the repository and preserved local logs, adds new offline analyses, and corrects claims that the saved evidence does not support. Its results and limitations supersede the earlier paper and conflicting historical README/model-card narratives. No new model training, paid API evaluation, or GPU serving experiment was performed for this revision.
 
-- [Manuscript PDF](CommerceCore_Expansion_Paper.pdf)
-- [Main LaTeX source](commercecore_expansion_paper.tex)
-- [arXiv source ZIP](CommerceCore_Expansion_arXiv_Source.zip)
-- [Evidence macros](evidence/numbers.tex) — every number in the paper is computed by [`build_evidence.py`](build_evidence.py) from a recorded evidence file, never asserted in prose alone
-- [Build manifest](evidence/build_manifest.json) — sha256 hashes of every source file, the built PDF, and the source zip
+- [PDF](CommerceCore_Expansion_Paper.pdf)
+- [Main LaTeX source](commercecore_expansion_paper.tex) and [section sources](sections/)
+- [Self-contained LaTeX ZIP](CommerceCore_Expansion_arXiv_Source.zip)
+- [Offline evidence audit](audit_evidence.py) and [machine-readable findings](evidence/audit_results.json)
+- [Publication-readiness review](REVIEW_AND_PUBLICATION_STATUS.md)
+- [Source/PDF/package hashes](evidence/build_manifest.json)
+- [Standalone package verification](evidence/package_verification.json)
 
-## Build and verify
+The public PDF keeps the same NeurIPS preprint style as the earlier [CommerceCore paper](https://github.com/arghya05/commercecore/tree/main/paper), as requested. It does not claim NeurIPS acceptance, ACM submission readiness, or completed arXiv submission. SIGIR/WSDM submission requires the relevant anonymous ACM format and a shorter main manuscript; the review document explains the more important outstanding experimental work.
 
-From this directory, with Python 3.10+ and [Tectonic](https://tectonic-typesetting.github.io/) installed:
+## What the revision adds
+
+The manuscript includes precise task definitions; historical versus current split counts; QLoRA objectives and configuration details; related-work positioning; full available loss and checkpoint plots; relevance and functional confusion matrices; extraction TP/FP/FN tables; comparison-validity analysis; synthetic-scenario and extraction-text overlap checks; scorer counterexamples; paired-correctness uncertainty bounds; and an analysis of censored serving measurements. Appendices preserve protocol details and a concrete controlled-study design, clearly labeled as prospective work.
+
+The clearest positive observation is extraction: brand F1 1.000 and color F1 0.955 on the recorded common 200-row sample under permissive field matching. Brand ties the best API result; color is 1.38 percentage points above the strongest measured API color baseline. Two evaluation texts overlap training and paired field outputs are missing, so neither clean generalization nor statistical superiority is established.
+
+The matching results do not support a universal frontier-model win. Adapter and API relevance/identity samples differ; a compatibility scorer accepts `compatible` inside `incompatible`; 25/28 functional test rows reuse training scenarios; and the functional test set was used for checkpoint selection. No completed inference requests occur in the retained load-test CSVs, so speed and cost advantage remain unmeasured.
+
+## Reproduce the analysis and paper
+
+From the repository root, using Python 3.9+:
 
 ```sh
-python3 build_paper.py
+python3 -m unittest discover -s paper -p 'test_*.py'
+python3 paper/audit_evidence.py
+python3 paper/build_paper.py
+python3 paper/verify_package.py
 ```
 
-This recomputes every evidence macro from recorded evidence files (`build_evidence.py`, standard library only — no model inference or paid API calls), compiles the PDF with Tectonic, fails the build on any undefined reference/citation, missing glyph, or overfull box, then sha256-verifies and packages the LaTeX source into `CommerceCore_Expansion_arXiv_Source.zip`.
+The audit and tests use the standard library and make no inference or API calls. The build additionally needs [Tectonic](https://tectonic-typesetting.github.io/), which may download LaTeX packages on first use. It fails on undefined citations/references, missing glyphs, or overfull boxes, then packages all LaTeX, style, and generated table/plot dependencies. The package verifier also needs Poppler's `pdftotext` and `pdfinfo`; it checks hashes, compiles the ZIP in a temporary directory, and compares the resulting PDF text. Ordinary underfull-box layout notices are distinct from missing or overflowing content.
 
-The source is also compatible with a conventional PDFLaTeX installation:
+To compile only the packaged manuscript, extract the source ZIP and run:
 
 ```sh
-pdflatex -interaction=nonstopmode -halt-on-error commercecore_expansion_paper.tex
+tectonic --keep-logs commercecore_expansion_paper.tex
 ```
 
-## Evidence scope
+The ZIP supports standalone typesetting; regenerating the statistical analysis requires the full repository. The legacy ZIP filename contains `arXiv` for link continuity, but server-side arXiv compilation and moderation have not been performed.
 
-The manuscript reports, in full, every training attempt run across three subtask families in this project, not only the adopted configurations:
+## Evidence preservation
 
-- **Match** (relevance, identity, functional relation, technical compatibility): three shared-adapter training runs, a real data-split-stratification bug found and fixed after the first run's publication, and five distinct, falsifiable hypotheses tested for the relevance shortfall (all rejected) plus a dedicated functional-relation retraining attempt (real, partial progress, not a win).
-- **Understand** (brand/color extraction): one dedicated adapter, the first attempted for this subtask, which beats every tested frontier model on both fields.
-- A completed Hugging Face domain-model comparator sweep (RexBERT, RexReranker, Qwen3-Embedding, eCeLLM-S) across every task where each model is architecturally applicable, with exclusions justified by direct empirical checks where not.
-- A serving-API load test that found and fixed one real concurrency bug.
+The originally observed baseline is commit `c7deee76caa8c22058088d501befc32c57513d41`. Its source tree is identical to public commit [`2af4b2c914284920d2d674e68a7293d304bc8fef`](https://github.com/arghya05/commercecore-expansion/commit/2af4b2c914284920d2d674e68a7293d304bc8fef), as recorded in [revision equivalence](evidence/revision_equivalence.json). The inventory in [evidence/archive](evidence/archive/) records the original non-paper files and hashes. Runtime, dataset, and result files are checked against those hashes; the README is allowed to evolve. Additional archived local artifacts supply trainer states, adapter configurations, the original v1 dev split, and the functional checkpoint history. The prior manuscript and macros remain archived for traceability.
 
-Every evidence file referenced by `build_evidence.py` is committed to this repository under `reports/` and `models/*/checkpoint_history.json` — see [`build_evidence.py`](build_evidence.py) for the exact list. The manuscript does **not** claim blanket superiority over frontier models: two of three Match subtasks and the single-token relevance retry explicitly do not clear the strongest tested comparator, and this is reported as the honest outcome rather than reframed or omitted.
+Generated numbers are reconstructed where the saved artifacts permit it; prose configuration claims are supported by source inspection. This is reproducibility of the retrospective analysis, not an exact replay of every historical training run. Missing raw predictions, incomplete runtime/version metadata, and edited historical trainer scripts are disclosed in the paper.
 
-## Template
-
-`neurips_2026.sty` is unmodified from [the official 2026 author kit](https://media.neurips.cc/Conferences/NeurIPS2026/Formatting_Instructions_For_NeurIPS_2026.zip). The manuscript uses `preprint`, preserving author attribution without claiming conference acceptance.
+Author: [Arghya Mukherjee](https://orcid.org/0009-0008-3423-8574). The original CommerceCore repository and its model release are separate and are not modified by this paper revision.

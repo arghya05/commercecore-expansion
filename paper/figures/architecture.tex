@@ -1,0 +1,19 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\small,box/.style={draw=blue!45!black,rounded corners,align=center,text width=3.5cm,minimum height=1cm,fill=blue!3},arr/.style={-{Latex[length=2mm]},thick}]
+\node[box] (real) at (0,0) {ESCI / WDC pairs\\scenario paraphrases};
+\node[box] (abo) at (4.3,0) {ABO listing text\\brand / color targets};
+\node[box] (shared) at (0,-1.8) {Shared Match adapter\\four classification tasks};
+\node[box] (ext) at (4.3,-1.8) {Understand adapter\\two-field extraction};
+\node[box,text width=3.5cm] (fr) at (0,-3.6) {Functional specialist\\separate training run};
+\node[box] (audit) at (4.3,-3.6) {Offline evidence audit\\splits / scores / selection};
+\draw[arr] (real)--(shared);
+\draw[arr] (abo)--(ext);
+\draw[arr] (real.west)--++(-.35,0)|-(fr.west);
+\draw[arr,dashed] (shared)--(audit);
+\draw[arr,dashed] (ext)--(audit);
+\draw[arr,dashed] (fr)--(audit);
+\end{tikzpicture}
+\caption{Implemented training paths and retrospective audit. Solid arrows denote data-to-adapter paths; dashed arrows denote evidence inspection. All adapters use the same upstream base family. The serving implementation loads separate model instances; this diagram does not imply shared resident base weights or an adaptive training controller. The experimental relevance-letter adapter is analyzed separately.}
+\label{fig:architecture}
+\end{figure}

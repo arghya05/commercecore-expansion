@@ -1,0 +1,50 @@
+\section{Introduction}
+\label{sec:introduction}
+Product understanding is a collection of decisions with different operational consequences. Search relevance asks whether an offer satisfies a query. Entity matching asks whether two offers identify the same purchasable item. Functional relation asks whether products substitute for or complement one another. Technical compatibility asks whether a particular interface or device revision fits. Attribute extraction converts listing text into structured catalog fields. An inexpensive model covering these decisions would be useful in catalog ingestion, search enrichment, and offer consolidation, especially for organizations that cannot maintain many large models.
+
+These tasks cannot safely share semantics merely because they share a language model. Two distinct phones can both be exact matches for a query; an accessory can complement a device without fitting its revision; and a plausible attribute can be absent from the listing evidence. A credible evaluation must preserve these distinctions while controlling the sample, the evidence shown to the model, the scoring rule, and the decisions made after examining evaluation results.
+
+\method{} investigates this setting through a shared four-task adapter and separate adapters for extraction and functional relation. The study began as a sequence of practical adaptation experiments. The present manuscript adds a retrospective, executable audit of the resulting artifacts. This distinction matters: the experiments were not prospectively designed as a factorial study, and the audit does not turn configuration changes into causal ablations. Its value is to establish which conclusions remain supported when experimental provenance is treated as part of the result.
+
+We address three research questions. \textbf{RQ1:} what task behavior is supported by the saved shared and specialist adaptation experiments? \textbf{RQ2:} which model comparisons remain interpretable after checking split independence, input equivalence, scoring, and checkpoint selection? \textbf{RQ3:} what can the recorded training and serving measurements establish about efficient deployment? These questions connect the empirical model study to a practical problem in information retrieval: deciding when an offline product-understanding score is strong enough to justify a system claim.
+
+\paragraph{Contributions.}
+First, we document an implemented small-model system spanning five task formulations and reconstruct its data mixture, training configuration, and complete available checkpoint trajectories. Second, we release an executable comparison audit with dataset-overlap checks, class-level error reconstruction, scorer counterexamples, and source hashes. Third, we analyze a matched extraction result and derive the range of paired correctness tests consistent with its aggregate counts, making explicit what missing predictions prevent us from concluding. Fourth, we report negative and incomplete evidence, including minority-class errors, scenario reuse, test-based checkpoint selection, and censored load tests. These are empirical and reproducibility contributions; the work does not introduce QLoRA, claim a new foundation-model architecture, or establish state of the art on a public leaderboard.
+
+\paragraph{Artifact boundary.}
+The code and evidence are available at \url{https://github.com/arghya05/commercecore-expansion}. The audit starts from the source tree at public commit \code{2af4b2c} (originally observed locally as \code{c7deee7}, with an identical tree) and supplements it with archived local trainer states and adapter configurations. It does not rerun training or paid APIs. This project is separate from the earlier CommerceCore query-to-constraints parser~\cite{commercecore}: the experiments load the upstream Qwen base rather than that release's merged model. No result here establishes a quality comparison with the earlier parser, whose task is different.
+
+\section{Related Work and Research Position}
+\label{sec:related}
+\paragraph{Commerce instruction tuning.}
+eCeLLM~\cite{ecellm} studies commerce instruction tuning across multiple tasks and generalization settings, including held-out task and category conditions. Its generalist/specialist and data-size analyses are closer to controlled evidence of transfer than the sequential configurations available here. Our local eCeLLM-S evaluations are therefore treated as implementation-specific measurements, with prompt and parser limitations, rather than a reproduction of its published benchmark. EcomGPT~\cite{ecomgpt} develops commerce instruction data through task transformations and chain-of-task construction. Both works establish that broad commerce instruction tuning is prior art; combining several retail labels in one adapter is insufficient by itself to establish methodological novelty.
+
+\paragraph{Multimodal commerce.}
+CASLIE~\cite{caslie} uses context-sensitive image captions and caption-quality selection to construct commerce instruction inputs. Its multimodal evidence and generalization experiments differ from our text-only product-pair and extraction setting. We do not infer superiority over CASLIE from a text-only table, and the present audit does not evaluate visual attributes, image consistency, or multimodal retrieval.
+
+\paragraph{Small models and deployment trade-offs.}
+Licardo and Tankovi\'{c}~\cite{tradeoffs} are particularly close in deployment motivation: they adapt a small Llama model on synthetic commerce instructions and examine optimization choices, including quantization and hardware behavior. Their task centers on structured intent/action outputs; ours separates product relevance, identity, relations, and extraction. Their measured deployment comparisons also identify a missing component of this study: parameter count and QLoRA training alone do not establish low inference latency, energy use, or serving cost.
+
+\paragraph{Matching and extraction alternatives.}
+ESCI~\cite{esci} supplies product-search relevance judgments, while WDC Products~\cite{wdcproducts} explicitly varies entity-matching difficulty and unseen-entity conditions. Our subsets are derived from these sources but do not implement their complete benchmark protocols. Ditto~\cite{ditto} is a directly relevant supervised entity-matching baseline that remains untested here. GLiNER2~\cite{gliner2} provides schema-driven extraction and classification with an encoder architecture, illustrating why a generative model must be compared with compact task-appropriate systems, not only general-purpose APIs. Our GLiNER measurements concern two fields on one ABO-derived sample~\cite{abo}; they do not rank the systems across their broader capabilities.
+
+\paragraph{Adaptation and evaluation methodology.}
+LoRA~\cite{lora} and QLoRA~\cite{qlora} supply the adaptation mechanism used here. Gradient balancing and gradient-conflict methods such as GradNorm~\cite{gradnorm} and PCGrad~\cite{pcgrad} are relevant prospective controls for multitask interference, but neither was implemented in these runs. Data leakage is a recognized source of irreproducibility~\cite{leakage}, and behavioral testing frameworks such as CheckList~\cite{checklist} motivate testing a scorer on deliberately constructed cases. Our contribution is an application of these principles to a concrete commerce adaptation record, including newly computed overlap statistics and uncertainty bounds, rather than a claim to have invented leakage prevention or behavioral testing.
+
+\begin{table}[t]
+\centering\small
+\caption{Research position. ``Not measured'' denotes a missing experiment, not an architectural inability of a comparator.}
+\label{tab:position}
+\begin{tabularx}{\textwidth}{P{2.3cm}YY}
+\toprule
+Prior work & Relevant overlap & Boundary of this study \\
+\midrule
+eCeLLM / EcomGPT & Commerce instruction tuning across tasks & No matched reproduction of their full suites \\
+CASLIE & Commerce data quality and generalization & Images and multimodal transfer not measured \\
+Licardo--Tankovi\'{c} & Small-model adaptation and deployment & No measured quantization or energy trade-off \\
+Ditto / WDC Products & Product entity matching & No supervised Ditto baseline or entity-disjoint sweep \\
+GLiNER2 & Compact structured extraction & Local two-field comparison only \\
+This study & Shared/specialist QLoRA and artifact audit & Evidence validity and narrow extraction signal \\
+\bottomrule
+\end{tabularx}
+\end{table}

@@ -19,14 +19,16 @@ import zipfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-SOURCE_FILES = [
-    "commercecore_expansion_paper.tex",
-    "neurips_2026.sty",
-    "evidence/numbers.tex",
-]
+SOURCE_FILES = ["commercecore_expansion_paper.tex", "neurips_2026.sty"] + sorted(
+    str(p.relative_to(HERE))
+    for folder in ("sections", "figures", "evidence")
+    for p in (HERE / folder).iterdir()
+    if p.suffix in (".tex", ".csv") and p.is_file()
+)
 
 
 def main():
+    subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", str(HERE), "-p", "test_*.py"], check=True)
     subprocess.run([sys.executable, str(HERE / "build_evidence.py")], check=True)
     build = HERE / "build"
     build.mkdir(exist_ok=True)

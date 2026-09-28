@@ -1,5 +1,7 @@
 # CommerceCore Expansion
 
+> **Research correction — 2026-09-28:** The [revised paper](paper/CommerceCore_Expansion_Paper.pdf) and [evidence audit](paper/REVIEW_AND_PUBLICATION_STATUS.md) supersede the historical performance claims below. Extraction ties the best measured brand F1 and has a higher color point estimate under permissive scoring, but two evaluation texts overlap training. Match adapter/API samples differ, compatibility scoring has a label-containment bug, and the functional test set was used for checkpoint selection. Universal frontier superiority, clean held-out generalization, and serving speed/cost advantages are not established. Existing usage examples are retained; example outputs are not quality guarantees.
+
 A set of small (1.7B parameter), self-hostable QLoRA adapters that classify and extract structured facts from ecommerce product data — query-product relevance, listing identity, functional relationships between products, technical compatibility, and brand/color extraction. One of these (brand/color extraction) beats every tested frontier model on both fields; the others report real, disclosed partial progress or rejected hypotheses rather than an inflated headline number.
 
 **Model weights + model cards:** https://huggingface.co/arghya2030/commercecore-expansion-understand-v1 (and 3 more — see table below)
