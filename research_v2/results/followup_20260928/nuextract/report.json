@@ -1,0 +1,44 @@
+{
+  "metrics": {
+    "extraction": {
+      "n": 400,
+      "parse_error_rate": 0.0,
+      "exact": {
+        "brand": {
+          "tp": 222,
+          "fp": 165,
+          "fn": 178,
+          "tn": 0,
+          "f1": 0.5641677255400254
+        },
+        "color": {
+          "tp": 293,
+          "fp": 99,
+          "fn": 107,
+          "tn": 0,
+          "f1": 0.73989898989899
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 223,
+          "fp": 164,
+          "fn": 177,
+          "tn": 0,
+          "f1": 0.5667090216010165
+        },
+        "color": {
+          "tp": 328,
+          "fp": 64,
+          "fn": 72,
+          "tn": 0,
+          "f1": 0.8282828282828283
+        }
+      },
+      "joint_accuracy": 0.4675
+    }
+  },
+  "elapsed_seconds": 33.53909975499846,
+  "manifest_sha256": "03126a59959eb7f8094d5bb62dc66f2a0af0ca1b8eb0394f1b6342cf0796194b",
+  "predictions_sha256": "70c0bfb76829a7990fcef6a5415f115cefe7ad35fd315eca0516184972680c17"
+}

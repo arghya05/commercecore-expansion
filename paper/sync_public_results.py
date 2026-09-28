@@ -104,6 +104,9 @@ universal frontier superiority, or conference acceptance.
 - [Publication gaps and related work]({GITHUB}/blob/main/paper/REVIEW_AND_PUBLICATION_STATUS.md)
 """
     common=common.replace('`',chr(96))
+    followup=ROOT/'paper/evidence/followup_summary.md'
+    if followup.is_file():
+        common+='\n'+followup.read_text()
     template=(ROOT/'paper/README.template.md').read_text()
     if template.count('{{PUBLIC_RESULTS}}')!=1:
         raise ValueError('README template must contain exactly one public-results marker')

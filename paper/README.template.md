@@ -8,7 +8,7 @@ A set of small (1.7B parameter), self-hostable QLoRA adapters that classify and 
 **Source code + docs:** https://github.com/arghya05/commercecore-expansion
 **Paper (PDF):** [`paper/CommerceCore_Expansion_Paper.pdf`](paper/CommerceCore_Expansion_Paper.pdf)
 **Current conference drafts:** [SIGIR PDF](paper/CommerceCore_Expansion_SIGIR_Draft.pdf) · [WSDM PDF](paper/CommerceCore_Expansion_WSDM_Draft.pdf) · [ACM LaTeX source](paper/CommerceCore_Expansion_ACM_Source.zip)
-**New experiments:** [RunPod experiment campaign](research_v2/EXPERIMENT_CAMPAIGN.md) — proposed, not completed results.
+**New experiments:** [RunPod experiment campaign](research_v2/EXPERIMENT_CAMPAIGN.md) · [Completed follow-up results](paper/evidence/followup_summary.md). Controlled retraining and final frontier comparisons remain pending.
 
 **A separate, standalone project from [arghya05/commercecore](https://github.com/arghya05/commercecore)** — no shared runtime, no shared weights, no shared repository. The original CommerceCore release (`arghya2030/commercecore-qwen3-1.7b`) remains frozen and untouched; it is used only as an isolated external benchmark comparator, never as a training base or dependency.
 

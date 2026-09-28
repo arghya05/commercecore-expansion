@@ -1,0 +1,23 @@
+{
+  "scope": "development loopback HTTP prototype; closed-loop only",
+  "request_count_per_cell": 200,
+  "repetitions": 3,
+  "concurrency": [
+    1,
+    4,
+    8
+  ],
+  "batch_limits": [
+    1,
+    8
+  ],
+  "max_wait_ms": 5,
+  "max_new_tokens": 8,
+  "load_seconds": 2.7109152448829263,
+  "rows_sha256": "3737649c7f48cf209adb1d21eceea86e3f7419e0f54f34dd1d96dc5f642727c9",
+  "adapter_sha256": "cd78cbaca7a4146f236fb3579a87489343934125eba1ab9e355042c90b4d5f83",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "dtype": "bfloat16",
+  "hourly_gpu_quote_usd": 0.22,
+  "limitations": "Client and server share a pod; exploratory tails; no open-loop test, invoice or production SLO. Training/adaptation is unchanged."
+}

@@ -16,6 +16,17 @@ from research_v2.experiment import read_rows
 from research_v2.execution import require_runpod
 
 
+def legacy_prompt(row):
+    x=row['input']
+    if row['task']=='relevance':
+        return 'Classify the query-product relevance: exact, substitute, complement, or irrelevant.\nQuery: '+x['query']+'\nProduct: '+x['product_title']+'\nAnswer:'
+    if row['task']=='identity':
+        return 'Are these listings the same purchasable item or distinct?\nListing A: '+x['listing_a']+'\nListing B: '+x['listing_b']+'\nAnswer:'
+    if row['task']=='extraction':
+        return 'Extract the brand and color from this product listing. Respond with only a JSON object like {"brand": "...", "color": "..."}.\nListing: '+x['text']+'\nAnswer:'
+    raise ValueError('Unsupported legacy task')
+
+
 def select_dev(rows, per_task=None):
     validate_contract(rows)
     if any(r['split']!='dev' for r in rows):raise ValueError('This runner accepts development rows only')
@@ -33,22 +44,29 @@ def main():
     p.add_argument('--output',required=True);p.add_argument('--backend',choices=['majority','hf'],default='majority')
     p.add_argument('--train',default='research_v2/work/suite_v2/train.jsonl')
     p.add_argument('--snapshot');p.add_argument('--adapter');p.add_argument('--per-task',type=int)
+    p.add_argument('--interface',choices=['chat','legacy'],default='chat')
+    p.add_argument('--tasks',nargs='+',choices=['relevance','identity','extraction'])
+    p.add_argument('--batch-size',type=int,default=1)
     p.add_argument('--threads',type=int,default=4);p.add_argument('--max-new-tokens',type=int,default=64)
     p.add_argument('--max-input-tokens',type=int,default=2048);p.add_argument('--device',choices=['cuda'],default='cuda')
     a=p.parse_args()
     if a.per_task is not None and a.per_task<1:p.error('--per-task must be positive')
     if a.max_new_tokens<1 or a.max_input_tokens<1:p.error('Token caps must be positive')
+    if a.batch_size<1:p.error('Batch size must be positive')
     out=Path(a.output);out.mkdir(parents=True,exist_ok=True)
     if any(out.iterdir()):raise ValueError('Use a new empty run directory; never overwrite a prediction journal')
     rows=select_dev(read_rows(a.dev),a.per_task)
-    prompts={r['id']:prompt(r) for r in rows}
+    if a.tasks:
+        rows=[r for r in rows if r['task'] in a.tasks]
+        if not rows:raise ValueError('No rows for selected tasks')
+    prompts={r['id']:(legacy_prompt(r) if a.interface=='legacy' else prompt(r)) for r in rows}
     manifest={'phase':'development_smoke' if a.per_task else 'development',
               'backend':a.backend,'rows':len(rows),'input_sha256':digest(rows),'prompt_sha256':digest(prompts),
               'scorer_sha256':file_sha(Path(__file__).with_name('core.py')),
               'runner_sha256':file_sha(__file__),'decode':{'temperature':0,'max_new_tokens':a.max_new_tokens,
               'max_input_tokens':a.max_input_tokens,'truncation':'reject','enable_thinking':False},
               'environment':{'python':platform.python_version(),'system':platform.platform()},
-              'test_accessed':False,'paid_compute':True,'execution_location':'RunPod',
+              'interface':a.interface,'batch_size':a.batch_size,'test_accessed':False,'paid_compute':True,'execution_location':'RunPod',
               'pod_id':os.environ['RUNPOD_POD_ID']}
     load_start=time.perf_counter()
     if a.backend=='majority':
@@ -78,6 +96,8 @@ def main():
         manifest['environment'].update({'device':a.device,'threads':a.threads,
             'dtype':'float32' if a.device=='cpu' else 'bfloat16'})
         tokenizer=AutoTokenizer.from_pretrained(snapshot,local_files_only=True,trust_remote_code=False)
+        tokenizer.padding_side='left'
+        tokenizer.pad_token=tokenizer.eos_token
         model=AutoModelForCausalLM.from_pretrained(snapshot,local_files_only=True,trust_remote_code=False,
                    dtype=torch.float32 if a.device=='cpu' else torch.bfloat16).to(a.device)
         if a.adapter:
@@ -89,7 +109,8 @@ def main():
             model=PeftModel.from_pretrained(model,str(adapter),is_trainable=False,local_files_only=True)
         model.eval()
         def generate(r):
-            text=tokenizer.apply_chat_template([{'role':'user','content':prompts[r['id']]}],
+            text=prompts[r['id']] if a.interface=='legacy' else tokenizer.apply_chat_template(
+                    [{'role':'user','content':prompts[r['id']]}],
                     tokenize=False,add_generation_prompt=True,enable_thinking=False)
             batch=tokenizer(text,return_tensors='pt',truncation=False).to(a.device)
             n=batch['input_ids'].shape[1]
@@ -99,21 +120,49 @@ def main():
                                       pad_token_id=tokenizer.eos_token_id)
             tokens=result[0,n:]
             return tokenizer.decode(tokens,skip_special_tokens=True),n,len(tokens)
+        def generate_many(group):
+            texts=[prompts[r['id']] if a.interface=='legacy' else tokenizer.apply_chat_template(
+                [{'role':'user','content':prompts[r['id']]}],tokenize=False,add_generation_prompt=True,
+                enable_thinking=False) for r in group]
+            lengths=[len(tokenizer(t)['input_ids']) for t in texts]
+            if any(n>a.max_input_tokens for n in lengths):
+                # Isolate failures; do not discard valid neighboring rows.
+                answer=[]
+                for row in group:
+                    try:answer.append(generate(row))
+                    except Exception as exc:answer.append(exc)
+                return answer
+            batch=tokenizer(texts,return_tensors='pt',padding=True,truncation=False).to(a.device)
+            with torch.inference_mode():
+                generated=model.generate(**batch,max_new_tokens=a.max_new_tokens,do_sample=False,
+                    pad_token_id=tokenizer.eos_token_id)
+            answer=[]
+            for tokens,n in zip(generated[:,batch['input_ids'].shape[1]:],lengths):
+                ids=tokens.tolist()
+                length=ids.index(tokenizer.eos_token_id)+1 if tokenizer.eos_token_id in ids else len(ids)
+                answer.append((tokenizer.decode(ids[:length],skip_special_tokens=True),n,length))
+            return answer
     manifest['load_seconds']=time.perf_counter()-load_start
     (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     results=[];begin=time.perf_counter()
     with (out/'predictions.jsonl').open('x') as stream:
-        for i,row in enumerate(rows):
+        for offset in range(0,len(rows),a.batch_size):
+            group=rows[offset:offset+a.batch_size]
             start=time.perf_counter()
             try:
-                raw,nt,ng=generate(row);rec={'id':row['id'],'status':'ok','raw_output':raw,
-                    'input_tokens':nt,'output_tokens':ng}
+                values=generate_many(group) if a.backend=='hf' and a.batch_size>1 else [generate(row) for row in group]
             except Exception as exc:
-                rec={'id':row['id'],'status':'error','raw_output':None,'error_type':type(exc).__name__,
-                     'error':str(exc)[:500]}
-            rec['seconds']=time.perf_counter()-start;results.append(rec)
-            stream.write(canonical(rec)+'\n');stream.flush()
-            print(f"{i+1}/{len(rows)} {row['task']} {rec['status']} {rec['seconds']:.2f}s",flush=True)
+                values=[exc]*len(group)
+            elapsed=time.perf_counter()-start
+            for row,value in zip(group,values):
+                if isinstance(value,Exception):
+                    rec={'id':row['id'],'status':'error','raw_output':None,'error_type':type(value).__name__,'error':str(value)[:500]}
+                else:
+                    raw,nt,ng=value;rec={'id':row['id'],'status':'ok','raw_output':raw,'input_tokens':nt,'output_tokens':ng}
+                rec.update({'seconds':elapsed,'batch_size':len(group),'timing_scope':'shared batch duration' if len(group)>1 else 'request'})
+                results.append(rec);stream.write(canonical(rec)+'\n')
+            stream.flush()
+            print(f"{offset+len(group)}/{len(rows)} batch {elapsed:.2f}s",flush=True)
     report={'manifest_sha256':file_sha(out/'manifest.json'),'phase':manifest['phase'],
             'elapsed_seconds':time.perf_counter()-begin,'metrics':score_rows(rows,results),
             'predictions_sha256':file_sha(out/'predictions.jsonl'),

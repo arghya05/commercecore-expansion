@@ -1,9 +1,9 @@
 {
-  "compiler": "Tectonic 0.17.0",
+  "compiler": "XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023/Debian)\nkpathsea version 6.3.5\nCopyright 2023 SIL International, Jonathan Kew and Khaled Hosny.\nThere is NO warranty.  Redistribution of this software is\ncovered by the terms of both the XeTeX copyright and\nthe Lesser GNU General Public License.\nFor more information about these matters, see the file\nnamed COPYING and the XeTeX source.\nPrimary author of XeTeX: Jonathan Kew.\nCompiled with ICU version 74.2; using 74.2\nCompiled with zlib version 1.3; using 1.3\nCompiled with FreeType2 version 2.13.2; using 2.13.2\nCompiled with Graphite2 version 1.3.14; using 1.3.14\nCompiled with HarfBuzz version 8.3.0; using 8.3.0\nCompiled with libpng version 1.6.43; using 1.6.43\nCompiled with pplib version v2.05 less toxic i hope\nCompiled with fontconfig version 2.15.0; using 2.15.0",
   "mode": "public preprint",
   "top_level_tex": "commercecore_expansion_paper.tex",
   "source_files_sha256": {
-    "commercecore_expansion_paper.tex": "8b50d037b6a6bd3eed923fbd99d56a4bccff8fbc4cbec37262cc5ab846274859",
+    "commercecore_expansion_paper.tex": "0c107568fa5438ac39a27e5f6c4a01f536051d82d1538aff553dc232a27c45c8",
     "neurips_2026.sty": "c3fc2894e83d2517ca18b66741d6c595986d97957dc08ec08bb2125a7ec4555a",
     "evidence/checkpoint_functional.csv": "48a5ea408ffde0f14e9443f2bbaace7ffddbc5460c8a158a982b997d0b5be28f",
     "evidence/checkpoint_shared_v1.csv": "f1c0f210576ad78064845027c5b7b594afa8339cd073f8c2e98d206fd1c7d8d1",
@@ -12,6 +12,7 @@
     "evidence/checkpoint_single_token.csv": "2e03234597a3a97f091fe3a1695f9a15f790d9e25945ff58a4cc46989e6e8b4a",
     "evidence/checkpoint_understand.csv": "c3ca27d403ba46451b409efad5477c2b4ff3154c8e79716e4730e5d3fc53e0d3",
     "evidence/extraction_rows.tex": "bb79c3c1f8617b5d0535e5dfd0ff33e4cb4020e7ad9affa3b8f176dbb51366b9",
+    "evidence/followup.tex": "717ea63d16efccd6bebf6cf137f0b29cfeaefe578f6ff9a4402642f0e49b7ce4",
     "evidence/frontier_rows.tex": "f15984978cab719860c5b28f397ec942a7b0ac28607ba07bcd963b27bf69db1f",
     "evidence/functional_checkpoints.tex": "0fd37198c1af23a1341c2fbc971deb22b6b05768ee88b3afabeaa8cadb7df491",
     "evidence/functional_confusion_rows.tex": "91a0da8bf797940e66e1d0d27e87cb5b0f99b93d75ca828ad7b579ef2c5157fd",
@@ -32,12 +33,14 @@
     "sections/01_introduction_related.tex": "e96327154aa3ca2f992731c367c9cb296c83767ffe3528c58a734264f5096865",
     "sections/02_data_methods.tex": "ea4c5ed4129e4d23eb460568343326f8da8b142499d003e149af8f4ceb2b5044",
     "sections/03_evaluation_results.tex": "117dad5d998d2757b1a3255ed29713c07e327d6ed36f52a64e8343798ffa2292",
-    "sections/04_serving_discussion.tex": "61d54ec40dead002b8983a3a1a4b3c79d7a81a3a7dab2b181b986480a6f11c42",
+    "sections/04_serving_discussion.tex": "0d7b6ed57b905eb0ac7fe08ad3cb80b2959198b4c92ae9604722c432b8cb0fd2",
     "sections/appendix.tex": "e1b5bdda3dc799d8e8e5f5dd5dea215e30f80414eadca04b879e8c5593e2678b",
     "sections/references.tex": "a7363c9fe167f260ac50c7b788d4e5ace5da93041d1bd7bfb4f86d8446a97afa"
   },
-  "public_pdf_sha256": "9ff6aafb265d9e82510f813fde89e32c21c11956851a9e544b5002f3a7076616",
-  "source_zip_sha256": "a1abfd8a257a9ad660bbb01348bf3b516a03467ee4588dc5d07ea9382cbf598f",
+  "public_pdf_sha256": "974334be7a2f682b8452354247f17b8580af94fdbc313ad31ef9881afb2ad306",
+  "source_zip_sha256": "50402a1b2fc95db034c3f5413bbf89213296c4f4c97b1b24ca19a843653031d0",
   "validation": "Compiled successfully; no undefined citations/references, missing glyphs, or overfull boxes in final log",
-  "boundary": "Local Tectonic compilation; arXiv server compilation and moderation have not been performed"
+  "execution_location": "RunPod",
+  "pod_id": "mx5bicgmgidc80",
+  "boundary": "Remote compilation; arXiv server compilation and moderation have not been performed"
 }

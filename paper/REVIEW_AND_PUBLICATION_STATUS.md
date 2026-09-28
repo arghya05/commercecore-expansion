@@ -1,5 +1,27 @@
 # Research review and publication status
 
+## Follow-up evidence added on 2026-09-28
+
+The authorized $25 follow-up adds six full base/adapter evaluation runs across
+two interfaces (5,980 predictions), a 400-row NuExtract text-extraction run,
+and 3,600 measured HTTP requests plus 300 excluded warmup requests on RunPod.
+The paired runs keep rows, scorer and output allowance fixed within each
+interface. Raw outputs, exposure checks, grouping limits and failures are retained.
+See [the generated result summary](evidence/followup_summary.md).
+
+The original completion interface produces invalid base outputs; its zero scores
+are an interface failure, not a claim that the base lacks commerce knowledge.
+The common chat comparison shows substantially different gains by task. Identity
+has only five connected evaluation components, so its cluster-bootstrap interval
+is suppressed. Serving is a closed-loop, same-pod identity prototype with quoted
+GPU-window cost, not an optimized production server or invoiced cost comparison.
+
+No new training, human naturalness study, final-test scoring or frontier API
+comparison was performed. Controlled ablations and the broader submission gaps
+below remain open. The older sections describe the prior artifact revision;
+completed follow-up evidence is separately identified, not retroactively assigned
+to historical runs.
+
 Review date: 2026-09-28. This document concerns the completed manuscript revision and the evidence available for it, not a guarantee of conference acceptance.
 
 The rewrite is substantially deeper than the previous expansion draft. It is an empirical small-model study with an executable retrospective audit. The current artifacts do **not** support presenting it as a new general commerce foundation model, a universal frontier-model winner, a new adaptive training algorithm, or a proven low-cost serving system. Stronger prose cannot substitute for the missing experiments below.

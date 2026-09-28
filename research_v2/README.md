@@ -1,5 +1,10 @@
 # Isolated research protocol, version 2
 
+The [follow-up campaign](EXPERIMENT_CAMPAIGN.md) adds completed matched
+development comparisons and a bounded GPU HTTP prototype. See the
+[evidence-derived results](../paper/evidence/followup_summary.md). These do not
+replace the human-review training gate or untouched final-test requirements.
+
 All research execution is **RunPod only**: data preparation, tests, model runs,
 evaluation, serving measurements, and PDF compilation. The laptop is a connection,
 file-transfer and GitHub publishing client. Do not install dependencies or run

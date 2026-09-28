@@ -1,0 +1,2908 @@
+test_development_runner_rejects_train_and_test_rows (test_execution.ExecutionTests.test_development_runner_rejects_train_and_test_rows) ... ok
+test_json_embedded_unicode_line_separator_is_not_a_record_boundary (test_execution.ExecutionTests.test_json_embedded_unicode_line_separator_is_not_a_record_boundary) ... ok
+test_laptop_is_rejected_even_if_pod_environment_is_spoofed (test_execution.ExecutionTests.test_laptop_is_rejected_even_if_pod_environment_is_spoofed) ... ok
+test_linux_without_pod_is_rejected (test_execution.ExecutionTests.test_linux_without_pod_is_rejected) ... ok
+test_modified_contract_is_rejected (test_execution.ExecutionTests.test_modified_contract_is_rejected) ... ok
+test_test_access_requires_exact_frozen_cohort_and_is_one_time (test_execution.ExecutionTests.test_test_access_requires_exact_frozen_cohort_and_is_one_time) ... ok
+test_failed_rows_stay_in_denominator (test_followup.FollowupTests.test_failed_rows_stay_in_denominator) ... ok
+test_legacy_prompt_preserves_training_interface (test_followup.FollowupTests.test_legacy_prompt_preserves_training_interface) ... ok
+test_opposite_labels_are_not_substrings (test_followup.FollowupTests.test_opposite_labels_are_not_substrings) ... ok
+test_contract_rejects_empty_gold_outside_ontology_and_duplicate_ids (test_protocol.ProtocolTests.test_contract_rejects_empty_gold_outside_ontology_and_duplicate_ids) ... ok
+test_extraction_rejects_duplicate_keys_extra_fields_and_invalid_types (test_protocol.ProtocolTests.test_extraction_rejects_duplicate_keys_extra_fields_and_invalid_types) ... ok
+test_failures_are_retained_in_denominator (test_protocol.ProtocolTests.test_failures_are_retained_in_denominator) ... ok
+test_field_exactness_and_null_denominators (test_protocol.ProtocolTests.test_field_exactness_and_null_denominators) ... ok
+test_join_rejects_missing_duplicate_and_unexpected_rows (test_protocol.ProtocolTests.test_join_rejects_missing_duplicate_and_unexpected_rows) ... ok
+test_opposite_and_negated_labels_are_not_substring_matches (test_protocol.ProtocolTests.test_opposite_and_negated_labels_are_not_substring_matches) ... ok
+test_pairing_connects_every_shared_group (test_protocol.ProtocolTests.test_pairing_connects_every_shared_group) ... ok
+test_prompt_contains_no_gold_or_split (test_protocol.ProtocolTests.test_prompt_contains_no_gold_or_split) ... ok
+test_shared_entity_detects_overlap_despite_distinct_examples (test_protocol.ProtocolTests.test_shared_entity_detects_overlap_despite_distinct_examples) ... ok
+test_transitive_family_components_and_whole_group_sampling (test_protocol.ProtocolTests.test_transitive_family_components_and_whole_group_sampling) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.008s
+
+OK
+{
+  "status": "MACHINE_GATES_PASS",
+  "counts": {
+    "train": {
+      "relevance": 5997,
+      "identity": 6000,
+      "extraction": 6000
+    },
+    "dev": {
+      "relevance": 595,
+      "identity": 500,
+      "extraction": 400
+    },
+    "test": {
+      "relevance": 1200,
+      "identity": 1000,
+      "extraction": 800
+    }
+  }
+}
+{
+  "relevance": {
+    "n": 595,
+    "exact_text_seen": 0,
+    "recorded_group_seen": 0,
+    "group_status_unknown": 0
+  },
+  "extraction": {
+    "n": 400,
+    "exact_text_seen": 0,
+    "recorded_group_seen": 0,
+    "group_status_unknown": 0
+  },
+  "identity": {
+    "n": 500,
+    "exact_text_seen": 0,
+    "recorded_group_seen": 0,
+    "group_status_unknown": 500
+  }
+}
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files:  67%|██████▋   | 8/12 [00:00<00:00, 14.06it/s]Fetching 12 files: 100%|██████████| 12/12 [00:08<00:00,  1.44it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 68.70it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+1/9 extraction ok 2.26s
+2/9 extraction ok 1.79s
+3/9 extraction ok 1.81s
+4/9 identity ok 1.79s
+5/9 identity ok 1.75s
+6/9 identity ok 1.74s
+7/9 relevance ok 1.76s
+8/9 relevance ok 1.81s
+9/9 relevance ok 1.82s
+{
+  "manifest_sha256": "f9eaf7fe4d1f69e4f94fd9fc78f1469645f821bd8b59f6214acea5b462e061dd",
+  "phase": "development_smoke",
+  "elapsed_seconds": 16.525017109001055,
+  "metrics": {
+    "extraction": {
+      "n": 3,
+      "parse_error_rate": 1.0,
+      "exact": {
+        "brand": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "joint_accuracy": 0.0
+    },
+    "identity": {
+      "n": 3,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 1.0,
+      "per_class": {
+        "same": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "distinct": {
+          "support": 3,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "distinct->INVALID": 3
+      }
+    },
+    "relevance": {
+      "n": 3,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 1.0,
+      "per_class": {
+        "exact": {
+          "support": 3,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "substitute": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "complement": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "irrelevant": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "exact->INVALID": 3
+      }
+    }
+  },
+  "predictions_sha256": "441cc3364d25daf3f6d96717af062b787c6b54e2260b9432515ae823d62e285d",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 67.98it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+1/1495 extraction ok 2.25s
+2/1495 extraction ok 1.79s
+3/1495 extraction ok 1.80s
+4/1495 extraction ok 1.74s
+5/1495 extraction ok 1.78s
+6/1495 extraction ok 1.79s
+7/1495 extraction ok 1.77s
+8/1495 extraction ok 1.81s
+9/1495 extraction ok 1.85s
+10/1495 extraction ok 1.84s
+11/1495 extraction ok 1.93s
+12/1495 extraction ok 1.88s
+13/1495 extraction ok 1.77s
+14/1495 extraction ok 1.78s
+15/1495 extraction ok 1.77s
+16/1495 extraction ok 1.82s
+17/1495 extraction ok 1.87s
+18/1495 extraction ok 1.86s
+19/1495 extraction ok 1.82s
+20/1495 extraction ok 1.89s
+21/1495 extraction ok 1.89s
+22/1495 extraction ok 1.83s
+23/1495 extraction ok 1.75s
+24/1495 extraction ok 1.75s
+25/1495 extraction ok 1.78s
+26/1495 extraction ok 1.85s
+27/1495 extraction ok 1.82s
+28/1495 extraction ok 1.80s
+29/1495 extraction ok 1.81s
+30/1495 extraction ok 1.79s
+31/1495 extraction ok 1.80s
+32/1495 extraction ok 1.78s
+33/1495 extraction ok 1.84s
+34/1495 extraction ok 1.80s
+35/1495 extraction ok 1.76s
+36/1495 extraction ok 1.80s
+37/1495 extraction ok 1.84s
+38/1495 extraction ok 1.82s
+39/1495 extraction ok 1.83s
+40/1495 extraction ok 1.87s
+41/1495 extraction ok 1.77s
+42/1495 extraction ok 1.80s
+43/1495 extraction ok 1.78s
+44/1495 extraction ok 1.80s
+45/1495 extraction ok 1.78s
+46/1495 extraction ok 1.76s
+47/1495 extraction ok 1.79s
+48/1495 extraction ok 1.81s
+49/1495 extraction ok 1.79s
+50/1495 extraction ok 1.80s
+51/1495 extraction ok 1.81s
+52/1495 extraction ok 1.80s
+53/1495 extraction ok 1.82s
+54/1495 extraction ok 1.83s
+55/1495 extraction ok 1.75s
+56/1495 extraction ok 1.75s
+57/1495 extraction ok 1.75s
+58/1495 extraction ok 1.76s
+59/1495 extraction ok 1.75s
+60/1495 extraction ok 1.75s
+61/1495 extraction ok 1.77s
+62/1495 extraction ok 1.75s
+63/1495 extraction ok 1.75s
+64/1495 extraction ok 1.79s
+65/1495 extraction ok 1.80s
+66/1495 extraction ok 1.74s
+67/1495 extraction ok 1.83s
+68/1495 extraction ok 1.84s
+69/1495 extraction ok 1.85s
+70/1495 extraction ok 1.85s
+71/1495 extraction ok 1.84s
+72/1495 extraction ok 1.76s
+73/1495 extraction ok 1.79s
+74/1495 extraction ok 1.90s
+75/1495 extraction ok 1.90s
+76/1495 extraction ok 1.92s
+test_development_runner_rejects_train_and_test_rows (test_execution.ExecutionTests.test_development_runner_rejects_train_and_test_rows) ... ok
+test_json_embedded_unicode_line_separator_is_not_a_record_boundary (test_execution.ExecutionTests.test_json_embedded_unicode_line_separator_is_not_a_record_boundary) ... ok
+test_laptop_is_rejected_even_if_pod_environment_is_spoofed (test_execution.ExecutionTests.test_laptop_is_rejected_even_if_pod_environment_is_spoofed) ... ok
+test_linux_without_pod_is_rejected (test_execution.ExecutionTests.test_linux_without_pod_is_rejected) ... ok
+test_modified_contract_is_rejected (test_execution.ExecutionTests.test_modified_contract_is_rejected) ... ok
+test_test_access_requires_exact_frozen_cohort_and_is_one_time (test_execution.ExecutionTests.test_test_access_requires_exact_frozen_cohort_and_is_one_time) ... ok
+test_failed_rows_stay_in_denominator (test_followup.FollowupTests.test_failed_rows_stay_in_denominator) ... ok
+test_legacy_prompt_preserves_training_interface (test_followup.FollowupTests.test_legacy_prompt_preserves_training_interface) ... ok
+test_opposite_labels_are_not_substrings (test_followup.FollowupTests.test_opposite_labels_are_not_substrings) ... ok
+test_contract_rejects_empty_gold_outside_ontology_and_duplicate_ids (test_protocol.ProtocolTests.test_contract_rejects_empty_gold_outside_ontology_and_duplicate_ids) ... ok
+test_extraction_rejects_duplicate_keys_extra_fields_and_invalid_types (test_protocol.ProtocolTests.test_extraction_rejects_duplicate_keys_extra_fields_and_invalid_types) ... ok
+test_failures_are_retained_in_denominator (test_protocol.ProtocolTests.test_failures_are_retained_in_denominator) ... ok
+test_field_exactness_and_null_denominators (test_protocol.ProtocolTests.test_field_exactness_and_null_denominators) ... ok
+test_join_rejects_missing_duplicate_and_unexpected_rows (test_protocol.ProtocolTests.test_join_rejects_missing_duplicate_and_unexpected_rows) ... ok
+test_opposite_and_negated_labels_are_not_substring_matches (test_protocol.ProtocolTests.test_opposite_and_negated_labels_are_not_substring_matches) ... ok
+test_pairing_connects_every_shared_group (test_protocol.ProtocolTests.test_pairing_connects_every_shared_group) ... ok
+test_prompt_contains_no_gold_or_split (test_protocol.ProtocolTests.test_prompt_contains_no_gold_or_split) ... ok
+test_shared_entity_detects_overlap_despite_distinct_examples (test_protocol.ProtocolTests.test_shared_entity_detects_overlap_despite_distinct_examples) ... ok
+test_transitive_family_components_and_whole_group_sampling (test_protocol.ProtocolTests.test_transitive_family_components_and_whole_group_sampling) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.008s
+
+OK
+{
+  "status": "MACHINE_GATES_PASS",
+  "counts": {
+    "train": {
+      "relevance": 5997,
+      "identity": 6000,
+      "extraction": 6000
+    },
+    "dev": {
+      "relevance": 595,
+      "identity": 500,
+      "extraction": 400
+    },
+    "test": {
+      "relevance": 1200,
+      "identity": 1000,
+      "extraction": 800
+    }
+  }
+}
+{
+  "extraction": {
+    "n": 400,
+    "exact_text_seen": 0,
+    "recorded_group_seen": 0,
+    "group_status_unknown": 0
+  },
+  "identity": {
+    "n": 500,
+    "exact_text_seen": 0,
+    "recorded_group_seen": 0,
+    "group_status_unknown": 500
+  },
+  "relevance": {
+    "n": 595,
+    "exact_text_seen": 0,
+    "recorded_group_seen": 0,
+    "group_status_unknown": 0
+  }
+}
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files: 100%|██████████| 12/12 [00:00<00:00, 1966.39it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 67.05it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8/9 batch 2.84s
+9/9 batch 1.84s
+{
+  "manifest_sha256": "b009b8c1aa46811c1c355ba5a94483513e3b01600c1b95d7549229369dc19ca2",
+  "phase": "development_smoke",
+  "elapsed_seconds": 4.675378452055156,
+  "metrics": {
+    "extraction": {
+      "n": 3,
+      "parse_error_rate": 1.0,
+      "exact": {
+        "brand": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "joint_accuracy": 0.0
+    },
+    "identity": {
+      "n": 3,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 1.0,
+      "per_class": {
+        "same": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "distinct": {
+          "support": 3,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "distinct->INVALID": 3
+      }
+    },
+    "relevance": {
+      "n": 3,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 1.0,
+      "per_class": {
+        "exact": {
+          "support": 3,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "substitute": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "complement": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "irrelevant": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "exact->INVALID": 3
+      }
+    }
+  },
+  "predictions_sha256": "3b64ab15a5cd0832817816a757093551340f8f9b902f7d744195ffdf24f713e1",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 69.05it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8/1495 batch 2.82s
+16/1495 batch 2.26s
+24/1495 batch 2.23s
+32/1495 batch 2.34s
+40/1495 batch 2.35s
+48/1495 batch 2.31s
+56/1495 batch 2.28s
+64/1495 batch 2.29s
+72/1495 batch 2.32s
+80/1495 batch 2.30s
+88/1495 batch 2.30s
+96/1495 batch 2.30s
+104/1495 batch 2.28s
+112/1495 batch 2.29s
+120/1495 batch 2.26s
+128/1495 batch 2.23s
+136/1495 batch 2.26s
+144/1495 batch 2.25s
+152/1495 batch 2.24s
+160/1495 batch 2.29s
+168/1495 batch 2.28s
+176/1495 batch 2.30s
+184/1495 batch 2.27s
+192/1495 batch 2.25s
+200/1495 batch 2.28s
+208/1495 batch 2.36s
+216/1495 batch 2.28s
+224/1495 batch 2.32s
+232/1495 batch 2.32s
+240/1495 batch 2.27s
+248/1495 batch 2.36s
+256/1495 batch 2.41s
+264/1495 batch 2.34s
+272/1495 batch 2.38s
+280/1495 batch 2.25s
+288/1495 batch 2.22s
+296/1495 batch 2.27s
+304/1495 batch 2.21s
+312/1495 batch 2.40s
+320/1495 batch 2.26s
+328/1495 batch 2.29s
+336/1495 batch 2.31s
+344/1495 batch 2.27s
+352/1495 batch 2.31s
+360/1495 batch 2.31s
+368/1495 batch 2.24s
+376/1495 batch 2.26s
+384/1495 batch 2.25s
+392/1495 batch 2.25s
+400/1495 batch 2.25s
+408/1495 batch 2.16s
+416/1495 batch 2.16s
+424/1495 batch 2.15s
+432/1495 batch 2.17s
+440/1495 batch 2.16s
+448/1495 batch 2.17s
+456/1495 batch 2.18s
+464/1495 batch 2.23s
+472/1495 batch 2.24s
+480/1495 batch 2.22s
+488/1495 batch 2.19s
+496/1495 batch 2.22s
+504/1495 batch 2.20s
+512/1495 batch 2.19s
+520/1495 batch 2.18s
+528/1495 batch 2.20s
+536/1495 batch 2.26s
+544/1495 batch 2.33s
+552/1495 batch 2.26s
+560/1495 batch 2.29s
+568/1495 batch 2.24s
+576/1495 batch 2.19s
+584/1495 batch 2.16s
+592/1495 batch 2.20s
+600/1495 batch 2.34s
+608/1495 batch 2.21s
+616/1495 batch 2.19s
+624/1495 batch 2.19s
+632/1495 batch 2.22s
+640/1495 batch 2.18s
+648/1495 batch 2.20s
+656/1495 batch 2.24s
+664/1495 batch 2.20s
+672/1495 batch 2.19s
+680/1495 batch 2.34s
+688/1495 batch 2.18s
+696/1495 batch 2.22s
+704/1495 batch 2.18s
+712/1495 batch 2.24s
+720/1495 batch 2.24s
+728/1495 batch 2.20s
+736/1495 batch 2.22s
+744/1495 batch 2.23s
+752/1495 batch 2.27s
+760/1495 batch 2.19s
+768/1495 batch 2.24s
+776/1495 batch 2.20s
+784/1495 batch 2.18s
+792/1495 batch 2.19s
+800/1495 batch 2.21s
+808/1495 batch 2.24s
+816/1495 batch 2.30s
+824/1495 batch 2.19s
+832/1495 batch 2.20s
+840/1495 batch 2.23s
+848/1495 batch 2.21s
+856/1495 batch 2.20s
+864/1495 batch 2.31s
+872/1495 batch 2.28s
+880/1495 batch 2.27s
+888/1495 batch 2.25s
+896/1495 batch 2.19s
+904/1495 batch 2.23s
+912/1495 batch 2.21s
+920/1495 batch 2.18s
+928/1495 batch 2.20s
+936/1495 batch 2.21s
+944/1495 batch 2.22s
+952/1495 batch 2.23s
+960/1495 batch 2.17s
+968/1495 batch 2.18s
+976/1495 batch 2.21s
+984/1495 batch 2.21s
+992/1495 batch 2.23s
+1000/1495 batch 2.29s
+1008/1495 batch 2.19s
+1016/1495 batch 2.21s
+1024/1495 batch 2.20s
+1032/1495 batch 2.28s
+1040/1495 batch 2.28s
+1048/1495 batch 2.27s
+1056/1495 batch 2.34s
+1064/1495 batch 2.31s
+1072/1495 batch 2.22s
+1080/1495 batch 2.25s
+1088/1495 batch 2.24s
+1096/1495 batch 2.26s
+1104/1495 batch 2.32s
+1112/1495 batch 2.23s
+1120/1495 batch 2.21s
+1128/1495 batch 2.20s
+1136/1495 batch 2.20s
+1144/1495 batch 2.21s
+1152/1495 batch 2.27s
+1160/1495 batch 2.30s
+1168/1495 batch 2.27s
+1176/1495 batch 2.30s
+1184/1495 batch 2.34s
+1192/1495 batch 2.28s
+1200/1495 batch 2.26s
+1208/1495 batch 2.22s
+1216/1495 batch 2.19s
+1224/1495 batch 2.19s
+1232/1495 batch 2.22s
+1240/1495 batch 2.27s
+1248/1495 batch 2.23s
+1256/1495 batch 2.21s
+1264/1495 batch 2.22s
+1272/1495 batch 2.16s
+1280/1495 batch 2.23s
+1288/1495 batch 2.27s
+1296/1495 batch 2.21s
+1304/1495 batch 2.21s
+1312/1495 batch 2.19s
+1320/1495 batch 2.19s
+1328/1495 batch 2.26s
+1336/1495 batch 2.17s
+1344/1495 batch 2.17s
+1352/1495 batch 2.19s
+1360/1495 batch 2.19s
+1368/1495 batch 2.25s
+1376/1495 batch 2.19s
+1384/1495 batch 2.19s
+1392/1495 batch 2.26s
+1400/1495 batch 2.29s
+1408/1495 batch 2.25s
+1416/1495 batch 2.37s
+1424/1495 batch 2.19s
+1432/1495 batch 2.17s
+1440/1495 batch 2.18s
+1448/1495 batch 2.19s
+1456/1495 batch 2.18s
+1464/1495 batch 2.19s
+1472/1495 batch 2.23s
+1480/1495 batch 2.23s
+1488/1495 batch 2.20s
+1495/1495 batch 2.19s
+{
+  "manifest_sha256": "55d28996ee48a1bb3e41bdd6b2c4d1f7a82cc2f2a15ad38c55431f18dadcd284",
+  "phase": "development",
+  "elapsed_seconds": 419.7570600041654,
+  "metrics": {
+    "extraction": {
+      "n": 400,
+      "parse_error_rate": 1.0,
+      "exact": {
+        "brand": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 400,
+          "tn": 0,
+          "f1": 0.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 400,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 400,
+          "tn": 0,
+          "f1": 0.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 400,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "joint_accuracy": 0.0
+    },
+    "identity": {
+      "n": 500,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 1.0,
+      "per_class": {
+        "same": {
+          "support": 148,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "distinct": {
+          "support": 352,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "distinct->INVALID": 352,
+        "same->INVALID": 148
+      }
+    },
+    "relevance": {
+      "n": 595,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 1.0,
+      "per_class": {
+        "exact": {
+          "support": 278,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "substitute": {
+          "support": 225,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "complement": {
+          "support": 19,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "irrelevant": {
+          "support": 73,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "complement->INVALID": 19,
+        "exact->INVALID": 278,
+        "irrelevant->INVALID": 73,
+        "substitute->INVALID": 225
+      }
+    }
+  },
+  "predictions_sha256": "e3d30d8fa3e24c8b6292c7b52100075ecff833bf2f0f26eff0dc34fa748b24f0",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 67.03it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8/1095 batch 0.65s
+16/1095 batch 0.15s
+24/1095 batch 0.13s
+32/1095 batch 0.14s
+40/1095 batch 0.13s
+48/1095 batch 0.13s
+56/1095 batch 0.15s
+64/1095 batch 0.15s
+72/1095 batch 0.20s
+80/1095 batch 0.14s
+88/1095 batch 0.17s
+96/1095 batch 0.17s
+104/1095 batch 0.17s
+112/1095 batch 0.15s
+120/1095 batch 0.13s
+128/1095 batch 0.14s
+136/1095 batch 0.14s
+144/1095 batch 0.13s
+152/1095 batch 0.16s
+160/1095 batch 0.16s
+168/1095 batch 0.14s
+176/1095 batch 0.16s
+184/1095 batch 0.13s
+192/1095 batch 0.14s
+200/1095 batch 0.14s
+208/1095 batch 0.14s
+216/1095 batch 0.17s
+224/1095 batch 0.14s
+232/1095 batch 0.14s
+240/1095 batch 0.13s
+248/1095 batch 0.14s
+256/1095 batch 0.16s
+264/1095 batch 0.13s
+272/1095 batch 0.15s
+280/1095 batch 0.16s
+288/1095 batch 0.14s
+296/1095 batch 0.14s
+304/1095 batch 0.14s
+312/1095 batch 0.16s
+320/1095 batch 0.14s
+328/1095 batch 0.14s
+336/1095 batch 0.13s
+344/1095 batch 0.14s
+352/1095 batch 0.16s
+360/1095 batch 0.14s
+368/1095 batch 0.18s
+376/1095 batch 0.14s
+384/1095 batch 0.15s
+392/1095 batch 0.14s
+400/1095 batch 0.16s
+408/1095 batch 0.14s
+416/1095 batch 0.14s
+424/1095 batch 0.14s
+432/1095 batch 0.14s
+440/1095 batch 0.16s
+448/1095 batch 0.14s
+456/1095 batch 0.14s
+464/1095 batch 0.15s
+472/1095 batch 0.14s
+480/1095 batch 0.14s
+488/1095 batch 0.14s
+496/1095 batch 0.14s
+504/1095 batch 0.19s
+512/1095 batch 0.23s
+520/1095 batch 0.19s
+528/1095 batch 0.19s
+536/1095 batch 0.19s
+544/1095 batch 0.20s
+552/1095 batch 0.19s
+560/1095 batch 0.19s
+568/1095 batch 0.19s
+576/1095 batch 0.19s
+584/1095 batch 0.19s
+592/1095 batch 0.19s
+600/1095 batch 0.19s
+608/1095 batch 0.20s
+616/1095 batch 0.19s
+624/1095 batch 0.20s
+632/1095 batch 0.20s
+640/1095 batch 0.19s
+648/1095 batch 0.19s
+656/1095 batch 0.20s
+664/1095 batch 0.22s
+672/1095 batch 0.19s
+680/1095 batch 0.19s
+688/1095 batch 0.20s
+696/1095 batch 0.20s
+704/1095 batch 0.20s
+712/1095 batch 0.19s
+720/1095 batch 0.19s
+728/1095 batch 0.15s
+736/1095 batch 0.19s
+744/1095 batch 0.19s
+752/1095 batch 0.19s
+760/1095 batch 0.20s
+768/1095 batch 0.19s
+776/1095 batch 0.24s
+784/1095 batch 0.20s
+792/1095 batch 0.19s
+800/1095 batch 0.20s
+808/1095 batch 0.20s
+816/1095 batch 0.20s
+824/1095 batch 0.20s
+832/1095 batch 0.19s
+840/1095 batch 0.20s
+848/1095 batch 0.20s
+856/1095 batch 0.20s
+864/1095 batch 0.19s
+872/1095 batch 0.19s
+880/1095 batch 0.20s
+888/1095 batch 0.20s
+896/1095 batch 0.20s
+904/1095 batch 0.20s
+912/1095 batch 0.19s
+920/1095 batch 0.21s
+928/1095 batch 0.21s
+936/1095 batch 0.20s
+944/1095 batch 0.20s
+952/1095 batch 0.21s
+960/1095 batch 0.20s
+968/1095 batch 0.20s
+976/1095 batch 0.20s
+984/1095 batch 0.21s
+992/1095 batch 0.24s
+1000/1095 batch 0.22s
+1008/1095 batch 0.23s
+1016/1095 batch 0.21s
+1024/1095 batch 0.23s
+1032/1095 batch 0.20s
+1040/1095 batch 0.21s
+1048/1095 batch 0.21s
+1056/1095 batch 0.20s
+1064/1095 batch 0.20s
+1072/1095 batch 0.23s
+1080/1095 batch 0.21s
+1088/1095 batch 0.20s
+1095/1095 batch 0.20s
+{
+  "manifest_sha256": "3a4b21ddf3daac358757649db20d358ce85a8cab8d0c5042c665e4d45eddc27e",
+  "phase": "development",
+  "elapsed_seconds": 24.61736960383132,
+  "metrics": {
+    "identity": {
+      "n": 500,
+      "accuracy": 0.892,
+      "macro_f1": 0.8617114994570896,
+      "balanced_accuracy": 0.8410626535626535,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "same": {
+          "support": 148,
+          "predicted": 118,
+          "precision": 0.8983050847457628,
+          "recall": 0.7162162162162162,
+          "f1": 0.7969924812030075
+        },
+        "distinct": {
+          "support": 352,
+          "predicted": 382,
+          "precision": 0.8900523560209425,
+          "recall": 0.9659090909090909,
+          "f1": 0.9264305177111717
+        }
+      },
+      "confusion": {
+        "distinct->distinct": 340,
+        "distinct->same": 12,
+        "same->distinct": 42,
+        "same->same": 106
+      }
+    },
+    "relevance": {
+      "n": 595,
+      "accuracy": 0.49411764705882355,
+      "macro_f1": 0.333300597850193,
+      "balanced_accuracy": 0.365910175968814,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "exact": {
+          "support": 278,
+          "predicted": 346,
+          "precision": 0.569364161849711,
+          "recall": 0.7086330935251799,
+          "f1": 0.6314102564102564
+        },
+        "substitute": {
+          "support": 225,
+          "predicted": 113,
+          "precision": 0.5486725663716814,
+          "recall": 0.27555555555555555,
+          "f1": 0.3668639053254438
+        },
+        "complement": {
+          "support": 19,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "irrelevant": {
+          "support": 73,
+          "predicted": 136,
+          "precision": 0.25735294117647056,
+          "recall": 0.4794520547945205,
+          "f1": 0.3349282296650718
+        }
+      },
+      "confusion": {
+        "complement->exact": 12,
+        "complement->irrelevant": 4,
+        "complement->substitute": 3,
+        "exact->exact": 197,
+        "exact->irrelevant": 44,
+        "exact->substitute": 37,
+        "irrelevant->exact": 27,
+        "irrelevant->irrelevant": 35,
+        "irrelevant->substitute": 11,
+        "substitute->exact": 110,
+        "substitute->irrelevant": 53,
+        "substitute->substitute": 62
+      }
+    }
+  },
+  "predictions_sha256": "caed727e13ca71446c06d555f034e0c21556b2c88d3f51eb9d32712eeba70fb3",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 70.66it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8/400 batch 1.64s
+16/400 batch 1.24s
+24/400 batch 1.30s
+32/400 batch 1.18s
+40/400 batch 1.20s
+48/400 batch 1.37s
+56/400 batch 1.25s
+64/400 batch 1.45s
+72/400 batch 1.54s
+80/400 batch 1.24s
+88/400 batch 1.37s
+96/400 batch 1.38s
+104/400 batch 1.15s
+112/400 batch 1.18s
+120/400 batch 1.23s
+128/400 batch 1.19s
+136/400 batch 1.29s
+144/400 batch 1.20s
+152/400 batch 1.11s
+160/400 batch 1.03s
+168/400 batch 1.15s
+176/400 batch 1.29s
+184/400 batch 1.22s
+192/400 batch 1.15s
+200/400 batch 1.14s
+208/400 batch 1.27s
+216/400 batch 1.13s
+224/400 batch 1.19s
+232/400 batch 1.19s
+240/400 batch 1.22s
+248/400 batch 1.20s
+256/400 batch 1.32s
+264/400 batch 1.33s
+272/400 batch 1.43s
+280/400 batch 1.20s
+288/400 batch 1.97s
+296/400 batch 1.28s
+304/400 batch 1.17s
+312/400 batch 1.32s
+320/400 batch 1.25s
+328/400 batch 1.20s
+336/400 batch 1.24s
+344/400 batch 1.29s
+352/400 batch 1.32s
+360/400 batch 1.30s
+368/400 batch 1.25s
+376/400 batch 1.27s
+384/400 batch 1.24s
+392/400 batch 1.16s
+400/400 batch 1.14s
+{
+  "manifest_sha256": "1aa936013e79dff1ba11b5083ed866d3c4ddb20984ff9f6e5a5d55d93f15a2ac",
+  "phase": "development",
+  "elapsed_seconds": 63.36830786196515,
+  "metrics": {
+    "extraction": {
+      "n": 400,
+      "parse_error_rate": 0.0,
+      "exact": {
+        "brand": {
+          "tp": 400,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "f1": 1.0
+        },
+        "color": {
+          "tp": 346,
+          "fp": 54,
+          "fn": 54,
+          "tn": 0,
+          "f1": 0.865
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 400,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "f1": 1.0
+        },
+        "color": {
+          "tp": 366,
+          "fp": 34,
+          "fn": 34,
+          "tn": 0,
+          "f1": 0.915
+        }
+      },
+      "joint_accuracy": 0.915
+    }
+  },
+  "predictions_sha256": "ddc5052b14e7bf9b67db246890bbd5a545ecb6ebf1372c468e56140ef02a9ce2",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 66.20it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8/9 batch 1.20s
+9/9 batch 0.12s
+{
+  "manifest_sha256": "0e7b45442a2767146dd50b0a11ee9f1d18b65ca7e4fc5c096614f5f3d682f8c5",
+  "phase": "development_smoke",
+  "elapsed_seconds": 1.3127785031683743,
+  "metrics": {
+    "extraction": {
+      "n": 3,
+      "parse_error_rate": 0.0,
+      "exact": {
+        "brand": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "f1": 1.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 3,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "f1": 1.0
+        },
+        "color": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 2,
+          "tn": 0,
+          "f1": 0.4
+        }
+      },
+      "joint_accuracy": 0.3333333333333333
+    },
+    "identity": {
+      "n": 3,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "same": {
+          "support": 0,
+          "predicted": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "distinct": {
+          "support": 3,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "distinct->same": 3
+      }
+    },
+    "relevance": {
+      "n": 3,
+      "accuracy": 0.3333333333333333,
+      "macro_f1": 0.125,
+      "balanced_accuracy": 0.08333333333333333,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "exact": {
+          "support": 3,
+          "predicted": 1,
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "f1": 0.5
+        },
+        "substitute": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "complement": {
+          "support": 0,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "irrelevant": {
+          "support": 0,
+          "predicted": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "exact->exact": 1,
+        "exact->irrelevant": 2
+      }
+    }
+  },
+  "predictions_sha256": "fb371bba91a5c5291907caf7076a3de7b232d864422f5e5deafff7fd6ee773d5",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 69.56it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8/1495 batch 1.23s
+16/1495 batch 0.66s
+24/1495 batch 0.67s
+32/1495 batch 0.67s
+40/1495 batch 0.64s
+48/1495 batch 0.75s
+56/1495 batch 0.70s
+64/1495 batch 0.70s
+72/1495 batch 0.87s
+80/1495 batch 0.60s
+88/1495 batch 0.74s
+96/1495 batch 0.72s
+104/1495 batch 0.68s
+112/1495 batch 0.64s
+120/1495 batch 0.68s
+128/1495 batch 0.65s
+136/1495 batch 0.68s
+144/1495 batch 0.71s
+152/1495 batch 0.68s
+160/1495 batch 0.58s
+168/1495 batch 0.60s
+176/1495 batch 0.69s
+184/1495 batch 0.68s
+192/1495 batch 0.72s
+200/1495 batch 0.65s
+208/1495 batch 0.80s
+216/1495 batch 0.69s
+224/1495 batch 0.68s
+232/1495 batch 0.81s
+240/1495 batch 0.65s
+248/1495 batch 0.68s
+256/1495 batch 0.83s
+264/1495 batch 0.78s
+272/1495 batch 0.76s
+280/1495 batch 0.73s
+288/1495 batch 0.63s
+296/1495 batch 0.75s
+304/1495 batch 0.66s
+312/1495 batch 0.75s
+320/1495 batch 0.65s
+328/1495 batch 1.18s
+336/1495 batch 0.73s
+344/1495 batch 0.73s
+352/1495 batch 0.82s
+360/1495 batch 0.72s
+368/1495 batch 0.74s
+376/1495 batch 0.74s
+384/1495 batch 0.71s
+392/1495 batch 0.65s
+400/1495 batch 0.69s
+408/1495 batch 0.14s
+416/1495 batch 0.14s
+424/1495 batch 0.12s
+432/1495 batch 0.15s
+440/1495 batch 0.13s
+448/1495 batch 0.12s
+456/1495 batch 0.14s
+464/1495 batch 0.14s
+472/1495 batch 0.18s
+480/1495 batch 0.14s
+488/1495 batch 0.11s
+496/1495 batch 0.15s
+504/1495 batch 0.14s
+512/1495 batch 0.14s
+520/1495 batch 0.12s
+528/1495 batch 0.12s
+536/1495 batch 0.14s
+544/1495 batch 0.13s
+552/1495 batch 0.15s
+560/1495 batch 0.14s
+568/1495 batch 0.14s
+576/1495 batch 0.14s
+584/1495 batch 0.13s
+592/1495 batch 0.14s
+600/1495 batch 0.14s
+608/1495 batch 0.14s
+616/1495 batch 0.11s
+624/1495 batch 0.14s
+632/1495 batch 0.14s
+640/1495 batch 0.12s
+648/1495 batch 0.13s
+656/1495 batch 0.14s
+664/1495 batch 0.13s
+672/1495 batch 0.14s
+680/1495 batch 0.14s
+688/1495 batch 0.14s
+696/1495 batch 0.14s
+704/1495 batch 0.14s
+712/1495 batch 0.14s
+720/1495 batch 0.14s
+728/1495 batch 0.14s
+736/1495 batch 0.12s
+744/1495 batch 0.14s
+752/1495 batch 0.14s
+760/1495 batch 0.13s
+768/1495 batch 0.16s
+776/1495 batch 0.13s
+784/1495 batch 0.14s
+792/1495 batch 0.14s
+800/1495 batch 0.14s
+808/1495 batch 0.14s
+816/1495 batch 0.13s
+824/1495 batch 0.14s
+832/1495 batch 0.14s
+840/1495 batch 0.14s
+848/1495 batch 0.14s
+856/1495 batch 0.14s
+864/1495 batch 0.14s
+872/1495 batch 0.14s
+880/1495 batch 0.14s
+888/1495 batch 0.14s
+896/1495 batch 0.14s
+904/1495 batch 0.14s
+912/1495 batch 0.17s
+920/1495 batch 0.14s
+928/1495 batch 0.14s
+936/1495 batch 0.14s
+944/1495 batch 0.15s
+952/1495 batch 0.14s
+960/1495 batch 0.14s
+968/1495 batch 0.14s
+976/1495 batch 0.14s
+984/1495 batch 0.14s
+992/1495 batch 0.14s
+1000/1495 batch 0.14s
+1008/1495 batch 0.14s
+1016/1495 batch 0.14s
+1024/1495 batch 0.14s
+1032/1495 batch 0.14s
+1040/1495 batch 0.14s
+1048/1495 batch 0.14s
+1056/1495 batch 0.14s
+1064/1495 batch 0.15s
+1072/1495 batch 0.14s
+1080/1495 batch 0.14s
+1088/1495 batch 0.14s
+1096/1495 batch 0.15s
+1104/1495 batch 0.14s
+1112/1495 batch 0.14s
+1120/1495 batch 0.14s
+1128/1495 batch 0.15s
+1136/1495 batch 0.14s
+1144/1495 batch 0.14s
+1152/1495 batch 0.15s
+1160/1495 batch 0.15s
+1168/1495 batch 0.15s
+1176/1495 batch 0.18s
+1184/1495 batch 0.15s
+1192/1495 batch 0.14s
+1200/1495 batch 0.14s
+1208/1495 batch 0.14s
+1216/1495 batch 0.15s
+1224/1495 batch 0.14s
+1232/1495 batch 0.14s
+1240/1495 batch 0.14s
+1248/1495 batch 0.14s
+1256/1495 batch 0.16s
+1264/1495 batch 0.14s
+1272/1495 batch 0.14s
+1280/1495 batch 0.14s
+1288/1495 batch 0.15s
+1296/1495 batch 0.14s
+1304/1495 batch 0.14s
+1312/1495 batch 0.14s
+1320/1495 batch 0.14s
+1328/1495 batch 0.15s
+1336/1495 batch 0.14s
+1344/1495 batch 0.14s
+1352/1495 batch 0.14s
+1360/1495 batch 0.14s
+1368/1495 batch 0.14s
+1376/1495 batch 0.14s
+1384/1495 batch 0.15s
+1392/1495 batch 0.17s
+1400/1495 batch 0.15s
+1408/1495 batch 0.15s
+1416/1495 batch 0.15s
+1424/1495 batch 0.15s
+1432/1495 batch 0.14s
+1440/1495 batch 0.15s
+1448/1495 batch 0.14s
+1456/1495 batch 0.14s
+1464/1495 batch 0.14s
+1472/1495 batch 0.17s
+1480/1495 batch 0.15s
+1488/1495 batch 0.14s
+1495/1495 batch 0.14s
+{
+  "manifest_sha256": "03f22af3e8c0f09b2da88eb1e3bf420716d1817d2cdcabd1b60fdac0ddcc788c",
+  "phase": "development",
+  "elapsed_seconds": 55.60525343683548,
+  "metrics": {
+    "extraction": {
+      "n": 400,
+      "parse_error_rate": 0.0,
+      "exact": {
+        "brand": {
+          "tp": 291,
+          "fp": 109,
+          "fn": 109,
+          "tn": 0,
+          "f1": 0.7275
+        },
+        "color": {
+          "tp": 284,
+          "fp": 106,
+          "fn": 116,
+          "tn": 0,
+          "f1": 0.7189873417721518
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 292,
+          "fp": 108,
+          "fn": 108,
+          "tn": 0,
+          "f1": 0.73
+        },
+        "color": {
+          "tp": 313,
+          "fp": 77,
+          "fn": 87,
+          "tn": 0,
+          "f1": 0.7924050632911392
+        }
+      },
+      "joint_accuracy": 0.5825
+    },
+    "identity": {
+      "n": 500,
+      "accuracy": 0.35,
+      "macro_f1": 0.31097061978722773,
+      "balanced_accuracy": 0.5363943488943489,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "same": {
+          "support": 148,
+          "predicted": 471,
+          "precision": 0.31210191082802546,
+          "recall": 0.9932432432432432,
+          "f1": 0.47495961227786754
+        },
+        "distinct": {
+          "support": 352,
+          "predicted": 29,
+          "precision": 0.9655172413793104,
+          "recall": 0.07954545454545454,
+          "f1": 0.14698162729658792
+        }
+      },
+      "confusion": {
+        "distinct->distinct": 28,
+        "distinct->same": 324,
+        "same->distinct": 1,
+        "same->same": 147
+      }
+    },
+    "relevance": {
+      "n": 595,
+      "accuracy": 0.34285714285714286,
+      "macro_f1": 0.2567704756266035,
+      "balanced_accuracy": 0.3490233047880369,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "exact": {
+          "support": 278,
+          "predicted": 285,
+          "precision": 0.5263157894736842,
+          "recall": 0.539568345323741,
+          "f1": 0.5328596802841918
+        },
+        "substitute": {
+          "support": 225,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "complement": {
+          "support": 19,
+          "predicted": 8,
+          "precision": 0.375,
+          "recall": 0.15789473684210525,
+          "f1": 0.2222222222222222
+        },
+        "irrelevant": {
+          "support": 73,
+          "predicted": 302,
+          "precision": 0.16887417218543047,
+          "recall": 0.6986301369863014,
+          "f1": 0.272
+        }
+      },
+      "confusion": {
+        "complement->complement": 3,
+        "complement->exact": 7,
+        "complement->irrelevant": 9,
+        "exact->complement": 4,
+        "exact->exact": 150,
+        "exact->irrelevant": 124,
+        "irrelevant->exact": 22,
+        "irrelevant->irrelevant": 51,
+        "substitute->complement": 1,
+        "substitute->exact": 106,
+        "substitute->irrelevant": 118
+      }
+    }
+  },
+  "predictions_sha256": "c2506448e5d604c5c9c6fb12027f7e3516a2dcfc28877cce278e72018283b1d9",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 67.29it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8/1095 batch 0.70s
+16/1095 batch 0.17s
+24/1095 batch 0.14s
+32/1095 batch 0.17s
+40/1095 batch 0.15s
+48/1095 batch 0.14s
+56/1095 batch 0.16s
+64/1095 batch 0.17s
+72/1095 batch 0.22s
+80/1095 batch 0.17s
+88/1095 batch 0.17s
+96/1095 batch 0.18s
+104/1095 batch 0.17s
+112/1095 batch 0.17s
+120/1095 batch 0.14s
+128/1095 batch 0.15s
+136/1095 batch 0.17s
+144/1095 batch 0.15s
+152/1095 batch 0.18s
+160/1095 batch 0.17s
+168/1095 batch 0.16s
+176/1095 batch 0.17s
+184/1095 batch 0.15s
+192/1095 batch 0.17s
+200/1095 batch 0.17s
+208/1095 batch 0.16s
+216/1095 batch 0.19s
+224/1095 batch 0.16s
+232/1095 batch 0.17s
+240/1095 batch 0.14s
+248/1095 batch 0.15s
+256/1095 batch 0.17s
+264/1095 batch 0.15s
+272/1095 batch 0.16s
+280/1095 batch 0.17s
+288/1095 batch 0.16s
+296/1095 batch 0.16s
+304/1095 batch 0.18s
+312/1095 batch 0.17s
+320/1095 batch 0.16s
+328/1095 batch 0.16s
+336/1095 batch 0.14s
+344/1095 batch 0.16s
+352/1095 batch 0.17s
+360/1095 batch 0.15s
+368/1095 batch 0.20s
+376/1095 batch 0.15s
+384/1095 batch 0.17s
+392/1095 batch 0.16s
+400/1095 batch 0.17s
+408/1095 batch 0.16s
+416/1095 batch 0.15s
+424/1095 batch 0.16s
+432/1095 batch 0.16s
+440/1095 batch 0.17s
+448/1095 batch 0.16s
+456/1095 batch 0.16s
+464/1095 batch 0.16s
+472/1095 batch 0.16s
+480/1095 batch 0.16s
+488/1095 batch 0.16s
+496/1095 batch 0.16s
+504/1095 batch 0.22s
+512/1095 batch 0.27s
+520/1095 batch 0.28s
+528/1095 batch 0.23s
+536/1095 batch 0.23s
+544/1095 batch 0.24s
+552/1095 batch 0.23s
+560/1095 batch 0.22s
+568/1095 batch 0.23s
+576/1095 batch 0.23s
+584/1095 batch 0.23s
+592/1095 batch 0.23s
+600/1095 batch 0.23s
+608/1095 batch 0.23s
+616/1095 batch 0.22s
+624/1095 batch 0.23s
+632/1095 batch 0.23s
+640/1095 batch 0.23s
+648/1095 batch 0.23s
+656/1095 batch 0.23s
+664/1095 batch 0.24s
+672/1095 batch 0.22s
+680/1095 batch 0.22s
+688/1095 batch 0.23s
+696/1095 batch 0.23s
+704/1095 batch 0.23s
+712/1095 batch 0.22s
+720/1095 batch 0.22s
+728/1095 batch 0.24s
+736/1095 batch 0.22s
+744/1095 batch 0.22s
+752/1095 batch 0.23s
+760/1095 batch 0.24s
+768/1095 batch 0.23s
+776/1095 batch 0.27s
+784/1095 batch 0.23s
+792/1095 batch 0.22s
+800/1095 batch 0.23s
+808/1095 batch 0.23s
+816/1095 batch 0.22s
+824/1095 batch 0.23s
+832/1095 batch 0.23s
+840/1095 batch 0.22s
+848/1095 batch 0.23s
+856/1095 batch 0.23s
+864/1095 batch 0.24s
+872/1095 batch 0.23s
+880/1095 batch 0.23s
+888/1095 batch 0.23s
+896/1095 batch 0.23s
+904/1095 batch 0.23s
+912/1095 batch 0.22s
+920/1095 batch 0.23s
+928/1095 batch 0.24s
+936/1095 batch 0.22s
+944/1095 batch 0.23s
+952/1095 batch 0.23s
+960/1095 batch 0.23s
+968/1095 batch 0.24s
+976/1095 batch 0.22s
+984/1095 batch 0.23s
+992/1095 batch 0.26s
+1000/1095 batch 0.24s
+1008/1095 batch 0.24s
+1016/1095 batch 0.24s
+1024/1095 batch 0.24s
+1032/1095 batch 0.23s
+1040/1095 batch 0.25s
+1048/1095 batch 0.23s
+1056/1095 batch 0.23s
+1064/1095 batch 0.23s
+1072/1095 batch 0.26s
+1080/1095 batch 0.23s
+1088/1095 batch 0.23s
+1095/1095 batch 0.22s
+{
+  "manifest_sha256": "fe0f62923ff48ba2d0282b4042d7122789ed2f3eb3000f31ad5c83905124f4d1",
+  "phase": "development",
+  "elapsed_seconds": 28.060601339908317,
+  "metrics": {
+    "identity": {
+      "n": 500,
+      "accuracy": 0.9,
+      "macro_f1": 0.8885918003565062,
+      "balanced_accuracy": 0.9231035012285012,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "same": {
+          "support": 148,
+          "predicted": 192,
+          "precision": 0.7552083333333334,
+          "recall": 0.9797297297297297,
+          "f1": 0.8529411764705882
+        },
+        "distinct": {
+          "support": 352,
+          "predicted": 308,
+          "precision": 0.9902597402597403,
+          "recall": 0.8664772727272727,
+          "f1": 0.9242424242424242
+        }
+      },
+      "confusion": {
+        "distinct->distinct": 305,
+        "distinct->same": 47,
+        "same->distinct": 3,
+        "same->same": 145
+      }
+    },
+    "relevance": {
+      "n": 595,
+      "accuracy": 0.42016806722689076,
+      "macro_f1": 0.2665022703947138,
+      "balanced_accuracy": 0.34501226416127373,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "exact": {
+          "support": 278,
+          "predicted": 293,
+          "precision": 0.6313993174061433,
+          "recall": 0.6654676258992805,
+          "f1": 0.647985989492119
+        },
+        "substitute": {
+          "support": 225,
+          "predicted": 40,
+          "precision": 0.475,
+          "recall": 0.08444444444444445,
+          "f1": 0.14339622641509434
+        },
+        "complement": {
+          "support": 19,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "irrelevant": {
+          "support": 73,
+          "predicted": 262,
+          "precision": 0.17557251908396945,
+          "recall": 0.6301369863013698,
+          "f1": 0.2746268656716418
+        }
+      },
+      "confusion": {
+        "complement->exact": 2,
+        "complement->irrelevant": 15,
+        "complement->substitute": 2,
+        "exact->exact": 185,
+        "exact->irrelevant": 81,
+        "exact->substitute": 12,
+        "irrelevant->exact": 20,
+        "irrelevant->irrelevant": 46,
+        "irrelevant->substitute": 7,
+        "substitute->exact": 86,
+        "substitute->irrelevant": 120,
+        "substitute->substitute": 19
+      }
+    }
+  },
+  "predictions_sha256": "f47ea6c9e9dc11585cf6f3e92ffd6133247d247c51aca01a2a6e1833be828fa0",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 68.18it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+8/400 batch 1.79s
+16/400 batch 1.32s
+24/400 batch 1.30s
+32/400 batch 1.15s
+40/400 batch 1.26s
+48/400 batch 1.35s
+56/400 batch 1.22s
+64/400 batch 1.43s
+72/400 batch 1.30s
+80/400 batch 1.24s
+88/400 batch 1.35s
+96/400 batch 1.40s
+104/400 batch 1.16s
+112/400 batch 1.22s
+120/400 batch 1.22s
+128/400 batch 1.23s
+136/400 batch 1.31s
+144/400 batch 1.23s
+152/400 batch 1.15s
+160/400 batch 1.05s
+168/400 batch 1.18s
+176/400 batch 1.33s
+184/400 batch 1.17s
+192/400 batch 1.13s
+200/400 batch 1.14s
+208/400 batch 1.31s
+216/400 batch 1.14s
+224/400 batch 1.22s
+232/400 batch 1.20s
+240/400 batch 1.19s
+248/400 batch 1.17s
+256/400 batch 1.30s
+264/400 batch 1.33s
+272/400 batch 1.38s
+280/400 batch 1.20s
+288/400 batch 1.11s
+296/400 batch 1.25s
+304/400 batch 1.16s
+312/400 batch 1.29s
+320/400 batch 1.21s
+328/400 batch 1.20s
+336/400 batch 1.22s
+344/400 batch 1.28s
+352/400 batch 1.35s
+360/400 batch 1.28s
+368/400 batch 1.33s
+376/400 batch 1.28s
+384/400 batch 1.17s
+392/400 batch 1.32s
+400/400 batch 1.19s
+{
+  "manifest_sha256": "1dd96bc4b42a8f94b7e5f412762d625618b32c902cfb74dc04311cf7fbc5f4fe",
+  "phase": "development",
+  "elapsed_seconds": 62.73505473299883,
+  "metrics": {
+    "extraction": {
+      "n": 400,
+      "parse_error_rate": 0.0,
+      "exact": {
+        "brand": {
+          "tp": 394,
+          "fp": 6,
+          "fn": 6,
+          "tn": 0,
+          "f1": 0.985
+        },
+        "color": {
+          "tp": 347,
+          "fp": 53,
+          "fn": 53,
+          "tn": 0,
+          "f1": 0.8675
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 394,
+          "fp": 6,
+          "fn": 6,
+          "tn": 0,
+          "f1": 0.985
+        },
+        "color": {
+          "tp": 366,
+          "fp": 34,
+          "fn": 34,
+          "tn": 0,
+          "f1": 0.915
+        }
+      },
+      "joint_accuracy": 0.9025
+    }
+  },
+  "predictions_sha256": "0b54688d29652431c4c6c83788e3ee0d79081f6aacf8d923410e641321d8637f",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}
+{
+  "phase": "development",
+  "test_accessed": false,
+  "results": {
+    "relevance_legacy": {
+      "base": {
+        "n": 595,
+        "accuracy": 0.0,
+        "macro_f1": 0.0,
+        "balanced_accuracy": 0.0,
+        "invalid_rate": 1.0,
+        "per_class": {
+          "exact": {
+            "support": 278,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "substitute": {
+            "support": 225,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "complement": {
+            "support": 19,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "irrelevant": {
+            "support": 73,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "complement->INVALID": 19,
+          "exact->INVALID": 278,
+          "irrelevant->INVALID": 73,
+          "substitute->INVALID": 225
+        }
+      },
+      "adapter": {
+        "n": 595,
+        "accuracy": 0.49411764705882355,
+        "macro_f1": 0.333300597850193,
+        "balanced_accuracy": 0.365910175968814,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "exact": {
+            "support": 278,
+            "predicted": 346,
+            "precision": 0.569364161849711,
+            "recall": 0.7086330935251799,
+            "f1": 0.6314102564102564
+          },
+          "substitute": {
+            "support": 225,
+            "predicted": 113,
+            "precision": 0.5486725663716814,
+            "recall": 0.27555555555555555,
+            "f1": 0.3668639053254438
+          },
+          "complement": {
+            "support": 19,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "irrelevant": {
+            "support": 73,
+            "predicted": 136,
+            "precision": 0.25735294117647056,
+            "recall": 0.4794520547945205,
+            "f1": 0.3349282296650718
+          }
+        },
+        "confusion": {
+          "complement->exact": 12,
+          "complement->irrelevant": 4,
+          "complement->substitute": 3,
+          "exact->exact": 197,
+          "exact->irrelevant": 44,
+          "exact->substitute": 37,
+          "irrelevant->exact": 27,
+          "irrelevant->irrelevant": 35,
+          "irrelevant->substitute": 11,
+          "substitute->exact": 110,
+          "substitute->irrelevant": 53,
+          "substitute->substitute": 62
+        }
+      },
+      "paired_adapter_minus_base": {
+        "n": 595,
+        "groups": 33,
+        "left_only_correct": 294,
+        "right_only_correct": 0,
+        "accuracy_delta": 0.49411764705882355,
+        "exact_mcnemar_p_unadjusted_iid_only": 6.28363963558109e-89,
+        "cluster_bootstrap_95_percentile": [
+          0.4166666666666667,
+          0.5711864406779661
+        ],
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 595,
+        "base": {
+          "n": 595,
+          "accuracy": 0.0,
+          "macro_f1": 0.0,
+          "balanced_accuracy": 0.0,
+          "invalid_rate": 1.0,
+          "per_class": {
+            "exact": {
+              "support": 278,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "substitute": {
+              "support": 225,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "complement": {
+              "support": 19,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "irrelevant": {
+              "support": 73,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          },
+          "confusion": {
+            "complement->INVALID": 19,
+            "exact->INVALID": 278,
+            "irrelevant->INVALID": 73,
+            "substitute->INVALID": 225
+          }
+        },
+        "adapter": {
+          "n": 595,
+          "accuracy": 0.49411764705882355,
+          "macro_f1": 0.333300597850193,
+          "balanced_accuracy": 0.365910175968814,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "exact": {
+              "support": 278,
+              "predicted": 346,
+              "precision": 0.569364161849711,
+              "recall": 0.7086330935251799,
+              "f1": 0.6314102564102564
+            },
+            "substitute": {
+              "support": 225,
+              "predicted": 113,
+              "precision": 0.5486725663716814,
+              "recall": 0.27555555555555555,
+              "f1": 0.3668639053254438
+            },
+            "complement": {
+              "support": 19,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "irrelevant": {
+              "support": 73,
+              "predicted": 136,
+              "precision": 0.25735294117647056,
+              "recall": 0.4794520547945205,
+              "f1": 0.3349282296650718
+            }
+          },
+          "confusion": {
+            "complement->exact": 12,
+            "complement->irrelevant": 4,
+            "complement->substitute": 3,
+            "exact->exact": 197,
+            "exact->irrelevant": 44,
+            "exact->substitute": 37,
+            "irrelevant->exact": 27,
+            "irrelevant->irrelevant": 35,
+            "irrelevant->substitute": 11,
+            "substitute->exact": 110,
+            "substitute->irrelevant": 53,
+            "substitute->substitute": 62
+          }
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "caed727e13ca71446c06d555f034e0c21556b2c88d3f51eb9d32712eeba70fb3",
+        "base": "e3d30d8fa3e24c8b6292c7b52100075ecff833bf2f0f26eff0dc34fa748b24f0"
+      }
+    },
+    "identity_legacy": {
+      "base": {
+        "n": 500,
+        "accuracy": 0.0,
+        "macro_f1": 0.0,
+        "balanced_accuracy": 0.0,
+        "invalid_rate": 1.0,
+        "per_class": {
+          "same": {
+            "support": 148,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "distinct": {
+            "support": 352,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "distinct->INVALID": 352,
+          "same->INVALID": 148
+        }
+      },
+      "adapter": {
+        "n": 500,
+        "accuracy": 0.892,
+        "macro_f1": 0.8617114994570896,
+        "balanced_accuracy": 0.8410626535626535,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "same": {
+            "support": 148,
+            "predicted": 118,
+            "precision": 0.8983050847457628,
+            "recall": 0.7162162162162162,
+            "f1": 0.7969924812030075
+          },
+          "distinct": {
+            "support": 352,
+            "predicted": 382,
+            "precision": 0.8900523560209425,
+            "recall": 0.9659090909090909,
+            "f1": 0.9264305177111717
+          }
+        },
+        "confusion": {
+          "distinct->distinct": 340,
+          "distinct->same": 12,
+          "same->distinct": 42,
+          "same->same": 106
+        }
+      },
+      "paired_adapter_minus_base": {
+        "n": 500,
+        "groups": 5,
+        "left_only_correct": 446,
+        "right_only_correct": 0,
+        "accuracy_delta": 0.892,
+        "exact_mcnemar_p_unadjusted_iid_only": 1.1006568214637918e-134,
+        "cluster_bootstrap_95_percentile": null,
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 500,
+        "base": {
+          "n": 500,
+          "accuracy": 0.0,
+          "macro_f1": 0.0,
+          "balanced_accuracy": 0.0,
+          "invalid_rate": 1.0,
+          "per_class": {
+            "same": {
+              "support": 148,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "distinct": {
+              "support": 352,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          },
+          "confusion": {
+            "distinct->INVALID": 352,
+            "same->INVALID": 148
+          }
+        },
+        "adapter": {
+          "n": 500,
+          "accuracy": 0.892,
+          "macro_f1": 0.8617114994570896,
+          "balanced_accuracy": 0.8410626535626535,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "same": {
+              "support": 148,
+              "predicted": 118,
+              "precision": 0.8983050847457628,
+              "recall": 0.7162162162162162,
+              "f1": 0.7969924812030075
+            },
+            "distinct": {
+              "support": 352,
+              "predicted": 382,
+              "precision": 0.8900523560209425,
+              "recall": 0.9659090909090909,
+              "f1": 0.9264305177111717
+            }
+          },
+          "confusion": {
+            "distinct->distinct": 340,
+            "distinct->same": 12,
+            "same->distinct": 42,
+            "same->same": 106
+          }
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "caed727e13ca71446c06d555f034e0c21556b2c88d3f51eb9d32712eeba70fb3",
+        "base": "e3d30d8fa3e24c8b6292c7b52100075ecff833bf2f0f26eff0dc34fa748b24f0"
+      }
+    },
+    "extraction_legacy": {
+      "base": {
+        "n": 400,
+        "parse_error_rate": 1.0,
+        "exact": {
+          "brand": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 400,
+            "tn": 0,
+            "f1": 0.0
+          },
+          "color": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 400,
+            "tn": 0,
+            "f1": 0.0
+          }
+        },
+        "normalized_exact": {
+          "brand": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 400,
+            "tn": 0,
+            "f1": 0.0
+          },
+          "color": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 400,
+            "tn": 0,
+            "f1": 0.0
+          }
+        },
+        "joint_accuracy": 0.0
+      },
+      "adapter": {
+        "n": 400,
+        "parse_error_rate": 0.0,
+        "exact": {
+          "brand": {
+            "tp": 400,
+            "fp": 0,
+            "fn": 0,
+            "tn": 0,
+            "f1": 1.0
+          },
+          "color": {
+            "tp": 346,
+            "fp": 54,
+            "fn": 54,
+            "tn": 0,
+            "f1": 0.865
+          }
+        },
+        "normalized_exact": {
+          "brand": {
+            "tp": 400,
+            "fp": 0,
+            "fn": 0,
+            "tn": 0,
+            "f1": 1.0
+          },
+          "color": {
+            "tp": 366,
+            "fp": 34,
+            "fn": 34,
+            "tn": 0,
+            "f1": 0.915
+          }
+        },
+        "joint_accuracy": 0.915
+      },
+      "paired_adapter_minus_base": {
+        "n": 400,
+        "groups": 367,
+        "left_only_correct": 366,
+        "right_only_correct": 0,
+        "accuracy_delta": 0.915,
+        "exact_mcnemar_p_unadjusted_iid_only": 1.3306124500025471e-110,
+        "cluster_bootstrap_95_percentile": [
+          0.8855721393034826,
+          0.9413265306122449
+        ],
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 400,
+        "base": {
+          "n": 400,
+          "parse_error_rate": 1.0,
+          "exact": {
+            "brand": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 400,
+              "tn": 0,
+              "f1": 0.0
+            },
+            "color": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 400,
+              "tn": 0,
+              "f1": 0.0
+            }
+          },
+          "normalized_exact": {
+            "brand": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 400,
+              "tn": 0,
+              "f1": 0.0
+            },
+            "color": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 400,
+              "tn": 0,
+              "f1": 0.0
+            }
+          },
+          "joint_accuracy": 0.0
+        },
+        "adapter": {
+          "n": 400,
+          "parse_error_rate": 0.0,
+          "exact": {
+            "brand": {
+              "tp": 400,
+              "fp": 0,
+              "fn": 0,
+              "tn": 0,
+              "f1": 1.0
+            },
+            "color": {
+              "tp": 346,
+              "fp": 54,
+              "fn": 54,
+              "tn": 0,
+              "f1": 0.865
+            }
+          },
+          "normalized_exact": {
+            "brand": {
+              "tp": 400,
+              "fp": 0,
+              "fn": 0,
+              "tn": 0,
+              "f1": 1.0
+            },
+            "color": {
+              "tp": 366,
+              "fp": 34,
+              "fn": 34,
+              "tn": 0,
+              "f1": 0.915
+            }
+          },
+          "joint_accuracy": 0.915
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "ddc5052b14e7bf9b67db246890bbd5a545ecb6ebf1372c468e56140ef02a9ce2",
+        "base": "e3d30d8fa3e24c8b6292c7b52100075ecff833bf2f0f26eff0dc34fa748b24f0"
+      }
+    },
+    "relevance_chat": {
+      "base": {
+        "n": 595,
+        "accuracy": 0.34285714285714286,
+        "macro_f1": 0.2567704756266035,
+        "balanced_accuracy": 0.3490233047880369,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "exact": {
+            "support": 278,
+            "predicted": 285,
+            "precision": 0.5263157894736842,
+            "recall": 0.539568345323741,
+            "f1": 0.5328596802841918
+          },
+          "substitute": {
+            "support": 225,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "complement": {
+            "support": 19,
+            "predicted": 8,
+            "precision": 0.375,
+            "recall": 0.15789473684210525,
+            "f1": 0.2222222222222222
+          },
+          "irrelevant": {
+            "support": 73,
+            "predicted": 302,
+            "precision": 0.16887417218543047,
+            "recall": 0.6986301369863014,
+            "f1": 0.272
+          }
+        },
+        "confusion": {
+          "complement->complement": 3,
+          "complement->exact": 7,
+          "complement->irrelevant": 9,
+          "exact->complement": 4,
+          "exact->exact": 150,
+          "exact->irrelevant": 124,
+          "irrelevant->exact": 22,
+          "irrelevant->irrelevant": 51,
+          "substitute->complement": 1,
+          "substitute->exact": 106,
+          "substitute->irrelevant": 118
+        }
+      },
+      "adapter": {
+        "n": 595,
+        "accuracy": 0.42016806722689076,
+        "macro_f1": 0.2665022703947138,
+        "balanced_accuracy": 0.34501226416127373,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "exact": {
+            "support": 278,
+            "predicted": 293,
+            "precision": 0.6313993174061433,
+            "recall": 0.6654676258992805,
+            "f1": 0.647985989492119
+          },
+          "substitute": {
+            "support": 225,
+            "predicted": 40,
+            "precision": 0.475,
+            "recall": 0.08444444444444445,
+            "f1": 0.14339622641509434
+          },
+          "complement": {
+            "support": 19,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "irrelevant": {
+            "support": 73,
+            "predicted": 262,
+            "precision": 0.17557251908396945,
+            "recall": 0.6301369863013698,
+            "f1": 0.2746268656716418
+          }
+        },
+        "confusion": {
+          "complement->exact": 2,
+          "complement->irrelevant": 15,
+          "complement->substitute": 2,
+          "exact->exact": 185,
+          "exact->irrelevant": 81,
+          "exact->substitute": 12,
+          "irrelevant->exact": 20,
+          "irrelevant->irrelevant": 46,
+          "irrelevant->substitute": 7,
+          "substitute->exact": 86,
+          "substitute->irrelevant": 120,
+          "substitute->substitute": 19
+        }
+      },
+      "paired_adapter_minus_base": {
+        "n": 595,
+        "groups": 33,
+        "left_only_correct": 72,
+        "right_only_correct": 26,
+        "accuracy_delta": 0.0773109243697479,
+        "exact_mcnemar_p_unadjusted_iid_only": 3.6886460339466603e-06,
+        "cluster_bootstrap_95_percentile": [
+          0.0335195530726257,
+          0.1206896551724138
+        ],
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 595,
+        "base": {
+          "n": 595,
+          "accuracy": 0.34285714285714286,
+          "macro_f1": 0.2567704756266035,
+          "balanced_accuracy": 0.3490233047880369,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "exact": {
+              "support": 278,
+              "predicted": 285,
+              "precision": 0.5263157894736842,
+              "recall": 0.539568345323741,
+              "f1": 0.5328596802841918
+            },
+            "substitute": {
+              "support": 225,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "complement": {
+              "support": 19,
+              "predicted": 8,
+              "precision": 0.375,
+              "recall": 0.15789473684210525,
+              "f1": 0.2222222222222222
+            },
+            "irrelevant": {
+              "support": 73,
+              "predicted": 302,
+              "precision": 0.16887417218543047,
+              "recall": 0.6986301369863014,
+              "f1": 0.272
+            }
+          },
+          "confusion": {
+            "complement->complement": 3,
+            "complement->exact": 7,
+            "complement->irrelevant": 9,
+            "exact->complement": 4,
+            "exact->exact": 150,
+            "exact->irrelevant": 124,
+            "irrelevant->exact": 22,
+            "irrelevant->irrelevant": 51,
+            "substitute->complement": 1,
+            "substitute->exact": 106,
+            "substitute->irrelevant": 118
+          }
+        },
+        "adapter": {
+          "n": 595,
+          "accuracy": 0.42016806722689076,
+          "macro_f1": 0.2665022703947138,
+          "balanced_accuracy": 0.34501226416127373,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "exact": {
+              "support": 278,
+              "predicted": 293,
+              "precision": 0.6313993174061433,
+              "recall": 0.6654676258992805,
+              "f1": 0.647985989492119
+            },
+            "substitute": {
+              "support": 225,
+              "predicted": 40,
+              "precision": 0.475,
+              "recall": 0.08444444444444445,
+              "f1": 0.14339622641509434
+            },
+            "complement": {
+              "support": 19,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "irrelevant": {
+              "support": 73,
+              "predicted": 262,
+              "precision": 0.17557251908396945,
+              "recall": 0.6301369863013698,
+              "f1": 0.2746268656716418
+            }
+          },
+          "confusion": {
+            "complement->exact": 2,
+            "complement->irrelevant": 15,
+            "complement->substitute": 2,
+            "exact->exact": 185,
+            "exact->irrelevant": 81,
+            "exact->substitute": 12,
+            "irrelevant->exact": 20,
+            "irrelevant->irrelevant": 46,
+            "irrelevant->substitute": 7,
+            "substitute->exact": 86,
+            "substitute->irrelevant": 120,
+            "substitute->substitute": 19
+          }
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "f47ea6c9e9dc11585cf6f3e92ffd6133247d247c51aca01a2a6e1833be828fa0",
+        "base": "c2506448e5d604c5c9c6fb12027f7e3516a2dcfc28877cce278e72018283b1d9"
+      }
+    },
+    "identity_chat": {
+      "base": {
+        "n": 500,
+        "accuracy": 0.35,
+        "macro_f1": 0.31097061978722773,
+        "balanced_accuracy": 0.5363943488943489,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "same": {
+            "support": 148,
+            "predicted": 471,
+            "precision": 0.31210191082802546,
+            "recall": 0.9932432432432432,
+            "f1": 0.47495961227786754
+          },
+          "distinct": {
+            "support": 352,
+            "predicted": 29,
+            "precision": 0.9655172413793104,
+            "recall": 0.07954545454545454,
+            "f1": 0.14698162729658792
+          }
+        },
+        "confusion": {
+          "distinct->distinct": 28,
+          "distinct->same": 324,
+          "same->distinct": 1,
+          "same->same": 147
+        }
+      },
+      "adapter": {
+        "n": 500,
+        "accuracy": 0.9,
+        "macro_f1": 0.8885918003565062,
+        "balanced_accuracy": 0.9231035012285012,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "same": {
+            "support": 148,
+            "predicted": 192,
+            "precision": 0.7552083333333334,
+            "recall": 0.9797297297297297,
+            "f1": 0.8529411764705882
+          },
+          "distinct": {
+            "support": 352,
+            "predicted": 308,
+            "precision": 0.9902597402597403,
+            "recall": 0.8664772727272727,
+            "f1": 0.9242424242424242
+          }
+        },
+        "confusion": {
+          "distinct->distinct": 305,
+          "distinct->same": 47,
+          "same->distinct": 3,
+          "same->same": 145
+        }
+      },
+      "paired_adapter_minus_base": {
+        "n": 500,
+        "groups": 5,
+        "left_only_correct": 278,
+        "right_only_correct": 3,
+        "accuracy_delta": 0.55,
+        "exact_mcnemar_p_unadjusted_iid_only": 1.9036913674789422e-78,
+        "cluster_bootstrap_95_percentile": null,
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 500,
+        "base": {
+          "n": 500,
+          "accuracy": 0.35,
+          "macro_f1": 0.31097061978722773,
+          "balanced_accuracy": 0.5363943488943489,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "same": {
+              "support": 148,
+              "predicted": 471,
+              "precision": 0.31210191082802546,
+              "recall": 0.9932432432432432,
+              "f1": 0.47495961227786754
+            },
+            "distinct": {
+              "support": 352,
+              "predicted": 29,
+              "precision": 0.9655172413793104,
+              "recall": 0.07954545454545454,
+              "f1": 0.14698162729658792
+            }
+          },
+          "confusion": {
+            "distinct->distinct": 28,
+            "distinct->same": 324,
+            "same->distinct": 1,
+            "same->same": 147
+          }
+        },
+        "adapter": {
+          "n": 500,
+          "accuracy": 0.9,
+          "macro_f1": 0.8885918003565062,
+          "balanced_accuracy": 0.9231035012285012,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "same": {
+              "support": 148,
+              "predicted": 192,
+              "precision": 0.7552083333333334,
+              "recall": 0.9797297297297297,
+              "f1": 0.8529411764705882
+            },
+            "distinct": {
+              "support": 352,
+              "predicted": 308,
+              "precision": 0.9902597402597403,
+              "recall": 0.8664772727272727,
+              "f1": 0.9242424242424242
+            }
+          },
+          "confusion": {
+            "distinct->distinct": 305,
+            "distinct->same": 47,
+            "same->distinct": 3,
+            "same->same": 145
+          }
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "f47ea6c9e9dc11585cf6f3e92ffd6133247d247c51aca01a2a6e1833be828fa0",
+        "base": "c2506448e5d604c5c9c6fb12027f7e3516a2dcfc28877cce278e72018283b1d9"
+      }
+    },
+    "extraction_chat": {
+      "base": {
+        "n": 400,
+        "parse_error_rate": 0.0,
+        "exact": {
+          "brand": {
+            "tp": 291,
+            "fp": 109,
+            "fn": 109,
+            "tn": 0,
+            "f1": 0.7275
+          },
+          "color": {
+            "tp": 284,
+            "fp": 106,
+            "fn": 116,
+            "tn": 0,
+            "f1": 0.7189873417721518
+          }
+        },
+        "normalized_exact": {
+          "brand": {
+            "tp": 292,
+            "fp": 108,
+            "fn": 108,
+            "tn": 0,
+            "f1": 0.73
+          },
+          "color": {
+            "tp": 313,
+            "fp": 77,
+            "fn": 87,
+            "tn": 0,
+            "f1": 0.7924050632911392
+          }
+        },
+        "joint_accuracy": 0.5825
+      },
+      "adapter": {
+        "n": 400,
+        "parse_error_rate": 0.0,
+        "exact": {
+          "brand": {
+            "tp": 394,
+            "fp": 6,
+            "fn": 6,
+            "tn": 0,
+            "f1": 0.985
+          },
+          "color": {
+            "tp": 347,
+            "fp": 53,
+            "fn": 53,
+            "tn": 0,
+            "f1": 0.8675
+          }
+        },
+        "normalized_exact": {
+          "brand": {
+            "tp": 394,
+            "fp": 6,
+            "fn": 6,
+            "tn": 0,
+            "f1": 0.985
+          },
+          "color": {
+            "tp": 366,
+            "fp": 34,
+            "fn": 34,
+            "tn": 0,
+            "f1": 0.915
+          }
+        },
+        "joint_accuracy": 0.9025
+      },
+      "paired_adapter_minus_base": {
+        "n": 400,
+        "groups": 367,
+        "left_only_correct": 132,
+        "right_only_correct": 4,
+        "accuracy_delta": 0.32,
+        "exact_mcnemar_p_unadjusted_iid_only": 3.22645350186508e-34,
+        "cluster_bootstrap_95_percentile": [
+          0.2695214105793451,
+          0.3734015345268542
+        ],
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 400,
+        "base": {
+          "n": 400,
+          "parse_error_rate": 0.0,
+          "exact": {
+            "brand": {
+              "tp": 291,
+              "fp": 109,
+              "fn": 109,
+              "tn": 0,
+              "f1": 0.7275
+            },
+            "color": {
+              "tp": 284,
+              "fp": 106,
+              "fn": 116,
+              "tn": 0,
+              "f1": 0.7189873417721518
+            }
+          },
+          "normalized_exact": {
+            "brand": {
+              "tp": 292,
+              "fp": 108,
+              "fn": 108,
+              "tn": 0,
+              "f1": 0.73
+            },
+            "color": {
+              "tp": 313,
+              "fp": 77,
+              "fn": 87,
+              "tn": 0,
+              "f1": 0.7924050632911392
+            }
+          },
+          "joint_accuracy": 0.5825
+        },
+        "adapter": {
+          "n": 400,
+          "parse_error_rate": 0.0,
+          "exact": {
+            "brand": {
+              "tp": 394,
+              "fp": 6,
+              "fn": 6,
+              "tn": 0,
+              "f1": 0.985
+            },
+            "color": {
+              "tp": 347,
+              "fp": 53,
+              "fn": 53,
+              "tn": 0,
+              "f1": 0.8675
+            }
+          },
+          "normalized_exact": {
+            "brand": {
+              "tp": 394,
+              "fp": 6,
+              "fn": 6,
+              "tn": 0,
+              "f1": 0.985
+            },
+            "color": {
+              "tp": 366,
+              "fp": 34,
+              "fn": 34,
+              "tn": 0,
+              "f1": 0.915
+            }
+          },
+          "joint_accuracy": 0.9025
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "0b54688d29652431c4c6c83788e3ee0d79081f6aacf8d923410e641321d8637f",
+        "base": "c2506448e5d604c5c9c6fb12027f7e3516a2dcfc28877cce278e72018283b1d9"
+      }
+    }
+  },
+  "limitations": [
+    "Retrospective pretrained adapters; historical exposure is explicitly audited but not fully recoverable.",
+    "Identity entity overlap unknown; filtered is not certified unseen.",
+    "Single deterministic run per interface; no new training or causal ablation.",
+    "Paired intervals apply to accuracy/joint correctness, not macro-F1.",
+    "Exploratory 2,000-resample existing cluster bootstrap, not the proposed confirmatory 10,000-resample test analysis."
+  ]
+}
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 69.20it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{"batch_limit": 1, "repetition": 0, "concurrency": 1, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 21.85014855209738, "completed_per_second": 9.15325584735222, "p50_seconds": 0.10845058597624302, "p95_seconds": 0.1149242389947176, "p99_seconds": 0.11727849394083023, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.0013352868559615065}
+{"batch_limit": 1, "repetition": 0, "concurrency": 4, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 22.35593777196482, "completed_per_second": 8.946169113550114, "p50_seconds": 0.4440862729679793, "p95_seconds": 0.4789244350977242, "p99_seconds": 0.4855282469652593, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.0013661961971756277}
+{"batch_limit": 1, "repetition": 0, "concurrency": 8, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 21.932544557144865, "completed_per_second": 9.118868970214717, "p50_seconds": 0.8724601820576936, "p95_seconds": 0.9247358050197363, "p99_seconds": 0.9317921630572528, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.001340322167381075}
+{"batch_limit": 8, "repetition": 0, "concurrency": 1, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 22.956517866812646, "completed_per_second": 8.712122681686507, "p50_seconds": 0.11371114803478122, "p95_seconds": 0.11979116383008659, "p99_seconds": 0.12346191611140966, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.001402898314082995}
+{"batch_limit": 8, "repetition": 0, "concurrency": 4, "attempted": 200, "completed": 200, "valid": 200, "correct": 181, "elapsed_seconds": 6.968060332117602, "completed_per_second": 28.702392124555523, "p50_seconds": 0.13482793187722564, "p95_seconds": 0.14724062010645866, "p99_seconds": 0.1751576028764248, "peak_allocated_gpu_bytes": 3651882496, "gpu_quote_cost_usd": 0.0004258259091849646}
+{"batch_limit": 8, "repetition": 0, "concurrency": 8, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 5.340682858834043, "completed_per_second": 37.44839476269954, "p50_seconds": 0.15159173705615103, "p95_seconds": 0.29706596094183624, "p99_seconds": 0.3034988541621715, "peak_allocated_gpu_bytes": 3745818112, "gpu_quote_cost_usd": 0.0003263750635954137}
+{"batch_limit": 8, "repetition": 1, "concurrency": 1, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 23.475937083130702, "completed_per_second": 8.519361731622448, "p50_seconds": 0.11700316402129829, "p95_seconds": 0.12393090315163136, "p99_seconds": 0.13081012200564146, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.001434640599524654}
+{"batch_limit": 8, "repetition": 1, "concurrency": 4, "attempted": 200, "completed": 200, "valid": 200, "correct": 181, "elapsed_seconds": 7.008175455965102, "completed_per_second": 28.538098290585367, "p50_seconds": 0.13593033398501575, "p95_seconds": 0.15850033680908382, "p99_seconds": 0.16055343090556562, "peak_allocated_gpu_bytes": 3651669504, "gpu_quote_cost_usd": 0.00042827738897564506}
+{"batch_limit": 8, "repetition": 1, "concurrency": 8, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 4.676283036125824, "completed_per_second": 42.76901086930245, "p50_seconds": 0.15005562896840274, "p95_seconds": 0.2939381340984255, "p99_seconds": 0.3017420759424567, "peak_allocated_gpu_bytes": 3779559424, "gpu_quote_cost_usd": 0.00028577285220768924}
+{"batch_limit": 1, "repetition": 1, "concurrency": 1, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 22.624844572972506, "completed_per_second": 8.839839732597266, "p50_seconds": 0.11255363700911403, "p95_seconds": 0.11572958389297128, "p99_seconds": 0.12856989889405668, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.001382629390570542}
+{"batch_limit": 1, "repetition": 1, "concurrency": 4, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 22.281068195821717, "completed_per_second": 8.976230324428755, "p50_seconds": 0.4472026489675045, "p95_seconds": 0.45467839506454766, "p99_seconds": 0.47508514393121004, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.001361620834189105}
+{"batch_limit": 1, "repetition": 1, "concurrency": 8, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 22.30770219885744, "completed_per_second": 8.965513266097107, "p50_seconds": 0.8843840039335191, "p95_seconds": 0.9437689238693565, "p99_seconds": 0.9536427799612284, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.0013632484677079547}
+{"batch_limit": 1, "repetition": 2, "concurrency": 1, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 22.126589739928022, "completed_per_second": 9.038898553765593, "p50_seconds": 0.10918163089081645, "p95_seconds": 0.11843609297648072, "p99_seconds": 0.12375327409245074, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.0013521804841067123}
+{"batch_limit": 1, "repetition": 2, "concurrency": 4, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 22.312294386094436, "completed_per_second": 8.963668036069157, "p50_seconds": 0.44502892601303756, "p95_seconds": 0.46514473692514, "p99_seconds": 0.47375761391595006, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.0013635291013724376}
+{"batch_limit": 1, "repetition": 2, "concurrency": 8, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 21.955928893992677, "completed_per_second": 9.109156846227611, "p50_seconds": 0.868056614883244, "p95_seconds": 0.9313593360129744, "p99_seconds": 0.9394625371787697, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.0013417512101884415}
+{"batch_limit": 8, "repetition": 2, "concurrency": 1, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 23.598408076912165, "completed_per_second": 8.475147956936672, "p50_seconds": 0.11686310521326959, "p95_seconds": 0.1286161181051284, "p99_seconds": 0.1316899850498885, "peak_allocated_gpu_bytes": 3552188928, "gpu_quote_cost_usd": 0.0014421249380335212}
+{"batch_limit": 8, "repetition": 2, "concurrency": 4, "attempted": 200, "completed": 200, "valid": 200, "correct": 181, "elapsed_seconds": 6.634033154929057, "completed_per_second": 30.147573177472122, "p50_seconds": 0.13256592792458832, "p95_seconds": 0.13782288902439177, "p99_seconds": 0.1388512421399355, "peak_allocated_gpu_bytes": 3651668480, "gpu_quote_cost_usd": 0.0004054131372456646}
+{"batch_limit": 8, "repetition": 2, "concurrency": 8, "attempted": 200, "completed": 200, "valid": 200, "correct": 180, "elapsed_seconds": 4.777676166035235, "completed_per_second": 41.86135540575376, "p50_seconds": 0.15598731604404747, "p95_seconds": 0.2710998230613768, "p99_seconds": 0.30165913701057434, "peak_allocated_gpu_bytes": 3745816576, "gpu_quote_cost_usd": 0.0002919690990354866}

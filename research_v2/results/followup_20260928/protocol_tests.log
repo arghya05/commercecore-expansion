@@ -1,0 +1,24 @@
+test_development_runner_rejects_train_and_test_rows (test_execution.ExecutionTests.test_development_runner_rejects_train_and_test_rows) ... ok
+test_json_embedded_unicode_line_separator_is_not_a_record_boundary (test_execution.ExecutionTests.test_json_embedded_unicode_line_separator_is_not_a_record_boundary) ... ok
+test_laptop_is_rejected_even_if_pod_environment_is_spoofed (test_execution.ExecutionTests.test_laptop_is_rejected_even_if_pod_environment_is_spoofed) ... ok
+test_linux_without_pod_is_rejected (test_execution.ExecutionTests.test_linux_without_pod_is_rejected) ... ok
+test_modified_contract_is_rejected (test_execution.ExecutionTests.test_modified_contract_is_rejected) ... ok
+test_test_access_requires_exact_frozen_cohort_and_is_one_time (test_execution.ExecutionTests.test_test_access_requires_exact_frozen_cohort_and_is_one_time) ... ok
+test_failed_rows_stay_in_denominator (test_followup.FollowupTests.test_failed_rows_stay_in_denominator) ... ok
+test_legacy_prompt_preserves_training_interface (test_followup.FollowupTests.test_legacy_prompt_preserves_training_interface) ... ok
+test_opposite_labels_are_not_substrings (test_followup.FollowupTests.test_opposite_labels_are_not_substrings) ... ok
+test_contract_rejects_empty_gold_outside_ontology_and_duplicate_ids (test_protocol.ProtocolTests.test_contract_rejects_empty_gold_outside_ontology_and_duplicate_ids) ... ok
+test_extraction_rejects_duplicate_keys_extra_fields_and_invalid_types (test_protocol.ProtocolTests.test_extraction_rejects_duplicate_keys_extra_fields_and_invalid_types) ... ok
+test_failures_are_retained_in_denominator (test_protocol.ProtocolTests.test_failures_are_retained_in_denominator) ... ok
+test_field_exactness_and_null_denominators (test_protocol.ProtocolTests.test_field_exactness_and_null_denominators) ... ok
+test_join_rejects_missing_duplicate_and_unexpected_rows (test_protocol.ProtocolTests.test_join_rejects_missing_duplicate_and_unexpected_rows) ... ok
+test_opposite_and_negated_labels_are_not_substring_matches (test_protocol.ProtocolTests.test_opposite_and_negated_labels_are_not_substring_matches) ... ok
+test_pairing_connects_every_shared_group (test_protocol.ProtocolTests.test_pairing_connects_every_shared_group) ... ok
+test_prompt_contains_no_gold_or_split (test_protocol.ProtocolTests.test_prompt_contains_no_gold_or_split) ... ok
+test_shared_entity_detects_overlap_despite_distinct_examples (test_protocol.ProtocolTests.test_shared_entity_detects_overlap_despite_distinct_examples) ... ok
+test_transitive_family_components_and_whole_group_sampling (test_protocol.ProtocolTests.test_transitive_family_components_and_whole_group_sampling) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.008s
+
+OK

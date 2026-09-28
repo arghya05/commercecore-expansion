@@ -1,10 +1,13 @@
 # Follow-up experiments for the CommerceCore Expansion paper
 
-Prepared 2026-09-28. Status: experimental design; not executed results.
+Prepared 2026-09-28. Status: full research design with a completed, scoped first
+follow-up; see [measured results](../paper/evidence/followup_summary.md).
 All computation, downloads, tests, training, analysis and PDF builds run on
 RunPod. Local activity is limited to document editing, connections, transfers
-and publishing. The previous pilot pod was terminated. Additional spending
-authorization is pending; no paid resource is launched by this document.
+and publishing. The previous pilot pod was terminated. The user authorized
+an additional $25 ceiling for the follow-up. The scoped run covers paired
+base/adapter development comparisons, NuExtract text extraction, and a bounded
+HTTP serving prototype; it does not complete the entire design below.
 
 The original CommerceCore repository and commercecore-qwen3-1.7b weights remain
 unchanged. This campaign lives under research_v2, with new versioned outputs.

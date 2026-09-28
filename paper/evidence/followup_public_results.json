@@ -1,0 +1,1186 @@
+{
+  "analysis_sha256": "690cfa05f2431fc50fd138a84516bde349faf2410161d9f05e6b058f9296be4c",
+  "serving_sha256": "0c877b2fdfae8390af2dde277db1a4749bd5ee18ce7b2948d585ffc7874cac5c",
+  "nuextract_sha256": "48032f8ebecacad46a340a169c0d6163fb5f759f75a5a7e51eb9020c73b50326",
+  "matched": {
+    "relevance_legacy": {
+      "base": {
+        "n": 595,
+        "accuracy": 0.0,
+        "macro_f1": 0.0,
+        "balanced_accuracy": 0.0,
+        "invalid_rate": 1.0,
+        "per_class": {
+          "exact": {
+            "support": 278,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "substitute": {
+            "support": 225,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "complement": {
+            "support": 19,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "irrelevant": {
+            "support": 73,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "complement->INVALID": 19,
+          "exact->INVALID": 278,
+          "irrelevant->INVALID": 73,
+          "substitute->INVALID": 225
+        }
+      },
+      "adapter": {
+        "n": 595,
+        "accuracy": 0.49411764705882355,
+        "macro_f1": 0.333300597850193,
+        "balanced_accuracy": 0.365910175968814,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "exact": {
+            "support": 278,
+            "predicted": 346,
+            "precision": 0.569364161849711,
+            "recall": 0.7086330935251799,
+            "f1": 0.6314102564102564
+          },
+          "substitute": {
+            "support": 225,
+            "predicted": 113,
+            "precision": 0.5486725663716814,
+            "recall": 0.27555555555555555,
+            "f1": 0.3668639053254438
+          },
+          "complement": {
+            "support": 19,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "irrelevant": {
+            "support": 73,
+            "predicted": 136,
+            "precision": 0.25735294117647056,
+            "recall": 0.4794520547945205,
+            "f1": 0.3349282296650718
+          }
+        },
+        "confusion": {
+          "complement->exact": 12,
+          "complement->irrelevant": 4,
+          "complement->substitute": 3,
+          "exact->exact": 197,
+          "exact->irrelevant": 44,
+          "exact->substitute": 37,
+          "irrelevant->exact": 27,
+          "irrelevant->irrelevant": 35,
+          "irrelevant->substitute": 11,
+          "substitute->exact": 110,
+          "substitute->irrelevant": 53,
+          "substitute->substitute": 62
+        }
+      },
+      "paired_adapter_minus_base": {
+        "n": 595,
+        "groups": 33,
+        "left_only_correct": 294,
+        "right_only_correct": 0,
+        "accuracy_delta": 0.49411764705882355,
+        "exact_mcnemar_p_unadjusted_iid_only": 6.28363963558109e-89,
+        "cluster_bootstrap_95_percentile": [
+          0.4166666666666667,
+          0.5711864406779661
+        ],
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 595,
+        "base": {
+          "n": 595,
+          "accuracy": 0.0,
+          "macro_f1": 0.0,
+          "balanced_accuracy": 0.0,
+          "invalid_rate": 1.0,
+          "per_class": {
+            "exact": {
+              "support": 278,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "substitute": {
+              "support": 225,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "complement": {
+              "support": 19,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "irrelevant": {
+              "support": 73,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          },
+          "confusion": {
+            "complement->INVALID": 19,
+            "exact->INVALID": 278,
+            "irrelevant->INVALID": 73,
+            "substitute->INVALID": 225
+          }
+        },
+        "adapter": {
+          "n": 595,
+          "accuracy": 0.49411764705882355,
+          "macro_f1": 0.333300597850193,
+          "balanced_accuracy": 0.365910175968814,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "exact": {
+              "support": 278,
+              "predicted": 346,
+              "precision": 0.569364161849711,
+              "recall": 0.7086330935251799,
+              "f1": 0.6314102564102564
+            },
+            "substitute": {
+              "support": 225,
+              "predicted": 113,
+              "precision": 0.5486725663716814,
+              "recall": 0.27555555555555555,
+              "f1": 0.3668639053254438
+            },
+            "complement": {
+              "support": 19,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "irrelevant": {
+              "support": 73,
+              "predicted": 136,
+              "precision": 0.25735294117647056,
+              "recall": 0.4794520547945205,
+              "f1": 0.3349282296650718
+            }
+          },
+          "confusion": {
+            "complement->exact": 12,
+            "complement->irrelevant": 4,
+            "complement->substitute": 3,
+            "exact->exact": 197,
+            "exact->irrelevant": 44,
+            "exact->substitute": 37,
+            "irrelevant->exact": 27,
+            "irrelevant->irrelevant": 35,
+            "irrelevant->substitute": 11,
+            "substitute->exact": 110,
+            "substitute->irrelevant": 53,
+            "substitute->substitute": 62
+          }
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "caed727e13ca71446c06d555f034e0c21556b2c88d3f51eb9d32712eeba70fb3",
+        "base": "e3d30d8fa3e24c8b6292c7b52100075ecff833bf2f0f26eff0dc34fa748b24f0"
+      }
+    },
+    "identity_legacy": {
+      "base": {
+        "n": 500,
+        "accuracy": 0.0,
+        "macro_f1": 0.0,
+        "balanced_accuracy": 0.0,
+        "invalid_rate": 1.0,
+        "per_class": {
+          "same": {
+            "support": 148,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "distinct": {
+            "support": 352,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        "confusion": {
+          "distinct->INVALID": 352,
+          "same->INVALID": 148
+        }
+      },
+      "adapter": {
+        "n": 500,
+        "accuracy": 0.892,
+        "macro_f1": 0.8617114994570896,
+        "balanced_accuracy": 0.8410626535626535,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "same": {
+            "support": 148,
+            "predicted": 118,
+            "precision": 0.8983050847457628,
+            "recall": 0.7162162162162162,
+            "f1": 0.7969924812030075
+          },
+          "distinct": {
+            "support": 352,
+            "predicted": 382,
+            "precision": 0.8900523560209425,
+            "recall": 0.9659090909090909,
+            "f1": 0.9264305177111717
+          }
+        },
+        "confusion": {
+          "distinct->distinct": 340,
+          "distinct->same": 12,
+          "same->distinct": 42,
+          "same->same": 106
+        }
+      },
+      "paired_adapter_minus_base": {
+        "n": 500,
+        "groups": 5,
+        "left_only_correct": 446,
+        "right_only_correct": 0,
+        "accuracy_delta": 0.892,
+        "exact_mcnemar_p_unadjusted_iid_only": 1.1006568214637918e-134,
+        "cluster_bootstrap_95_percentile": null,
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 500,
+        "base": {
+          "n": 500,
+          "accuracy": 0.0,
+          "macro_f1": 0.0,
+          "balanced_accuracy": 0.0,
+          "invalid_rate": 1.0,
+          "per_class": {
+            "same": {
+              "support": 148,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "distinct": {
+              "support": 352,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          },
+          "confusion": {
+            "distinct->INVALID": 352,
+            "same->INVALID": 148
+          }
+        },
+        "adapter": {
+          "n": 500,
+          "accuracy": 0.892,
+          "macro_f1": 0.8617114994570896,
+          "balanced_accuracy": 0.8410626535626535,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "same": {
+              "support": 148,
+              "predicted": 118,
+              "precision": 0.8983050847457628,
+              "recall": 0.7162162162162162,
+              "f1": 0.7969924812030075
+            },
+            "distinct": {
+              "support": 352,
+              "predicted": 382,
+              "precision": 0.8900523560209425,
+              "recall": 0.9659090909090909,
+              "f1": 0.9264305177111717
+            }
+          },
+          "confusion": {
+            "distinct->distinct": 340,
+            "distinct->same": 12,
+            "same->distinct": 42,
+            "same->same": 106
+          }
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "caed727e13ca71446c06d555f034e0c21556b2c88d3f51eb9d32712eeba70fb3",
+        "base": "e3d30d8fa3e24c8b6292c7b52100075ecff833bf2f0f26eff0dc34fa748b24f0"
+      }
+    },
+    "extraction_legacy": {
+      "base": {
+        "n": 400,
+        "parse_error_rate": 1.0,
+        "exact": {
+          "brand": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 400,
+            "tn": 0,
+            "f1": 0.0
+          },
+          "color": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 400,
+            "tn": 0,
+            "f1": 0.0
+          }
+        },
+        "normalized_exact": {
+          "brand": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 400,
+            "tn": 0,
+            "f1": 0.0
+          },
+          "color": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 400,
+            "tn": 0,
+            "f1": 0.0
+          }
+        },
+        "joint_accuracy": 0.0
+      },
+      "adapter": {
+        "n": 400,
+        "parse_error_rate": 0.0,
+        "exact": {
+          "brand": {
+            "tp": 400,
+            "fp": 0,
+            "fn": 0,
+            "tn": 0,
+            "f1": 1.0
+          },
+          "color": {
+            "tp": 346,
+            "fp": 54,
+            "fn": 54,
+            "tn": 0,
+            "f1": 0.865
+          }
+        },
+        "normalized_exact": {
+          "brand": {
+            "tp": 400,
+            "fp": 0,
+            "fn": 0,
+            "tn": 0,
+            "f1": 1.0
+          },
+          "color": {
+            "tp": 366,
+            "fp": 34,
+            "fn": 34,
+            "tn": 0,
+            "f1": 0.915
+          }
+        },
+        "joint_accuracy": 0.915
+      },
+      "paired_adapter_minus_base": {
+        "n": 400,
+        "groups": 367,
+        "left_only_correct": 366,
+        "right_only_correct": 0,
+        "accuracy_delta": 0.915,
+        "exact_mcnemar_p_unadjusted_iid_only": 1.3306124500025471e-110,
+        "cluster_bootstrap_95_percentile": [
+          0.8855721393034826,
+          0.9413265306122449
+        ],
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 400,
+        "base": {
+          "n": 400,
+          "parse_error_rate": 1.0,
+          "exact": {
+            "brand": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 400,
+              "tn": 0,
+              "f1": 0.0
+            },
+            "color": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 400,
+              "tn": 0,
+              "f1": 0.0
+            }
+          },
+          "normalized_exact": {
+            "brand": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 400,
+              "tn": 0,
+              "f1": 0.0
+            },
+            "color": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 400,
+              "tn": 0,
+              "f1": 0.0
+            }
+          },
+          "joint_accuracy": 0.0
+        },
+        "adapter": {
+          "n": 400,
+          "parse_error_rate": 0.0,
+          "exact": {
+            "brand": {
+              "tp": 400,
+              "fp": 0,
+              "fn": 0,
+              "tn": 0,
+              "f1": 1.0
+            },
+            "color": {
+              "tp": 346,
+              "fp": 54,
+              "fn": 54,
+              "tn": 0,
+              "f1": 0.865
+            }
+          },
+          "normalized_exact": {
+            "brand": {
+              "tp": 400,
+              "fp": 0,
+              "fn": 0,
+              "tn": 0,
+              "f1": 1.0
+            },
+            "color": {
+              "tp": 366,
+              "fp": 34,
+              "fn": 34,
+              "tn": 0,
+              "f1": 0.915
+            }
+          },
+          "joint_accuracy": 0.915
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "ddc5052b14e7bf9b67db246890bbd5a545ecb6ebf1372c468e56140ef02a9ce2",
+        "base": "e3d30d8fa3e24c8b6292c7b52100075ecff833bf2f0f26eff0dc34fa748b24f0"
+      }
+    },
+    "relevance_chat": {
+      "base": {
+        "n": 595,
+        "accuracy": 0.34285714285714286,
+        "macro_f1": 0.2567704756266035,
+        "balanced_accuracy": 0.3490233047880369,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "exact": {
+            "support": 278,
+            "predicted": 285,
+            "precision": 0.5263157894736842,
+            "recall": 0.539568345323741,
+            "f1": 0.5328596802841918
+          },
+          "substitute": {
+            "support": 225,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "complement": {
+            "support": 19,
+            "predicted": 8,
+            "precision": 0.375,
+            "recall": 0.15789473684210525,
+            "f1": 0.2222222222222222
+          },
+          "irrelevant": {
+            "support": 73,
+            "predicted": 302,
+            "precision": 0.16887417218543047,
+            "recall": 0.6986301369863014,
+            "f1": 0.272
+          }
+        },
+        "confusion": {
+          "complement->complement": 3,
+          "complement->exact": 7,
+          "complement->irrelevant": 9,
+          "exact->complement": 4,
+          "exact->exact": 150,
+          "exact->irrelevant": 124,
+          "irrelevant->exact": 22,
+          "irrelevant->irrelevant": 51,
+          "substitute->complement": 1,
+          "substitute->exact": 106,
+          "substitute->irrelevant": 118
+        }
+      },
+      "adapter": {
+        "n": 595,
+        "accuracy": 0.42016806722689076,
+        "macro_f1": 0.2665022703947138,
+        "balanced_accuracy": 0.34501226416127373,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "exact": {
+            "support": 278,
+            "predicted": 293,
+            "precision": 0.6313993174061433,
+            "recall": 0.6654676258992805,
+            "f1": 0.647985989492119
+          },
+          "substitute": {
+            "support": 225,
+            "predicted": 40,
+            "precision": 0.475,
+            "recall": 0.08444444444444445,
+            "f1": 0.14339622641509434
+          },
+          "complement": {
+            "support": 19,
+            "predicted": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          },
+          "irrelevant": {
+            "support": 73,
+            "predicted": 262,
+            "precision": 0.17557251908396945,
+            "recall": 0.6301369863013698,
+            "f1": 0.2746268656716418
+          }
+        },
+        "confusion": {
+          "complement->exact": 2,
+          "complement->irrelevant": 15,
+          "complement->substitute": 2,
+          "exact->exact": 185,
+          "exact->irrelevant": 81,
+          "exact->substitute": 12,
+          "irrelevant->exact": 20,
+          "irrelevant->irrelevant": 46,
+          "irrelevant->substitute": 7,
+          "substitute->exact": 86,
+          "substitute->irrelevant": 120,
+          "substitute->substitute": 19
+        }
+      },
+      "paired_adapter_minus_base": {
+        "n": 595,
+        "groups": 33,
+        "left_only_correct": 72,
+        "right_only_correct": 26,
+        "accuracy_delta": 0.0773109243697479,
+        "exact_mcnemar_p_unadjusted_iid_only": 3.6886460339466603e-06,
+        "cluster_bootstrap_95_percentile": [
+          0.0335195530726257,
+          0.1206896551724138
+        ],
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 595,
+        "base": {
+          "n": 595,
+          "accuracy": 0.34285714285714286,
+          "macro_f1": 0.2567704756266035,
+          "balanced_accuracy": 0.3490233047880369,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "exact": {
+              "support": 278,
+              "predicted": 285,
+              "precision": 0.5263157894736842,
+              "recall": 0.539568345323741,
+              "f1": 0.5328596802841918
+            },
+            "substitute": {
+              "support": 225,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "complement": {
+              "support": 19,
+              "predicted": 8,
+              "precision": 0.375,
+              "recall": 0.15789473684210525,
+              "f1": 0.2222222222222222
+            },
+            "irrelevant": {
+              "support": 73,
+              "predicted": 302,
+              "precision": 0.16887417218543047,
+              "recall": 0.6986301369863014,
+              "f1": 0.272
+            }
+          },
+          "confusion": {
+            "complement->complement": 3,
+            "complement->exact": 7,
+            "complement->irrelevant": 9,
+            "exact->complement": 4,
+            "exact->exact": 150,
+            "exact->irrelevant": 124,
+            "irrelevant->exact": 22,
+            "irrelevant->irrelevant": 51,
+            "substitute->complement": 1,
+            "substitute->exact": 106,
+            "substitute->irrelevant": 118
+          }
+        },
+        "adapter": {
+          "n": 595,
+          "accuracy": 0.42016806722689076,
+          "macro_f1": 0.2665022703947138,
+          "balanced_accuracy": 0.34501226416127373,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "exact": {
+              "support": 278,
+              "predicted": 293,
+              "precision": 0.6313993174061433,
+              "recall": 0.6654676258992805,
+              "f1": 0.647985989492119
+            },
+            "substitute": {
+              "support": 225,
+              "predicted": 40,
+              "precision": 0.475,
+              "recall": 0.08444444444444445,
+              "f1": 0.14339622641509434
+            },
+            "complement": {
+              "support": 19,
+              "predicted": 0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "irrelevant": {
+              "support": 73,
+              "predicted": 262,
+              "precision": 0.17557251908396945,
+              "recall": 0.6301369863013698,
+              "f1": 0.2746268656716418
+            }
+          },
+          "confusion": {
+            "complement->exact": 2,
+            "complement->irrelevant": 15,
+            "complement->substitute": 2,
+            "exact->exact": 185,
+            "exact->irrelevant": 81,
+            "exact->substitute": 12,
+            "irrelevant->exact": 20,
+            "irrelevant->irrelevant": 46,
+            "irrelevant->substitute": 7,
+            "substitute->exact": 86,
+            "substitute->irrelevant": 120,
+            "substitute->substitute": 19
+          }
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "f47ea6c9e9dc11585cf6f3e92ffd6133247d247c51aca01a2a6e1833be828fa0",
+        "base": "c2506448e5d604c5c9c6fb12027f7e3516a2dcfc28877cce278e72018283b1d9"
+      }
+    },
+    "identity_chat": {
+      "base": {
+        "n": 500,
+        "accuracy": 0.35,
+        "macro_f1": 0.31097061978722773,
+        "balanced_accuracy": 0.5363943488943489,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "same": {
+            "support": 148,
+            "predicted": 471,
+            "precision": 0.31210191082802546,
+            "recall": 0.9932432432432432,
+            "f1": 0.47495961227786754
+          },
+          "distinct": {
+            "support": 352,
+            "predicted": 29,
+            "precision": 0.9655172413793104,
+            "recall": 0.07954545454545454,
+            "f1": 0.14698162729658792
+          }
+        },
+        "confusion": {
+          "distinct->distinct": 28,
+          "distinct->same": 324,
+          "same->distinct": 1,
+          "same->same": 147
+        }
+      },
+      "adapter": {
+        "n": 500,
+        "accuracy": 0.9,
+        "macro_f1": 0.8885918003565062,
+        "balanced_accuracy": 0.9231035012285012,
+        "invalid_rate": 0.0,
+        "per_class": {
+          "same": {
+            "support": 148,
+            "predicted": 192,
+            "precision": 0.7552083333333334,
+            "recall": 0.9797297297297297,
+            "f1": 0.8529411764705882
+          },
+          "distinct": {
+            "support": 352,
+            "predicted": 308,
+            "precision": 0.9902597402597403,
+            "recall": 0.8664772727272727,
+            "f1": 0.9242424242424242
+          }
+        },
+        "confusion": {
+          "distinct->distinct": 305,
+          "distinct->same": 47,
+          "same->distinct": 3,
+          "same->same": 145
+        }
+      },
+      "paired_adapter_minus_base": {
+        "n": 500,
+        "groups": 5,
+        "left_only_correct": 278,
+        "right_only_correct": 3,
+        "accuracy_delta": 0.55,
+        "exact_mcnemar_p_unadjusted_iid_only": 1.9036913674789422e-78,
+        "cluster_bootstrap_95_percentile": null,
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 500,
+        "base": {
+          "n": 500,
+          "accuracy": 0.35,
+          "macro_f1": 0.31097061978722773,
+          "balanced_accuracy": 0.5363943488943489,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "same": {
+              "support": 148,
+              "predicted": 471,
+              "precision": 0.31210191082802546,
+              "recall": 0.9932432432432432,
+              "f1": 0.47495961227786754
+            },
+            "distinct": {
+              "support": 352,
+              "predicted": 29,
+              "precision": 0.9655172413793104,
+              "recall": 0.07954545454545454,
+              "f1": 0.14698162729658792
+            }
+          },
+          "confusion": {
+            "distinct->distinct": 28,
+            "distinct->same": 324,
+            "same->distinct": 1,
+            "same->same": 147
+          }
+        },
+        "adapter": {
+          "n": 500,
+          "accuracy": 0.9,
+          "macro_f1": 0.8885918003565062,
+          "balanced_accuracy": 0.9231035012285012,
+          "invalid_rate": 0.0,
+          "per_class": {
+            "same": {
+              "support": 148,
+              "predicted": 192,
+              "precision": 0.7552083333333334,
+              "recall": 0.9797297297297297,
+              "f1": 0.8529411764705882
+            },
+            "distinct": {
+              "support": 352,
+              "predicted": 308,
+              "precision": 0.9902597402597403,
+              "recall": 0.8664772727272727,
+              "f1": 0.9242424242424242
+            }
+          },
+          "confusion": {
+            "distinct->distinct": 305,
+            "distinct->same": 47,
+            "same->distinct": 3,
+            "same->same": 145
+          }
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "f47ea6c9e9dc11585cf6f3e92ffd6133247d247c51aca01a2a6e1833be828fa0",
+        "base": "c2506448e5d604c5c9c6fb12027f7e3516a2dcfc28877cce278e72018283b1d9"
+      }
+    },
+    "extraction_chat": {
+      "base": {
+        "n": 400,
+        "parse_error_rate": 0.0,
+        "exact": {
+          "brand": {
+            "tp": 291,
+            "fp": 109,
+            "fn": 109,
+            "tn": 0,
+            "f1": 0.7275
+          },
+          "color": {
+            "tp": 284,
+            "fp": 106,
+            "fn": 116,
+            "tn": 0,
+            "f1": 0.7189873417721518
+          }
+        },
+        "normalized_exact": {
+          "brand": {
+            "tp": 292,
+            "fp": 108,
+            "fn": 108,
+            "tn": 0,
+            "f1": 0.73
+          },
+          "color": {
+            "tp": 313,
+            "fp": 77,
+            "fn": 87,
+            "tn": 0,
+            "f1": 0.7924050632911392
+          }
+        },
+        "joint_accuracy": 0.5825
+      },
+      "adapter": {
+        "n": 400,
+        "parse_error_rate": 0.0,
+        "exact": {
+          "brand": {
+            "tp": 394,
+            "fp": 6,
+            "fn": 6,
+            "tn": 0,
+            "f1": 0.985
+          },
+          "color": {
+            "tp": 347,
+            "fp": 53,
+            "fn": 53,
+            "tn": 0,
+            "f1": 0.8675
+          }
+        },
+        "normalized_exact": {
+          "brand": {
+            "tp": 394,
+            "fp": 6,
+            "fn": 6,
+            "tn": 0,
+            "f1": 0.985
+          },
+          "color": {
+            "tp": 366,
+            "fp": 34,
+            "fn": 34,
+            "tn": 0,
+            "f1": 0.915
+          }
+        },
+        "joint_accuracy": 0.9025
+      },
+      "paired_adapter_minus_base": {
+        "n": 400,
+        "groups": 367,
+        "left_only_correct": 132,
+        "right_only_correct": 4,
+        "accuracy_delta": 0.32,
+        "exact_mcnemar_p_unadjusted_iid_only": 3.22645350186508e-34,
+        "cluster_bootstrap_95_percentile": [
+          0.2695214105793451,
+          0.3734015345268542
+        ],
+        "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+      },
+      "known_exposure_filtered": {
+        "n": 400,
+        "base": {
+          "n": 400,
+          "parse_error_rate": 0.0,
+          "exact": {
+            "brand": {
+              "tp": 291,
+              "fp": 109,
+              "fn": 109,
+              "tn": 0,
+              "f1": 0.7275
+            },
+            "color": {
+              "tp": 284,
+              "fp": 106,
+              "fn": 116,
+              "tn": 0,
+              "f1": 0.7189873417721518
+            }
+          },
+          "normalized_exact": {
+            "brand": {
+              "tp": 292,
+              "fp": 108,
+              "fn": 108,
+              "tn": 0,
+              "f1": 0.73
+            },
+            "color": {
+              "tp": 313,
+              "fp": 77,
+              "fn": 87,
+              "tn": 0,
+              "f1": 0.7924050632911392
+            }
+          },
+          "joint_accuracy": 0.5825
+        },
+        "adapter": {
+          "n": 400,
+          "parse_error_rate": 0.0,
+          "exact": {
+            "brand": {
+              "tp": 394,
+              "fp": 6,
+              "fn": 6,
+              "tn": 0,
+              "f1": 0.985
+            },
+            "color": {
+              "tp": 347,
+              "fp": 53,
+              "fn": 53,
+              "tn": 0,
+              "f1": 0.8675
+            }
+          },
+          "normalized_exact": {
+            "brand": {
+              "tp": 394,
+              "fp": 6,
+              "fn": 6,
+              "tn": 0,
+              "f1": 0.985
+            },
+            "color": {
+              "tp": 366,
+              "fp": 34,
+              "fn": 34,
+              "tn": 0,
+              "f1": 0.915
+            }
+          },
+          "joint_accuracy": 0.9025
+        }
+      },
+      "prediction_hashes": {
+        "adapter": "0b54688d29652431c4c6c83788e3ee0d79081f6aacf8d923410e641321d8637f",
+        "base": "c2506448e5d604c5c9c6fb12027f7e3516a2dcfc28877cce278e72018283b1d9"
+      }
+    }
+  },
+  "nuextract": {
+    "n": 400,
+    "parse_error_rate": 0.0,
+    "exact": {
+      "brand": {
+        "tp": 222,
+        "fp": 165,
+        "fn": 178,
+        "tn": 0,
+        "f1": 0.5641677255400254
+      },
+      "color": {
+        "tp": 293,
+        "fp": 99,
+        "fn": 107,
+        "tn": 0,
+        "f1": 0.73989898989899
+      }
+    },
+    "normalized_exact": {
+      "brand": {
+        "tp": 223,
+        "fp": 164,
+        "fn": 177,
+        "tn": 0,
+        "f1": 0.5667090216010165
+      },
+      "color": {
+        "tp": 328,
+        "fp": 64,
+        "fn": 72,
+        "tn": 0,
+        "f1": 0.8282828282828283
+      }
+    },
+    "joint_accuracy": 0.4675
+  },
+  "adapter_minus_nuextract_paired_correctness": {
+    "legacy": {
+      "n": 400,
+      "groups": 367,
+      "left_only_correct": 182,
+      "right_only_correct": 3,
+      "accuracy_delta": 0.4475,
+      "exact_mcnemar_p_unadjusted_iid_only": 4.304359995901132e-50,
+      "cluster_bootstrap_95_percentile": [
+        0.39276485788113696,
+        0.5036674816625917
+      ],
+      "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+    },
+    "chat": {
+      "n": 400,
+      "groups": 367,
+      "left_only_correct": 177,
+      "right_only_correct": 3,
+      "accuracy_delta": 0.435,
+      "exact_mcnemar_p_unadjusted_iid_only": 1.2687162527738467e-48,
+      "cluster_bootstrap_95_percentile": [
+        0.38071065989847713,
+        0.4900497512437811
+      ],
+      "note": "Binary/joint correctness, not field F1. McNemar assumes independent rows. Bootstrap connects every shared group; suppressed below 20 components."
+    }
+  },
+  "serving": [
+    {
+      "batch_limit": 1,
+      "concurrency": 1,
+      "attempted": 600,
+      "completed": 600,
+      "valid": 600,
+      "correct": 540,
+      "elapsed_seconds": 66.60158286499791,
+      "qps": 9.008794899307516,
+      "mean_run_p95_seconds": 0.11636330528805654,
+      "gpu_rate_cost_per_1000_valid_usd": 0.006783494551064601
+    },
+    {
+      "batch_limit": 1,
+      "concurrency": 4,
+      "attempted": 600,
+      "completed": 600,
+      "valid": 600,
+      "correct": 540,
+      "elapsed_seconds": 66.94930035388097,
+      "qps": 8.962005529983387,
+      "mean_run_p95_seconds": 0.4662491890291373,
+      "gpu_rate_cost_per_1000_valid_usd": 0.006818910221228617
+    },
+    {
+      "batch_limit": 1,
+      "concurrency": 8,
+      "attempted": 600,
+      "completed": 600,
+      "valid": 600,
+      "correct": 540,
+      "elapsed_seconds": 66.19617564999498,
+      "qps": 9.063967730891799,
+      "mean_run_p95_seconds": 0.9332880216340224,
+      "gpu_rate_cost_per_1000_valid_usd": 0.006742203075462453
+    },
+    {
+      "batch_limit": 8,
+      "concurrency": 1,
+      "attempted": 600,
+      "completed": 600,
+      "valid": 600,
+      "correct": 540,
+      "elapsed_seconds": 70.03086302685551,
+      "qps": 8.567651090775668,
+      "mean_run_p95_seconds": 0.12411272836228211,
+      "gpu_rate_cost_per_1000_valid_usd": 0.007132773086068617
+    },
+    {
+      "batch_limit": 8,
+      "concurrency": 4,
+      "attempted": 600,
+      "completed": 600,
+      "valid": 600,
+      "correct": 543,
+      "elapsed_seconds": 20.61026894301176,
+      "qps": 29.11170163082416,
+      "mean_run_p95_seconds": 0.14785461531331143,
+      "gpu_rate_cost_per_1000_valid_usd": 0.002099194059010457
+    },
+    {
+      "batch_limit": 8,
+      "concurrency": 8,
+      "attempted": 600,
+      "completed": 600,
+      "valid": 600,
+      "correct": 540,
+      "elapsed_seconds": 14.794642060995102,
+      "qps": 40.5552224600183,
+      "mean_run_p95_seconds": 0.2873679727005462,
+      "gpu_rate_cost_per_1000_valid_usd": 0.0015068616913976494
+    }
+  ]
+}

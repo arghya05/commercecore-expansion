@@ -1,0 +1,116 @@
+{
+  "manifest_sha256": "55d28996ee48a1bb3e41bdd6b2c4d1f7a82cc2f2a15ad38c55431f18dadcd284",
+  "phase": "development",
+  "elapsed_seconds": 419.7570600041654,
+  "metrics": {
+    "extraction": {
+      "n": 400,
+      "parse_error_rate": 1.0,
+      "exact": {
+        "brand": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 400,
+          "tn": 0,
+          "f1": 0.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 400,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 400,
+          "tn": 0,
+          "f1": 0.0
+        },
+        "color": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 400,
+          "tn": 0,
+          "f1": 0.0
+        }
+      },
+      "joint_accuracy": 0.0
+    },
+    "identity": {
+      "n": 500,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 1.0,
+      "per_class": {
+        "same": {
+          "support": 148,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "distinct": {
+          "support": 352,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "distinct->INVALID": 352,
+        "same->INVALID": 148
+      }
+    },
+    "relevance": {
+      "n": 595,
+      "accuracy": 0.0,
+      "macro_f1": 0.0,
+      "balanced_accuracy": 0.0,
+      "invalid_rate": 1.0,
+      "per_class": {
+        "exact": {
+          "support": 278,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "substitute": {
+          "support": 225,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "complement": {
+          "support": 19,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "irrelevant": {
+          "support": 73,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion": {
+        "complement->INVALID": 19,
+        "exact->INVALID": 278,
+        "irrelevant->INVALID": 73,
+        "substitute->INVALID": 225
+      }
+    }
+  },
+  "predictions_sha256": "e3d30d8fa3e24c8b6292c7b52100075ecff833bf2f0f26eff0dc34fa748b24f0",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}

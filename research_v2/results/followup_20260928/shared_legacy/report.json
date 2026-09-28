@@ -1,0 +1,89 @@
+{
+  "manifest_sha256": "3a4b21ddf3daac358757649db20d358ce85a8cab8d0c5042c665e4d45eddc27e",
+  "phase": "development",
+  "elapsed_seconds": 24.61736960383132,
+  "metrics": {
+    "identity": {
+      "n": 500,
+      "accuracy": 0.892,
+      "macro_f1": 0.8617114994570896,
+      "balanced_accuracy": 0.8410626535626535,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "same": {
+          "support": 148,
+          "predicted": 118,
+          "precision": 0.8983050847457628,
+          "recall": 0.7162162162162162,
+          "f1": 0.7969924812030075
+        },
+        "distinct": {
+          "support": 352,
+          "predicted": 382,
+          "precision": 0.8900523560209425,
+          "recall": 0.9659090909090909,
+          "f1": 0.9264305177111717
+        }
+      },
+      "confusion": {
+        "distinct->distinct": 340,
+        "distinct->same": 12,
+        "same->distinct": 42,
+        "same->same": 106
+      }
+    },
+    "relevance": {
+      "n": 595,
+      "accuracy": 0.49411764705882355,
+      "macro_f1": 0.333300597850193,
+      "balanced_accuracy": 0.365910175968814,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "exact": {
+          "support": 278,
+          "predicted": 346,
+          "precision": 0.569364161849711,
+          "recall": 0.7086330935251799,
+          "f1": 0.6314102564102564
+        },
+        "substitute": {
+          "support": 225,
+          "predicted": 113,
+          "precision": 0.5486725663716814,
+          "recall": 0.27555555555555555,
+          "f1": 0.3668639053254438
+        },
+        "complement": {
+          "support": 19,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "irrelevant": {
+          "support": 73,
+          "predicted": 136,
+          "precision": 0.25735294117647056,
+          "recall": 0.4794520547945205,
+          "f1": 0.3349282296650718
+        }
+      },
+      "confusion": {
+        "complement->exact": 12,
+        "complement->irrelevant": 4,
+        "complement->substitute": 3,
+        "exact->exact": 197,
+        "exact->irrelevant": 44,
+        "exact->substitute": 37,
+        "irrelevant->exact": 27,
+        "irrelevant->irrelevant": 35,
+        "irrelevant->substitute": 11,
+        "substitute->exact": 110,
+        "substitute->irrelevant": 53,
+        "substitute->substitute": 62
+      }
+    }
+  },
+  "predictions_sha256": "caed727e13ca71446c06d555f034e0c21556b2c88d3f51eb9d32712eeba70fb3",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}

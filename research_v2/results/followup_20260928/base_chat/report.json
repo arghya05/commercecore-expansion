@@ -1,0 +1,125 @@
+{
+  "manifest_sha256": "03f22af3e8c0f09b2da88eb1e3bf420716d1817d2cdcabd1b60fdac0ddcc788c",
+  "phase": "development",
+  "elapsed_seconds": 55.60525343683548,
+  "metrics": {
+    "extraction": {
+      "n": 400,
+      "parse_error_rate": 0.0,
+      "exact": {
+        "brand": {
+          "tp": 291,
+          "fp": 109,
+          "fn": 109,
+          "tn": 0,
+          "f1": 0.7275
+        },
+        "color": {
+          "tp": 284,
+          "fp": 106,
+          "fn": 116,
+          "tn": 0,
+          "f1": 0.7189873417721518
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 292,
+          "fp": 108,
+          "fn": 108,
+          "tn": 0,
+          "f1": 0.73
+        },
+        "color": {
+          "tp": 313,
+          "fp": 77,
+          "fn": 87,
+          "tn": 0,
+          "f1": 0.7924050632911392
+        }
+      },
+      "joint_accuracy": 0.5825
+    },
+    "identity": {
+      "n": 500,
+      "accuracy": 0.35,
+      "macro_f1": 0.31097061978722773,
+      "balanced_accuracy": 0.5363943488943489,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "same": {
+          "support": 148,
+          "predicted": 471,
+          "precision": 0.31210191082802546,
+          "recall": 0.9932432432432432,
+          "f1": 0.47495961227786754
+        },
+        "distinct": {
+          "support": 352,
+          "predicted": 29,
+          "precision": 0.9655172413793104,
+          "recall": 0.07954545454545454,
+          "f1": 0.14698162729658792
+        }
+      },
+      "confusion": {
+        "distinct->distinct": 28,
+        "distinct->same": 324,
+        "same->distinct": 1,
+        "same->same": 147
+      }
+    },
+    "relevance": {
+      "n": 595,
+      "accuracy": 0.34285714285714286,
+      "macro_f1": 0.2567704756266035,
+      "balanced_accuracy": 0.3490233047880369,
+      "invalid_rate": 0.0,
+      "per_class": {
+        "exact": {
+          "support": 278,
+          "predicted": 285,
+          "precision": 0.5263157894736842,
+          "recall": 0.539568345323741,
+          "f1": 0.5328596802841918
+        },
+        "substitute": {
+          "support": 225,
+          "predicted": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "complement": {
+          "support": 19,
+          "predicted": 8,
+          "precision": 0.375,
+          "recall": 0.15789473684210525,
+          "f1": 0.2222222222222222
+        },
+        "irrelevant": {
+          "support": 73,
+          "predicted": 302,
+          "precision": 0.16887417218543047,
+          "recall": 0.6986301369863014,
+          "f1": 0.272
+        }
+      },
+      "confusion": {
+        "complement->complement": 3,
+        "complement->exact": 7,
+        "complement->irrelevant": 9,
+        "exact->complement": 4,
+        "exact->exact": 150,
+        "exact->irrelevant": 124,
+        "irrelevant->exact": 22,
+        "irrelevant->irrelevant": 51,
+        "substitute->complement": 1,
+        "substitute->exact": 106,
+        "substitute->irrelevant": 118
+      }
+    }
+  },
+  "predictions_sha256": "c2506448e5d604c5c9c6fb12027f7e3516a2dcfc28877cce278e72018283b1d9",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}

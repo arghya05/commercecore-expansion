@@ -1,0 +1,46 @@
+{
+  "manifest_sha256": "1dd96bc4b42a8f94b7e5f412762d625618b32c902cfb74dc04311cf7fbc5f4fe",
+  "phase": "development",
+  "elapsed_seconds": 62.73505473299883,
+  "metrics": {
+    "extraction": {
+      "n": 400,
+      "parse_error_rate": 0.0,
+      "exact": {
+        "brand": {
+          "tp": 394,
+          "fp": 6,
+          "fn": 6,
+          "tn": 0,
+          "f1": 0.985
+        },
+        "color": {
+          "tp": 347,
+          "fp": 53,
+          "fn": 53,
+          "tn": 0,
+          "f1": 0.8675
+        }
+      },
+      "normalized_exact": {
+        "brand": {
+          "tp": 394,
+          "fp": 6,
+          "fn": 6,
+          "tn": 0,
+          "f1": 0.985
+        },
+        "color": {
+          "tp": 366,
+          "fp": 34,
+          "fn": 34,
+          "tn": 0,
+          "f1": 0.915
+        }
+      },
+      "joint_accuracy": 0.9025
+    }
+  },
+  "predictions_sha256": "0b54688d29652431c4c6c83788e3ee0d79081f6aacf8d923410e641321d8637f",
+  "interpretation": "Development only. A capped run validates execution, not model quality or serving throughput."
+}

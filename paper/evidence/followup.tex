@@ -1,0 +1,88 @@
+\section{Matched Development and HTTP Follow-up}
+The follow-up evaluates the pinned base and existing adapters on the same
+1,495 development rows under two interfaces: original training completion
+prompts (legacy), and the common chat task specification. All complete paired
+runs use bfloat16, batch size eight, greedy decoding, a 64-token output cap and
+the strict scorer. Neither training nor final-test scoring occurs. An initial
+batch-one run was interrupted for runtime reasons; its partial journal is
+retained but excluded. Batching changes are shared by all paired candidates.
+
+\begin{table}[t]
+\centering\small
+\caption{Matched development primary scores: macro-F1 for relevance and identity;
+normalized exact joint accuracy for extraction. Identical rows within each task.}
+\label{tab:followup}
+\begin{tabular}{llrr}\toprule
+Task & Interface & Base & Adapter\\\midrule
+Relevance & legacy & 0.0000 & 0.3333 \\
+Relevance & chat & 0.2568 & 0.2665 \\
+Identity & legacy & 0.0000 & 0.8617 \\
+Identity & chat & 0.3110 & 0.8886 \\
+Extraction & legacy & 0.0000 & 0.9150 \\
+Extraction & chat & 0.5825 & 0.9025 \\
+\bottomrule\end{tabular}\end{table}
+
+Interface and adaptation must be interpreted jointly (Table~\ref{tab:followup}).
+Strict schema failures remain in the denominator; per-class and validity
+results accompany the raw outputs. The recorded historical training-source
+audit finds no exact-text matches on these development rows, but identity
+entity exposure remains unresolved. Thus this is a retrospective development
+comparison, not certified independent generalization. Paired binary/joint
+correctness diagnostics use connected groups and 2,000 exploratory bootstrap
+resamples; their intervals do not describe macro-F1 effects. No repeated-seed
+training effect or matched frontier-API ranking is established.
+
+The unadapted base fails the strict output contract on every legacy-prompt
+row. Its zero scores measure interface failure, not absence of commerce knowledge;
+the chat comparison is essential to interpretation. Under chat, relevance
+macro-F1 changes only from 0.2568 to 0.2665, whereas identity changes from 0.3110
+to 0.8886. The adapter predicts no complement labels in either interface.
+Extraction joint accuracy changes from 0.5825 to 0.9025 under chat.
+The connected grouping yields 33 relevance, 5 identity and 367 extraction
+components. We suppress the identity bootstrap interval because fewer than 20 components
+do not support that uncertainty estimate. BF16 greedy outputs can depend on
+batching; the batch-eight base is rerun rather than substituted by the earlier
+batch-one pilot. These findings distinguish task adaptation, label compliance
+and interface sensitivity rather than supporting a universal gain.
+
+The NuExtract-2.0-2B comparison uses the native schema interface for text, with
+verbatim-string brand/color fields and no demonstrations or prompt search.
+On the same 400 extraction rows it obtains normalized joint accuracy
+0.4675, normalized brand/color F1
+0.5667/0.8283, and invalid rate
+0.0000. The revision, prompt and raw outputs are
+retained. This closes one missing comparator run, not broader baseline coverage.
+
+\begin{table}[t]
+\centering\small
+\caption{GPU loopback HTTP prototype. B: maximum batch size; C: client
+concurrency. QPS counts completed requests; correctness is over all attempts.
+p95 is the mean of three within-run percentiles, not a pooled percentile.}
+\label{tab:httpfollowup}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{rrrrr}\toprule
+B & C & QPS & Correct & p95 (s)\\\midrule
+1 & 1 & 9.01 & 0.900 & 0.116 \\
+1 & 4 & 8.96 & 0.900 & 0.466 \\
+1 & 8 & 9.06 & 0.900 & 0.933 \\
+8 & 1 & 8.57 & 0.900 & 0.124 \\
+8 & 4 & 29.11 & 0.905 & 0.148 \\
+8 & 8 & 40.56 & 0.900 & 0.287 \\
+\bottomrule\end{tabular}\end{table}
+
+The shared identity adapter is served through a bounded HTTP queue on one
+RTX 3090, comparing batch limits one and eight with at most 5\,ms batching wait.
+Each cell has three repetitions of 200 requests on the same development trace;
+50 warmup requests per engine/repetition are excluded. Generation permits eight
+tokens. Client and server share the pod, and the load is closed-loop, so these
+results do not identify open-loop overload behavior or external network latency.
+The smaller workload is an explicit budgeted departure from the prospective
+larger serving study; tail estimates are exploratory.
+
+Quality and throughput are reported together (Table~\ref{tab:httpfollowup});
+all attempted responses, errors and timestamps are retained. Window-specific
+cost estimates use the quoted GPU rate of \$0.22/hour and exclude provisioning,
+idle time, storage and network. They are not invoices, production SLO costs or
+an API cost advantage. The reference queue is not a new serving algorithm or
+a comparison with an established optimized inference engine.
+

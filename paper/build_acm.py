@@ -59,7 +59,7 @@ def main():
         dest=HERE/(public+'.pdf');shutil.copyfile(pdf,dest)
         runs[public]={'main_content_end_page':int(page.group(1)),'total_pages':total,
                      'pdf_sha256':sha(dest),'fonts_embedded':True,'anonymity_text_metadata_check':'PASS'}
-    sources=['commercecore_acm.tex','commercecore_wsdm.tex','acmart.cls','acm/body.tex','acm/references.tex','acm/dev_rows.tex',
+    sources=['commercecore_acm.tex','commercecore_wsdm.tex','acmart.cls','acm/body.tex','acm/references.tex','acm/dev_rows.tex','evidence/followup.tex',
              'acm/vendor/acmart.dtx','acm/vendor/acmart.ins','acm/vendor/README',
              'acm/BUILD.txt','evidence/numbers.tex','evidence/mixture_rows.tex','evidence/relevance_class_rows.tex','evidence/functional_sweep.csv']
     archive=HERE/'CommerceCore_Expansion_ACM_Source.zip'
@@ -75,7 +75,7 @@ def main():
               'execution_location':'RunPod','pod_id':os.environ['RUNPOD_POD_ID'],
               'sources_sha256':{name:sha(HERE/name) for name in sources},
               'outputs':runs,'source_zip_sha256':sha(archive),
-              'research_status':'Anonymous drafts; new matched comparisons, controlled ablations, human validation and serving measurements remain incomplete.',
+              'research_status':'Anonymous drafts with matched development comparisons and a bounded HTTP prototype; controlled training, human validation, final frontier comparisons and production evaluation remain incomplete.',
               'submission_status':'NOT_SUBMITTED; WSDM 2027 deadline has passed; select an eligible future cycle.'}
     (HERE/'acm/build_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     print(json.dumps(manifest,indent=2))

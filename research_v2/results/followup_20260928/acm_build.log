@@ -1,0 +1,41 @@
+{
+  "compiler": "XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023/Debian)",
+  "execution_location": "RunPod",
+  "pod_id": "mx5bicgmgidc80",
+  "sources_sha256": {
+    "commercecore_acm.tex": "e68e2bbc1387788d6e03a6f0de4431c729429891e867bedffe4fb0ab4f8162a1",
+    "commercecore_wsdm.tex": "8060b005f45e90ab9840aa117ee4426e063e90bc225aa44208b5ddb371b62a25",
+    "acmart.cls": "784c4f2fb07a70d8a797ee9d1c63f441c10fbd2f915c9c615d28cda35c0b742a",
+    "acm/body.tex": "0e5436dd5c732a409bab4b640ea1983cdfd003035f4e94466a94240833ac2c38",
+    "acm/references.tex": "f58f8cbaecef5422f6cfee8c8d451934ca369d2a3ffed1efb9e0dad4d23fe823",
+    "acm/dev_rows.tex": "6a29b11d33e16526faa06515cf6314f20582db7fb0363e4d5b0346768769f5bf",
+    "evidence/followup.tex": "717ea63d16efccd6bebf6cf137f0b29cfeaefe578f6ff9a4402642f0e49b7ce4",
+    "acm/vendor/acmart.dtx": "e29efd327f5c759f3d1f2e99dc8588c6a05b734c142f89c3e348161b893e44ff",
+    "acm/vendor/acmart.ins": "fa7daaa9375775ce699f33f909667bdb83c0408fd8d67606926df86c346c4044",
+    "acm/vendor/README": "5f4b13963e839e1df1783d70495d1ea485e58facf936cfea27841fad6bdda863",
+    "acm/BUILD.txt": "cb96a1c230ff5f0a81a63f0e0a169e6b9f645bb57f3632c3cd70cf447d3fb742",
+    "evidence/numbers.tex": "888fd3cec702413507fd29a233009242d3eba1389776b06a6768481c1bf1dabb",
+    "evidence/mixture_rows.tex": "a75f9c2c7ef620a40edd06b226b907c92fbb5f89dd25ebe2d6f289d206990364",
+    "evidence/relevance_class_rows.tex": "75c2264c793a0a9b604d7e808b3d38d2e6d3463be9c5cb807e38afe660197939",
+    "evidence/functional_sweep.csv": "14d4fbb03191c6ab4821df796b981f34813a37d7c649c626ad0bf63e3487329e"
+  },
+  "outputs": {
+    "CommerceCore_Expansion_SIGIR_Draft": {
+      "main_content_end_page": 8,
+      "total_pages": 8,
+      "pdf_sha256": "4cb15f6f816a57a73dcb65687bd1e1c9c198dee51c73ae9ac7b1cfba0a24bc02",
+      "fonts_embedded": true,
+      "anonymity_text_metadata_check": "PASS"
+    },
+    "CommerceCore_Expansion_WSDM_Draft": {
+      "main_content_end_page": 8,
+      "total_pages": 8,
+      "pdf_sha256": "2bd19bb449882eba060818d9647e8c4fc6b6132d3a7eb54d0140379f7d3acedb",
+      "fonts_embedded": true,
+      "anonymity_text_metadata_check": "PASS"
+    }
+  },
+  "source_zip_sha256": "9df7ac85fb9e0686d54ebb70301971fa37a95b3e2dc339cb1dd9b6aa1f7e163e",
+  "research_status": "Anonymous drafts; new matched comparisons, controlled ablations, human validation and serving measurements remain incomplete.",
+  "submission_status": "NOT_SUBMITTED; WSDM 2027 deadline has passed; select an eligible future cycle."
+}

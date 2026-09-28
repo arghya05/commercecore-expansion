@@ -44,6 +44,7 @@ def query(document, variables=None):
 
 
 def main():
+    global STATE
     # Migrate the small bookkeeping files created before the research path fix.
     for name in ['runpod_pilot_state.json','initial_pod_cancelled.json']:
         old=ROOT.parent/'work'/name;new=ROOT/'work'/name
@@ -56,7 +57,10 @@ def main():
     parser.add_argument('--gpu');parser.add_argument('--image');parser.add_argument('--hourly-ceiling',type=float,default=1.)
     parser.add_argument('--cloud',choices=['SECURE','COMMUNITY','ALL'],default='SECURE')
     parser.add_argument('--type-name',default='PodFindAndDeployOnDemandInput')
+    parser.add_argument('--campaign', choices=['pilot','followup'], default='pilot')
     args=parser.parse_args()
+    if args.campaign=='followup':
+        STATE=ROOT/'work/runpod_followup_state.json'
     if args.action=='inventory':
         result=query('query { gpuTypes { id displayName memoryInGb securePrice communityPrice lowestPrice(input: {gpuCount: 1}) { stockStatus uninterruptablePrice minimumBidPrice } } myself { pods { id name desiredStatus costPerHr } } }')
         result['gpuTypes']=[g for g in result['gpuTypes'] if 20<=g['memoryInGb']<=48]
@@ -69,7 +73,7 @@ def main():
         public_key=(Path.home()/'.ssh/id_ed25519.pub').read_text().strip()
         payload={'cloudType':args.cloud,'gpuCount':1,'volumeInGb':30,'containerDiskInGb':40,
             'minVcpuCount':4,'minMemoryInGb':24,'gpuTypeId':args.gpu,
-            'name':'commercecore-research-pilot-20260928','imageName':args.image,
+            'name':'commercecore-research-'+args.campaign+'-20260928','imageName':args.image,
             'ports':'22/tcp','volumeMountPath':'/workspace','startSsh':True,'supportPublicIp':True,
             'stopAfter':datetime.fromtimestamp(time.time()+7200,timezone.utc).isoformat(),
             'env':[{'key':'PUBLIC_KEY','value':public_key}]}
@@ -99,7 +103,8 @@ def main():
             STATE.with_name('initial_pod_cancelled.json').write_text(json.dumps(state,indent=2)+'\n')
             STATE.unlink()
         else:
-            if not (ROOT/'work/runpod_backup_verified.json').is_file():
+            backup=ROOT/'work'/('runpod_followup_backup_verified.json' if args.campaign=='followup' else 'runpod_backup_verified.json')
+            if not backup.is_file():
                 raise SystemExit('Verified artifact backup marker is required before terminating this dedicated pilot pod')
             result=query('mutation($id: String!) {podTerminate(input:{podId:$id})}',{'id':pod_id})
             state['status']='TERMINATED';state['terminated_unix']=time.time();STATE.write_text(json.dumps(state,indent=2)+'\n')

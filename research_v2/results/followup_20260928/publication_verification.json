@@ -1,0 +1,28 @@
+{
+  "verified_utc": "2026-09-28T09:21:57.342268+00:00",
+  "location": "RunPod",
+  "pdfs": {
+    "CommerceCore_Expansion_SIGIR_Draft": {
+      "sha256": "4cb15f6f816a57a73dcb65687bd1e1c9c198dee51c73ae9ac7b1cfba0a24bc02",
+      "followup_values_present": true,
+      "pages": 8
+    },
+    "CommerceCore_Expansion_WSDM_Draft": {
+      "sha256": "2bd19bb449882eba060818d9647e8c4fc6b6132d3a7eb54d0140379f7d3acedb",
+      "followup_values_present": true,
+      "pages": 8
+    },
+    "CommerceCore_Expansion_Paper": {
+      "sha256": "974334be7a2f682b8452354247f17b8580af94fdbc313ad31ef9881afb2ad306",
+      "followup_values_present": true,
+      "pages": 22
+    }
+  },
+  "protocol_tests": 19,
+  "historical_audit_tests": "passed in preprint build",
+  "visual_review": "SIGIR pages 6 and 7 inspected; tables and new text readable, no clipping.",
+  "budget_ceiling_usd": 25,
+  "paid_frontier_calls": false,
+  "new_training": false,
+  "final_test_scored": false
+}

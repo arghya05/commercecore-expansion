@@ -1,0 +1,22 @@
+{
+  "campaign": "followup_20260928",
+  "approved_additional_budget_usd": 25,
+  "paid_frontier_calls": false,
+  "training": false,
+  "final_test_scoring": false,
+  "execution_location": "RunPod",
+  "gpu": "RTX 3090",
+  "quoted_gpu_usd_per_hour": 0.22,
+  "provider_stop_deadline_hours_after_creation": 2,
+  "development_candidates": ["pinned Qwen3-1.7B", "shared_adapter_v1", "understand_adapter_v1", "NuExtract-2.0-2B native text/schema"],
+  "interfaces_for_qwen_pairs": ["legacy completion training prompt", "strict common chat task prompt"],
+  "paired_batch_size": 8,
+  "paired_output_cap_tokens": 64,
+  "changes_before_completed_quality_results": [
+    "Interrupted batch-one legacy base run for runtime efficiency; preserved its incomplete journal and nine-row smoke.",
+    "All complete paired runs use batch eight with unchanged prompts and output caps.",
+    "Serving scoped to loopback identity HTTP prototype, batch limits one/eight, concurrency one/four/eight, three repetitions of 200 requests per cell, 50 warmup requests per engine/repetition.",
+    "Exploratory paired binary-correctness analysis uses existing 2000-resample cluster bootstrap; confirmatory 10000-resample protocol remains prospective."
+  ],
+  "scope_limits": ["development only", "identity entity exposure unresolved", "no controlled training or human validation", "no frontier superiority claim", "no official leaderboard or production SLO claim"]
+}
